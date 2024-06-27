@@ -1,6 +1,9 @@
 import { Effect, Requirements, Resources } from "../types";
-import { SharedAction } from "../types/actions";
-import { CooldownInterface } from "./cooldownReducer";
+import { SharedAction, SharedActionType } from "../types/actions";
+import cooldownReducer, {
+  CooldownActionType,
+  CooldownInterface,
+} from "./cooldownReducer";
 
 export enum ButtonActionType {
   ENABLE_BUTTON = "ENABLE_BUTTON",
@@ -43,6 +46,19 @@ export default function buttonReducer(
   action: ButtonAction
 ) {
   switch (action.type) {
+    case SharedActionType.CLICK_BUTTON: {
+      const { cooldown } = state;
+      if (cooldown) {
+        return {
+          ...state,
+          cooldown: cooldownReducer(cooldown, {
+            type: CooldownActionType.START_COOLDOWN,
+          }),
+        };
+      }
+      return state;
+    }
+
     case ButtonActionType.CHECK_REQUIREMENTS: {
       const { unlocked, requirements } = state;
       const { updatedResources } = action as CheckRequirementsAction;

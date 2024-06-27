@@ -24,6 +24,11 @@ const INITIAL_STATE: ClickerInterface = {
         description: "Turn Off Lights",
         unlocked: true,
         enabled: true,
+        cooldown: {
+          cooldownSeconds: 1,
+          elapsedCooldownSeconds: 0,
+          onCooldown: false,
+        },
         effects: [
           {
             type: EffectTypes.UPDATE_RESOURCES,
@@ -37,12 +42,12 @@ const INITIAL_STATE: ClickerInterface = {
         id: "selfEducate",
         displayName: "Self-Educate",
         description: "Self-Educate",
-        unlocked: false,
+        unlocked: true,
         enabled: true,
-        requirements: {
-          resources: {
-            co2Saved: 10,
-          },
+        cooldown: {
+          cooldownSeconds: 1,
+          elapsedCooldownSeconds: 0,
+          onCooldown: false,
         },
         effects: [
           {
@@ -73,5 +78,15 @@ export function useClickerReducer() {
     [dispatch]
   );
 
-  return { state, clickButton, dispatch };
+  const tickClock = useCallback(
+    (timeDelta: number) => {
+      dispatch({
+        type: SharedActionType.TICK_CLOCK,
+        timeDelta,
+      });
+    },
+    [dispatch]
+  );
+
+  return { state, clickButton, tickClock, dispatch };
 }

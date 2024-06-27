@@ -41,10 +41,7 @@ function updateResources(
       (newResources[key] as number) += diff;
     }
   }
-  return {
-    ...state,
-    resources: newResources,
-  };
+  return newResources;
 }
 
 export default function clickerReducer(
@@ -53,33 +50,42 @@ export default function clickerReducer(
 ) {
   switch (action.type) {
     case SharedActionType.CLICK_BUTTON: {
+      const newState = { ...state };
       const { buttonId } = action as ClickButtonAction;
       const button = state.buttons.map[buttonId] as ButtonInterface;
+
+      // process button effects
       for (const effect of button.effects) {
         switch (effect.type) {
           case EffectTypes.UPDATE_RESOURCES: {
-            const newState = updateResources(
+            const newResources = updateResources(
               state,
               effect as UpdateResourcesEffect
             );
+            newState.resources = newResources;
 
-            // TODO: check button requirements
             newState.buttons.order.forEach((buttonKey) => {
-              console.log("buttonkey", buttonKey);
-
               newState.buttons.map[buttonKey] = buttonReducer(
                 newState.buttons.map[buttonKey],
                 {
                   type: ButtonActionType.CHECK_REQUIREMENTS,
-                  updatedResources: newState.resources,
+                  updatedResources: newResources,
                 }
               );
             });
-
-            return newState;
           }
         }
       }
+
+      // click button
+      newState.buttons.map[buttonId] = buttonReducer(
+        newState.buttons.map[buttonId],
+        {
+          type: SharedActionType.CLICK_BUTTON,
+        }
+      );
+
+      return newState;
     }
   }
   return state;

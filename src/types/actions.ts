@@ -1,8 +1,6 @@
-import { Resources } from ".";
-
 export enum SharedActionType {
   CLICK_BUTTON = "CLICK_BUTTON",
-  TICK_RESOURCES = "TICK_RESOURCES",
+  TICK_CLOCK = "TICK_CLOCK",
 }
 
 export type GenericAction = Record<string, unknown>;
@@ -12,12 +10,10 @@ export interface ClickButtonAction {
   buttonId: string;
 }
 
-export interface TickResourcesAction {
-  type: SharedActionType.TICK_RESOURCES;
-  resourcesDiff: Resources;
+export interface TickClockAction {
+  type: SharedActionType.TICK_CLOCK;
+  // in seconds
+  timeDelta: number;
 }
 
-export type SharedAction =
-  | ClickButtonAction
-  | TickResourcesAction
-  | GenericAction;
+export type SharedAction = ClickButtonAction | TickClockAction | GenericAction;
