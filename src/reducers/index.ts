@@ -7,12 +7,13 @@ import clickerReducer, {
 import { SharedActionType } from "../types/actions";
 import { EffectTypes } from "../types";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: ClickerInterface = {
   resources: {
     energy: 200,
     maxEnergy: 200,
     dollars: 10,
     co2Saved: 0,
+    knowledge: 0,
     globalPpm: null,
   },
   buttons: {
@@ -32,8 +33,28 @@ const INITIAL_STATE = {
           },
         ],
       },
+      selfEducate: {
+        id: "selfEducate",
+        displayName: "Self-Educate",
+        description: "Self-Educate",
+        unlocked: false,
+        enabled: true,
+        requirements: {
+          resources: {
+            co2Saved: 10,
+          },
+        },
+        effects: [
+          {
+            type: EffectTypes.UPDATE_RESOURCES,
+            resourcesDiff: {
+              knowledge: 1,
+            },
+          },
+        ],
+      },
     },
-    order: ["turnOffLights"],
+    order: ["turnOffLights", "selfEducate"],
   },
 };
 

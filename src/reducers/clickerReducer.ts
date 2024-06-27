@@ -10,7 +10,10 @@ import {
   SharedAction,
   SharedActionType,
 } from "../types/actions";
-import { ButtonInterface } from "./buttonReducer";
+import buttonReducer, {
+  ButtonActionType,
+  ButtonInterface,
+} from "./buttonReducer";
 
 export interface ClickerInterface {
   resources: Resources;
@@ -59,6 +62,19 @@ export default function clickerReducer(
               state,
               effect as UpdateResourcesEffect
             );
+
+            // TODO: check button requirements
+            newState.buttons.order.forEach((buttonKey) => {
+              console.log("buttonkey", buttonKey);
+
+              newState.buttons.map[buttonKey] = buttonReducer(
+                newState.buttons.map[buttonKey],
+                {
+                  type: ButtonActionType.CHECK_REQUIREMENTS,
+                  updatedResources: newState.resources,
+                }
+              );
+            });
 
             return newState;
           }

@@ -1,10 +1,18 @@
-import { Effect, Requirements } from "../types";
+import { Effect, Requirements, Resources } from "../types";
+import { SharedAction } from "../types/actions";
 import { CooldownInterface } from "./cooldownReducer";
 
 export enum ButtonActionType {
   ENABLE_BUTTON = "ENABLE_BUTTON",
   CHECK_REQUIREMENTS = "CHECK_REQUIREMENTS",
 }
+
+export interface CheckRequirementsAction {
+  type: ButtonActionType.CHECK_REQUIREMENTS;
+  updatedResources: Resources;
+}
+
+export type ButtonAction = CheckRequirementsAction | SharedAction;
 
 export interface ButtonInterface {
   id: string;
@@ -31,8 +39,34 @@ export const INITIAL_STATE: ButtonInterface = {
 };
 
 export default function buttonReducer(
-  state: ButtonInterface
-  // action: ButtonAction
+  state: ButtonInterface,
+  action: ButtonAction
 ) {
+  switch (action.type) {
+    case ButtonActionType.CHECK_REQUIREMENTS: {
+      const { unlocked, requirements } = state;
+      const { updatedResources } = action as CheckRequirementsAction;
+      if (unlocked || !requirements) return state;
+
+      const requirementsMet = Object.keys(requirements.resources).every(
+        (resourceKey) => {
+          const reqResource =
+            requirements.resources[resourceKey as keyof Partial<Resources>];
+          const updatedResource =
+            updatedResources[resourceKey as keyof Resources];
+          return (
+            !reqResource ||
+            (typeof updatedResource === "number" &&
+              reqResource <= updatedResource)
+          );
+        }
+      );
+
+      return {
+        ...state,
+        unlocked: requirementsMet,
+      };
+    }
+  }
   return state;
 }

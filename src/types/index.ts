@@ -14,15 +14,16 @@ export type Resources = {
   maxEnergy: number;
   dollars: number;
   co2Saved: number;
+  knowledge: number;
   globalPpm?: number | null;
 };
 
 export type Cost = Resources;
 
 export interface Requirements {
-  resources: Resources;
+  resources: Partial<Resources>;
   // array of ids for bonuses to unlock
-  bonusesUnlocked: string[];
+  bonusesUnlocked?: string[];
 }
 
 export enum EffectTypes {

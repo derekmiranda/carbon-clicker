@@ -18,7 +18,7 @@ function Button({ id, displayName, clickButton }: ButtonProps) {
 function Clicker() {
   const { state, clickButton } = useClickerReducer();
   const { resources, buttons } = state;
-  const { energy, maxEnergy, co2Saved } = resources;
+  const { energy, maxEnergy, co2Saved, knowledge } = resources;
 
   return (
     <>
@@ -27,10 +27,13 @@ function Clicker() {
         <p>
           Mood: {energy}/{maxEnergy}
         </p>
+        {knowledge ? <p>Knowledge: {knowledge}</p> : null}
         <p>CO2 Saved: {co2Saved} kg</p>
-        {buttons.order.map((buttonKey) => (
-          <Button {...buttons.map[buttonKey]} clickButton={clickButton} />
-        ))}
+        {buttons.order
+          .filter((buttonKey) => buttons.map[buttonKey].unlocked)
+          .map((buttonKey) => (
+            <Button {...buttons.map[buttonKey]} clickButton={clickButton} />
+          ))}
       </div>
     </>
   );
