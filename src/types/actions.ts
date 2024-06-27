@@ -5,6 +5,8 @@ export enum SharedActionType {
   TICK_RESOURCES = "TICK_RESOURCES",
 }
 
+export type GenericAction = Record<string, unknown>;
+
 export interface ClickButtonAction {
   type: SharedActionType.CLICK_BUTTON;
   buttonId: string;
@@ -15,4 +17,7 @@ export interface TickResourcesAction {
   resourcesDiff: Resources;
 }
 
-export type SharedAction = ClickButtonAction | TickResourcesAction;
+export type SharedAction =
+  | ClickButtonAction
+  | TickResourcesAction
+  | GenericAction;
