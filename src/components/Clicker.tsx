@@ -1,29 +1,35 @@
-import { useClickerReducer } from "../reducers/clickerReducer";
+import { useClickerReducer } from "../reducers";
+import { ButtonInterface } from "../reducers/buttonReducer";
 
 import "./Clicker.css";
 
-function Clicker() {
-  const { state, clickedButton } = useClickerReducer();
-  const { mood, maxMood, co2Saved } = state;
+interface ButtonProps extends ButtonInterface {
+  clickButton: (buttonId: string) => void;
+}
 
-  const turnOffLights = () => {
-    clickedButton({
-      co2Saved: 1,
-      cost: {
-        mood: 200,
-      },
-    });
+function Button({ id, displayName, clickButton }: ButtonProps) {
+  const handleClick = () => {
+    clickButton(id);
   };
+
+  return <button onClick={handleClick}>{displayName}</button>;
+}
+
+function Clicker() {
+  const { state, clickButton } = useClickerReducer();
+  const { energy, maxEnergy, co2Saved, buttons } = state;
 
   return (
     <>
       <h1>Carbon Clicker</h1>
       <div>
         <p>
-          Mood: {mood}/{maxMood}
+          Mood: {energy}/{maxEnergy}
         </p>
         <p>CO2 Saved: {co2Saved} kg</p>
-        <button onClick={turnOffLights}>Turn off the lights</button>
+        {Object.values(buttons).map((button: ButtonInterface) => (
+          <Button {...button} clickButton={clickButton} />
+        ))}
       </div>
     </>
   );

@@ -47,14 +47,18 @@ function updateResources(
   effect: UpdateResourcesEffect
 ) {
   const { resourcesDiff } = effect;
+
+  const newState = { ...state };
   for (const item of Object.entries(resourcesDiff)) {
     const [key, diff] = item as [keyof ClickerInterface, number];
+
     if (key === ResourceTypes.ENERGY) {
-      state.energy = Math.min(state.energy + diff, state.maxEnergy);
-    } else if (key in ResourceTypes) {
-      (state[key] as number) += diff;
+      newState.energy = Math.min(state.energy + diff, state.maxEnergy);
+    } else {
+      (newState[key] as number) += diff;
     }
   }
+  return newState;
 }
 
 export default function clickerReducer(
@@ -68,7 +72,7 @@ export default function clickerReducer(
       for (const effect of button.effects) {
         switch (effect.type) {
           case EffectTypes.UPDATE_RESOURCES:
-            updateResources(state, effect as UpdateResourcesEffect);
+            return updateResources(state, effect as UpdateResourcesEffect);
         }
       }
     }
