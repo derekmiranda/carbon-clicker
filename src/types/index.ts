@@ -42,3 +42,8 @@ export interface UpdateResourcesEffect {
 }
 
 export type Effect = UpdateResourcesEffect | GenericEffect;
+
+export interface MapLikeInterface<T> {
+  map: Record<string, T>;
+  order: string[];
+}
