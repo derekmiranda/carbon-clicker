@@ -1,4 +1,10 @@
-import { EffectTypes, ResourceTypes, UpdateResourcesEffect } from "../types";
+import {
+  EffectTypes,
+  MapLikeInterface,
+  ResourceTypes,
+  Resources,
+  UpdateResourcesEffect,
+} from "../types";
 import {
   ClickButtonAction,
   SharedAction,
@@ -7,38 +13,9 @@ import {
 import { ButtonInterface } from "./buttonReducer";
 
 export interface ClickerInterface {
-  energy: number;
-  maxEnergy: number;
-  dollars: number;
-  co2Saved: number;
-  globalPpm?: number | null;
-  buttons: Record<string, ButtonInterface>;
+  resources: Resources;
+  buttons: MapLikeInterface<ButtonInterface>;
 }
-
-export const INITIAL_STATE = {
-  energy: 200,
-  maxEnergy: 200,
-  dollars: 10,
-  co2Saved: 0,
-  globalPpm: null,
-  buttons: {
-    turnOffLights: {
-      id: "turnOffLights",
-      displayName: "Turn Off Lights",
-      description: "Turn Off Lights",
-      unlocked: true,
-      enabled: true,
-      effects: [
-        {
-          type: EffectTypes.UPDATE_RESOURCES,
-          resourcesDiff: {
-            co2Saved: 1,
-          },
-        },
-      ],
-    },
-  },
-};
 
 export type ClickerAction = SharedAction | Record<string, unknown>;
 
@@ -48,17 +25,23 @@ function updateResources(
 ) {
   const { resourcesDiff } = effect;
 
-  const newState = { ...state };
+  const newResources = { ...state.resources };
   for (const item of Object.entries(resourcesDiff)) {
-    const [key, diff] = item as [keyof ClickerInterface, number];
+    const [key, diff] = item as [keyof Resources, number];
 
     if (key === ResourceTypes.ENERGY) {
-      newState.energy = Math.min(state.energy + diff, state.maxEnergy);
+      newResources.energy = Math.min(
+        state.resources.energy + diff,
+        state.resources.maxEnergy
+      );
     } else {
-      (newState[key] as number) += diff;
+      (newResources[key] as number) += diff;
     }
   }
-  return newState;
+  return {
+    ...state,
+    resources: newResources,
+  };
 }
 
 export default function clickerReducer(
@@ -68,11 +51,17 @@ export default function clickerReducer(
   switch (action.type) {
     case SharedActionType.CLICK_BUTTON: {
       const { buttonId } = action as ClickButtonAction;
-      const button = state.buttons[buttonId];
+      const button = state.buttons.map[buttonId] as ButtonInterface;
       for (const effect of button.effects) {
         switch (effect.type) {
-          case EffectTypes.UPDATE_RESOURCES:
-            return updateResources(state, effect as UpdateResourcesEffect);
+          case EffectTypes.UPDATE_RESOURCES: {
+            const newState = updateResources(
+              state,
+              effect as UpdateResourcesEffect
+            );
+
+            return newState;
+          }
         }
       }
     }

@@ -17,7 +17,8 @@ function Button({ id, displayName, clickButton }: ButtonProps) {
 
 function Clicker() {
   const { state, clickButton } = useClickerReducer();
-  const { energy, maxEnergy, co2Saved, buttons } = state;
+  const { resources, buttons } = state;
+  const { energy, maxEnergy, co2Saved } = resources;
 
   return (
     <>
@@ -27,8 +28,8 @@ function Clicker() {
           Mood: {energy}/{maxEnergy}
         </p>
         <p>CO2 Saved: {co2Saved} kg</p>
-        {Object.values(buttons).map((button: ButtonInterface) => (
-          <Button {...button} clickButton={clickButton} />
+        {buttons.order.map((buttonKey) => (
+          <Button {...buttons.map[buttonKey]} clickButton={clickButton} />
         ))}
       </div>
     </>
