@@ -87,6 +87,21 @@ export default function clickerReducer(
 
       return newState;
     }
+
+    case SharedActionType.TICK_CLOCK: {
+      const newMap: Record<string, ButtonInterface> = {};
+      state.buttons.order.forEach((buttonKey) => {
+        newMap[buttonKey] = buttonReducer(state.buttons.map[buttonKey], action);
+      });
+
+      return {
+        ...state,
+        buttons: {
+          ...state.buttons,
+          map: newMap,
+        },
+      };
+    }
   }
   return state;
 }

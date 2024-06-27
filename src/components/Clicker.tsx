@@ -12,11 +12,22 @@ function Button({ id, displayName, clickButton, cooldown }: ButtonProps) {
   const handleClick = () => {
     clickButton(id);
   };
+  const readiness =
+    cooldown && cooldown.elapsedCooldownSeconds / cooldown.cooldownSeconds;
 
   return (
-    <button disabled={cooldown?.onCooldown} onClick={handleClick}>
-      {displayName}
-    </button>
+    <>
+      <button
+        style={{
+          opacity: readiness ? Math.max(0.2, readiness) : 1,
+          cursor: cooldown?.onCooldown ? "wait" : "default",
+        }}
+        disabled={cooldown?.onCooldown}
+        onClick={handleClick}
+      >
+        {displayName}
+      </button>
+    </>
   );
 }
 

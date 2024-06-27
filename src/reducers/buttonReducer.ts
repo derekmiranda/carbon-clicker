@@ -59,6 +59,17 @@ export default function buttonReducer(
       return state;
     }
 
+    case SharedActionType.TICK_CLOCK: {
+      const { cooldown } = state;
+      if (cooldown) {
+        return {
+          ...state,
+          cooldown: cooldownReducer(cooldown, action),
+        };
+      }
+      return state;
+    }
+
     case ButtonActionType.CHECK_REQUIREMENTS: {
       const { unlocked, requirements } = state;
       const { updatedResources } = action as CheckRequirementsAction;

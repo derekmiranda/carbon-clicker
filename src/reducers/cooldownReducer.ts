@@ -1,3 +1,9 @@
+import {
+  SharedAction,
+  SharedActionType,
+  TickClockAction,
+} from "../types/actions";
+
 export interface CooldownInterface {
   cooldownSeconds: number;
   elapsedCooldownSeconds: number;
@@ -18,15 +24,10 @@ export interface EndCooldownAction {
   type: CooldownActionType.END_COOLDOWN;
 }
 
-export interface TickCooldownAction {
-  type: CooldownActionType.TICK_COOLDOWN;
-  elapsedSeconds: number;
-}
-
 export type CooldownActions =
   | StartCooldownAction
   | EndCooldownAction
-  | TickCooldownAction;
+  | SharedAction;
 
 export default function cooldownReducer(
   state: CooldownInterface,
@@ -49,16 +50,16 @@ export default function cooldownReducer(
       };
     }
 
-    case CooldownActionType.TICK_COOLDOWN: {
+    case SharedActionType.TICK_CLOCK: {
       const { cooldownSeconds, elapsedCooldownSeconds: currSecs } = state;
-      const { elapsedSeconds } = action;
+      const { timeDelta } = action as TickClockAction;
+      const newTime = currSecs + timeDelta;
+      console.log(newTime < cooldownSeconds);
+
       return {
         ...state,
-        onCooldown: false,
-        elapsedCooldownSeconds: Math.min(
-          currSecs + elapsedSeconds,
-          cooldownSeconds
-        ),
+        onCooldown: newTime < cooldownSeconds,
+        elapsedCooldownSeconds: Math.min(currSecs + timeDelta, cooldownSeconds),
       };
     }
   }
