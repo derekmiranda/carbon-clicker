@@ -1,6 +1,6 @@
 .logs-box {
   background-color: #1a1a1a;
-  color: #67ceab;
+  color: var(--accent-color);
   width: min(95%, 400px);
   height: 200px;
   margin: auto;

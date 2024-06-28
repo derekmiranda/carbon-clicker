@@ -1,11 +1,16 @@
 .buttons-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 1fr;
+}
+
+@media only screen and (min-width: 480px) {
+  .buttons-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .button {
-  width: 200px;
+  width: var(--button-width);
   margin-right: auto;
 }
 
