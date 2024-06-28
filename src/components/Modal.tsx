@@ -2,17 +2,23 @@ import ReactModal from "react-modal";
 import { ModalView } from "../types";
 import "./Modal.css";
 import { INTRO } from "../constants";
-import { saveIntroSeen } from "../storage";
+import { useContext } from "react";
+import { ClickerContext } from "../reducers/context";
+import useDispatchers from "../hooks/useDispatchers";
+import { StoryId } from "../types/storyId";
 
-export interface ModalProps extends Partial<ReactModal.Props> {
-  closeModal: VoidFunction;
-  modal?: ModalView | null;
-}
+export interface ModalProps extends Partial<ReactModal.Props> {}
 
-export default function Modal({ modal, closeModal, ...rest }: ModalProps) {
+export default function Modal(rest: ModalProps) {
+  const {
+    state: { modal },
+  } = useContext(ClickerContext);
+  const { closeModal, setStorySeen, addLogs } = useDispatchers();
+
   const closeIntroModal = () => {
-    saveIntroSeen();
     closeModal();
+    addLogs(INTRO);
+    setStorySeen(StoryId.INTRO);
   };
 
   return (

@@ -1,13 +1,15 @@
 import classNames from "classnames";
 
 import useTicker from "../hooks/useTicker";
-import { useClickerReducer } from "../reducers";
+import { useClicker } from "../reducers";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import Modal from "./Modal";
 import Logs from "./Logs";
 
 import "./Clicker.css";
 import { saveGameData } from "../storage";
+import { ClickerContext } from "../reducers/context";
+import useDispatchers from "../hooks/useDispatchers";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -41,9 +43,10 @@ function Button({ id, displayName, clickButton, cooldown }: ButtonProps) {
 }
 
 function Clicker() {
-  const { state, clickButton, tickClock, closeModal, clearGameData } =
-    useClickerReducer();
-  const { resources, buttons, modal, logs } = state;
+  const clicker = useClicker();
+  const { clickButton, tickClock, clearGameData } = useDispatchers();
+  const { state, dispatch } = clicker;
+  const { resources, buttons, logs } = state;
   const { energy, maxEnergy, co2Saved, knowledge } = resources;
 
   useTicker((timeDelta) => {
@@ -51,9 +54,9 @@ function Clicker() {
   });
 
   return (
-    <>
+    <ClickerContext.Provider value={{ state, dispatch }}>
       <h1>Carbon Clicker</h1>
-      <Modal modal={modal} closeModal={closeModal} />
+      <Modal />
       <div>
         <p>
           Mood: {energy}/{maxEnergy}
@@ -83,7 +86,7 @@ function Clicker() {
           <button onClick={clearGameData}>Clear</button>
         </div>
       </div>
-    </>
+    </ClickerContext.Provider>
   );
 }
 

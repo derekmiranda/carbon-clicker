@@ -25,10 +25,16 @@ export interface ClickerInterface {
 }
 
 export enum ClickerActionType {
+  ADD_LOGS = "ADD_LOGS",
   SET_MODAL = "SET_MODAL",
   SET_STORY_SEEN = "SET_STORY_SEEN",
   LOAD_GAME_DATA = "LOAD_GAME_DATA",
   CLEAR_GAME_DATA = "CLEAR_GAME_DATA",
+}
+
+export interface AddLogsAction {
+  type: ClickerActionType.ADD_LOGS;
+  logs: string[];
 }
 
 export interface SetModalAction {
@@ -47,6 +53,7 @@ export interface SaveGameDataAction {
 }
 
 export type ClickerAction =
+  | AddLogsAction
   | SetModalAction
   | SetStorySeenAction
   | SharedAction
@@ -54,7 +61,7 @@ export type ClickerAction =
 
 export const INITIAL_STATE: ClickerInterface = {
   modal: ModalView.INTRO,
-  logs: ["hello"],
+  logs: [],
   storySeen: {},
   resources: {
     energy: 200,
@@ -208,6 +215,14 @@ export default function clickerReducer(
           ...state.storySeen,
           [storyId]: true,
         },
+      };
+    }
+
+    case ClickerActionType.ADD_LOGS: {
+      const { logs } = action as AddLogsAction;
+      return {
+        ...state,
+        logs: state.logs.concat(logs),
       };
     }
 

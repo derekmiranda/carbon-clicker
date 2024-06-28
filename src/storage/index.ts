@@ -1,13 +1,5 @@
 import { ClickerInterface } from "../reducers/clickerReducer";
 
-export function saveIntroSeen() {
-  window.localStorage.setItem("INTRO_SEEN", "1");
-}
-
-export function isIntroSeen() {
-  return !!window.localStorage.getItem("INTRO_SEEN");
-}
-
 export function saveGameData(data: ClickerInterface) {
   window.localStorage.setItem("CLICKER_DATA", JSON.stringify(data));
 }
