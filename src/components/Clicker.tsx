@@ -3,10 +3,11 @@ import classNames from "classnames";
 import useTicker from "../hooks/useTicker";
 import { useClickerReducer } from "../reducers";
 import { ButtonInterface } from "../reducers/buttonReducer";
+import Modal from "./Modal";
+import Logs from "./Logs";
 
 import "./Clicker.css";
-import { useEffect } from "react";
-import Modal from "./Modal";
+import { saveGameData } from "../storage";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -40,20 +41,14 @@ function Button({ id, displayName, clickButton, cooldown }: ButtonProps) {
 }
 
 function Clicker() {
-  const { state, clickButton, tickClock, openIntroModal, closeModal } =
+  const { state, clickButton, tickClock, closeModal, clearGameData } =
     useClickerReducer();
-  const { resources, buttons, modal } = state;
+  const { resources, buttons, modal, logs } = state;
   const { energy, maxEnergy, co2Saved, knowledge } = resources;
 
   useTicker((timeDelta) => {
     tickClock(timeDelta);
   });
-
-  // open intro modal
-  useEffect(() => {
-    openIntroModal();
-    return () => closeModal();
-  }, [openIntroModal, closeModal]);
 
   return (
     <>
@@ -75,6 +70,17 @@ function Clicker() {
                 clickButton={clickButton}
               />
             ))}
+        </div>
+        <Logs logs={logs} />
+        <div className="game-data-container">
+          <button
+            onClick={() => {
+              saveGameData(state);
+            }}
+          >
+            Save
+          </button>
+          <button onClick={clearGameData}>Clear</button>
         </div>
       </div>
     </>

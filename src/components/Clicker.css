@@ -12,3 +12,9 @@
 .button--cooling-down {
   cursor: wait;
 }
+
+.game-data-container {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}

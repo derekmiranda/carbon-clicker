@@ -8,11 +8,12 @@ import clickerReducer, {
 } from "./clickerReducer";
 import { SharedActionType } from "../types/actions";
 import { ModalView } from "../types";
+import { clearGameData, loadGameData } from "../storage";
 
 export function useClickerReducer() {
   const [state, dispatch] = useReducer<
     React.Reducer<ClickerInterface, ClickerAction>
-  >(clickerReducer, INITIAL_STATE);
+  >(clickerReducer, loadGameData() || INITIAL_STATE);
 
   const clickButton = useCallback(
     (buttonId: string) =>
@@ -43,12 +44,18 @@ export function useClickerReducer() {
     [dispatch]
   );
 
+  const clearGameDataCB = useCallback(() => {
+    clearGameData();
+    dispatch({ type: ClickerActionType.CLEAR_GAME_DATA });
+  }, [dispatch]);
+
   return {
     state,
     clickButton,
     tickClock,
     openIntroModal,
     closeModal,
+    clearGameData: clearGameDataCB,
     dispatch,
   };
 }

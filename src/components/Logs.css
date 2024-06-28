@@ -1,0 +1,5 @@
+.logs-box {
+  background-color: #1a1a1a;
+  height: 200px;
+  overflow-y: scroll;
+}

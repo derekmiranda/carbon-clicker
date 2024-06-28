@@ -19,11 +19,16 @@ import buttonReducer, {
 export interface ClickerInterface {
   resources: Resources;
   buttons: MapLikeInterface<ButtonInterface>;
+  logs: string[];
+  storySeen: Record<string, boolean>;
   modal?: ModalView | null;
 }
 
 export enum ClickerActionType {
   SET_MODAL = "SET_MODAL",
+  SET_STORY_SEEN = "SET_STORY_SEEN",
+  LOAD_GAME_DATA = "LOAD_GAME_DATA",
+  CLEAR_GAME_DATA = "CLEAR_GAME_DATA",
 }
 
 export interface SetModalAction {
@@ -31,13 +36,26 @@ export interface SetModalAction {
   modal: ModalView | null;
 }
 
+export interface SetStorySeenAction {
+  type: ClickerActionType.SET_STORY_SEEN;
+  storyId: string;
+}
+
+export interface SaveGameDataAction {
+  type: ClickerActionType.SET_STORY_SEEN;
+  storyId: string;
+}
+
 export type ClickerAction =
   | SetModalAction
+  | SetStorySeenAction
   | SharedAction
   | Record<string, unknown>;
 
 export const INITIAL_STATE: ClickerInterface = {
-  modal: null,
+  modal: ModalView.INTRO,
+  logs: ["hello"],
+  storySeen: {},
   resources: {
     energy: 200,
     maxEnergy: 200,
@@ -180,6 +198,21 @@ export default function clickerReducer(
         ...state,
         modal,
       };
+    }
+
+    case ClickerActionType.SET_STORY_SEEN: {
+      const { storyId } = action as SetStorySeenAction;
+      return {
+        ...state,
+        storySeen: {
+          ...state.storySeen,
+          [storyId]: true,
+        },
+      };
+    }
+
+    case ClickerActionType.CLEAR_GAME_DATA: {
+      return INITIAL_STATE;
     }
   }
   return state;
