@@ -14,6 +14,7 @@ import {
 import buttonReducer, {
   ButtonActionType,
   ButtonInterface,
+  INITIAL_STATE as INITIAL_BUTTON_STATE,
 } from "./buttonReducer";
 
 export interface ClickerInterface {
@@ -76,13 +77,12 @@ export const INITIAL_STATE: ClickerInterface = {
   buttons: {
     map: {
       turnOffLights: {
+        ...INITIAL_BUTTON_STATE,
         id: "turnOffLights",
         displayName: "Turn Off Lights",
         description: "Turn Off Lights",
-        unlocked: true,
-        enabled: true,
         cooldown: {
-          cooldownSeconds: 1,
+          cooldownSeconds: 5,
           elapsedCooldownSeconds: 0,
           onCooldown: false,
         },
@@ -96,11 +96,10 @@ export const INITIAL_STATE: ClickerInterface = {
         ],
       },
       selfEducate: {
+        ...INITIAL_BUTTON_STATE,
         id: "selfEducate",
         displayName: "Self-Educate",
         description: "Self-Educate",
-        unlocked: true,
-        enabled: true,
         cooldown: {
           cooldownSeconds: 1,
           elapsedCooldownSeconds: 0,
@@ -115,8 +114,20 @@ export const INITIAL_STATE: ClickerInterface = {
           },
         ],
       },
+      makeHomeEnergyEfficient: {
+        ...INITIAL_BUTTON_STATE,
+        id: "makeHomeEnergyEfficient",
+        displayName: "Make Home Energy-Efficient",
+        description: "Make Home Energy-Efficient",
+        unlocked: false,
+        requirements: {
+          timesButtonsPressed: {
+            turnOffLights: 1,
+          },
+        },
+      },
     },
-    order: ["turnOffLights", "selfEducate"],
+    order: ["turnOffLights", "selfEducate", "makeHomeEnergyEfficient"],
   },
 };
 
@@ -160,7 +171,17 @@ export default function clickerReducer(
               state,
               effect as UpdateResourcesEffect
             );
+
             newState.resources = newResources;
+
+            const { buttons: newButtons } = newState;
+
+            const updatedButtonPresses = newButtons.order.reduce<
+              Record<string, number>
+            >((accum, buttonKey) => {
+              accum[buttonKey] = newButtons.map[buttonKey].timesPressed;
+              return accum;
+            }, {});
 
             newState.buttons.order.forEach((buttonKey) => {
               newState.buttons.map[buttonKey] = buttonReducer(
@@ -168,6 +189,7 @@ export default function clickerReducer(
                 {
                   type: ButtonActionType.CHECK_REQUIREMENTS,
                   updatedResources: newResources,
+                  updatedButtonPresses,
                 }
               );
             });

@@ -13,6 +13,7 @@ export enum ButtonActionType {
 export interface CheckRequirementsAction {
   type: ButtonActionType.CHECK_REQUIREMENTS;
   updatedResources: Resources;
+  updatedButtonPresses: Record<string, number>;
 }
 
 export type ButtonAction = CheckRequirementsAction | SharedAction;
@@ -23,6 +24,7 @@ export interface ButtonInterface {
   description: string;
   unlocked: boolean;
   enabled: boolean;
+  timesPressed: number;
   effects: Effect[];
   requirements?: Requirements | null;
   cost?: Requirements | null;
@@ -35,6 +37,7 @@ export const INITIAL_STATE: ButtonInterface = {
   description: "description",
   unlocked: true,
   enabled: true,
+  timesPressed: 0,
   requirements: null, // or Requirements object
   cost: null, // or Cost object
   cooldown: null, // or Cooldown reducer
@@ -47,10 +50,11 @@ export default function buttonReducer(
 ) {
   switch (action.type) {
     case SharedActionType.CLICK_BUTTON: {
-      const { cooldown } = state;
+      const { cooldown, timesPressed } = state;
       if (cooldown) {
         return {
           ...state,
+          timesPressed: timesPressed + 1,
           cooldown: cooldownReducer(cooldown, {
             type: CooldownActionType.START_COOLDOWN,
           }),
@@ -72,23 +76,9 @@ export default function buttonReducer(
 
     case ButtonActionType.CHECK_REQUIREMENTS: {
       const { unlocked, requirements } = state;
-      const { updatedResources } = action as CheckRequirementsAction;
       if (unlocked || !requirements) return state;
 
-      const requirementsMet = Object.keys(requirements.resources).every(
-        (resourceKey) => {
-          const reqResource =
-            requirements.resources[resourceKey as keyof Partial<Resources>];
-          const updatedResource =
-            updatedResources[resourceKey as keyof Resources];
-          return (
-            !reqResource ||
-            (typeof updatedResource === "number" &&
-              reqResource <= updatedResource)
-          );
-        }
-      );
-
+      const requirementsMet = checkRequirements(state, action);
       return {
         ...state,
         unlocked: requirementsMet,
@@ -96,4 +86,43 @@ export default function buttonReducer(
     }
   }
   return state;
+}
+
+function checkRequirements(state: ButtonInterface, action: ButtonAction) {
+  const { requirements } = state;
+  const { updatedResources, updatedButtonPresses } =
+    action as CheckRequirementsAction;
+
+  if (requirements?.resources) {
+    const { resources } = requirements;
+    const resourcesMet = Object.keys(resources).every((resourceKey) => {
+      const reqResource = resources[resourceKey as keyof Partial<Resources>];
+      const updatedResource = updatedResources[resourceKey as keyof Resources];
+      return (
+        !reqResource ||
+        (typeof updatedResource === "number" && reqResource <= updatedResource)
+      );
+    });
+
+    if (!resourcesMet) return false;
+  }
+
+  if (requirements?.timesButtonsPressed) {
+    const { timesButtonsPressed } = requirements;
+    const buttonPressesMet = Object.keys(timesButtonsPressed).every(
+      (buttonKey) => {
+        const reqButtonPress = timesButtonsPressed[buttonKey];
+        const updatedButtonPress = updatedButtonPresses[buttonKey];
+        return (
+          !reqButtonPress ||
+          (typeof updatedButtonPress === "number" &&
+            reqButtonPress <= updatedButtonPress)
+        );
+      }
+    );
+
+    if (!buttonPressesMet) return false;
+  }
+
+  return true;
 }

@@ -22,9 +22,13 @@ export type Resources = {
 export type Cost = Resources;
 
 export interface Requirements {
-  resources: Partial<Resources>;
+  resources?: Partial<Resources>;
   // array of ids for bonuses to unlock
   bonusesUnlocked?: string[];
+  // array of ids for story scenes to unlock
+  storyIdsUnlocked?: string[];
+  // required button presses
+  timesButtonsPressed?: Record<string, number>;
 }
 
 export enum EffectTypes {
