@@ -1,10 +1,11 @@
+import { useContext } from "react";
 import "./Logs.css";
+import { ClickerContext } from "../reducers/context";
 
-export interface LogsProps {
-  logs: string[];
-}
-
-export default function Logs({ logs }: LogsProps) {
+export default function Logs() {
+  const {
+    state: { logs },
+  } = useContext(ClickerContext);
   return (
     <div>
       <h2>Logs</h2>

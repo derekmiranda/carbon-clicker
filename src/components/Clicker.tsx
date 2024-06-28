@@ -1,7 +1,6 @@
 import classNames from "classnames";
 
 import useTicker from "../hooks/useTicker";
-import { useClicker } from "../reducers";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import Modal from "./Modal";
 import Logs from "./Logs";
@@ -10,6 +9,7 @@ import "./Clicker.css";
 import { saveGameData } from "../storage";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
+import { useContext } from "react";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -43,21 +43,30 @@ function Button({ id, displayName, clickButton, cooldown }: ButtonProps) {
 }
 
 function Clicker() {
-  const clicker = useClicker();
+  const { state } = useContext(ClickerContext);
   const { clickButton, tickClock, clearGameData } = useDispatchers();
-  const { state, dispatch } = clicker;
-  const { resources, buttons, logs } = state;
-  const { energy, maxEnergy, co2Saved, knowledge } = resources;
+  const { resources, buttons } = state;
+  const {
+    energy,
+    maxEnergy,
+    co2Saved,
+    knowledge,
+    globalPpm,
+    globalPpmPerMonth,
+  } = resources;
 
   useTicker((timeDelta) => {
     tickClock(timeDelta);
   });
 
   return (
-    <ClickerContext.Provider value={{ state, dispatch }}>
+    <>
       <h1>Carbon Clicker</h1>
       <Modal />
       <div>
+        <p className="ppm-display">Global CO2: {globalPpm} PPM</p>
+        <p>CO2 Growth Rate: {globalPpmPerMonth} PPM/month</p>
+        <p>--</p>
         <p>
           Mood: {energy}/{maxEnergy}
         </p>
@@ -74,7 +83,7 @@ function Clicker() {
               />
             ))}
         </div>
-        <Logs logs={logs} />
+        <Logs />
         <div className="game-data-container">
           <button
             onClick={() => {
@@ -86,7 +95,7 @@ function Clicker() {
           <button onClick={clearGameData}>Clear</button>
         </div>
       </div>
-    </ClickerContext.Provider>
+    </>
   );
 }
 

@@ -69,7 +69,9 @@ export const INITIAL_STATE: ClickerInterface = {
     dollars: 10,
     co2Saved: 0,
     knowledge: 0,
-    globalPpm: null,
+    globalPpm: 425,
+    // ppm growth per month
+    globalPpmPerMonth: 0.2,
   },
   buttons: {
     map: {

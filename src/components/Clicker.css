@@ -20,6 +20,11 @@
   cursor: wait;
 }
 
+.ppm-display {
+  color: var(--warn-color);
+  font-weight: bolder;
+}
+
 .game-data-container {
   position: absolute;
   top: 24px;

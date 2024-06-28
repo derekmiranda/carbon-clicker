@@ -15,7 +15,8 @@ export type Resources = {
   dollars: number;
   co2Saved: number;
   knowledge: number;
-  globalPpm?: number | null;
+  globalPpm: number;
+  globalPpmPerMonth: number;
 };
 
 export type Cost = Resources;
