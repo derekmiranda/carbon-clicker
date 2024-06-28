@@ -9,12 +9,14 @@ export default function Logs({ logs }: LogsProps) {
     <div>
       <h2>Logs</h2>
       <div className="logs-box">
-        {logs.map((log) => (
-          <p>
-            {"> "}
-            {log}
-          </p>
-        ))}
+        {logs
+          .map((log) => (
+            <p>
+              {"> "}
+              {log}
+            </p>
+          ))
+          .reverse()}
       </div>
     </div>
   );

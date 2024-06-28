@@ -1,5 +1,9 @@
 .logs-box {
   background-color: #1a1a1a;
+  color: #67ceab;
+  width: min(95%, 400px);
   height: 200px;
+  margin: auto;
   overflow-y: scroll;
+  text-align: left;
 }
