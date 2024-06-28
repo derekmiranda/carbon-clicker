@@ -10,6 +10,8 @@
 }
 
 .button {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
   width: var(--button-width);
   margin-right: auto;
 }

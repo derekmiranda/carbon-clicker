@@ -13,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --text-color: #f9f9f9;
+  --bg-color: #000;
   --accent-color: #67ceab;
   --button-width: 200px;
 }
