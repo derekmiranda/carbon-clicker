@@ -1,0 +1,7 @@
+.modal-content {
+  display: inline-flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  place-items: center;
+}

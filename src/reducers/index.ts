@@ -2,66 +2,12 @@ import { useCallback, useReducer } from "react";
 
 import clickerReducer, {
   ClickerAction,
+  ClickerActionType,
   ClickerInterface,
+  INITIAL_STATE,
 } from "./clickerReducer";
 import { SharedActionType } from "../types/actions";
-import { EffectTypes } from "../types";
-
-const INITIAL_STATE: ClickerInterface = {
-  resources: {
-    energy: 200,
-    maxEnergy: 200,
-    dollars: 10,
-    co2Saved: 0,
-    knowledge: 0,
-    globalPpm: null,
-  },
-  buttons: {
-    map: {
-      turnOffLights: {
-        id: "turnOffLights",
-        displayName: "Turn Off Lights",
-        description: "Turn Off Lights",
-        unlocked: true,
-        enabled: true,
-        cooldown: {
-          cooldownSeconds: 1,
-          elapsedCooldownSeconds: 0,
-          onCooldown: false,
-        },
-        effects: [
-          {
-            type: EffectTypes.UPDATE_RESOURCES,
-            resourcesDiff: {
-              co2Saved: 1,
-            },
-          },
-        ],
-      },
-      selfEducate: {
-        id: "selfEducate",
-        displayName: "Self-Educate",
-        description: "Self-Educate",
-        unlocked: true,
-        enabled: true,
-        cooldown: {
-          cooldownSeconds: 1,
-          elapsedCooldownSeconds: 0,
-          onCooldown: false,
-        },
-        effects: [
-          {
-            type: EffectTypes.UPDATE_RESOURCES,
-            resourcesDiff: {
-              knowledge: 1,
-            },
-          },
-        ],
-      },
-    },
-    order: ["turnOffLights", "selfEducate"],
-  },
-};
+import { ModalView } from "../types";
 
 export function useClickerReducer() {
   const [state, dispatch] = useReducer<
@@ -69,24 +15,40 @@ export function useClickerReducer() {
   >(clickerReducer, INITIAL_STATE);
 
   const clickButton = useCallback(
-    (buttonId: string) => {
+    (buttonId: string) =>
       dispatch({
         type: SharedActionType.CLICK_BUTTON,
         buttonId,
-      });
-    },
+      }),
     [dispatch]
   );
 
   const tickClock = useCallback(
-    (timeDelta: number) => {
+    (timeDelta: number) =>
       dispatch({
         type: SharedActionType.TICK_CLOCK,
         timeDelta,
-      });
-    },
+      }),
     [dispatch]
   );
 
-  return { state, clickButton, tickClock, dispatch };
+  const openIntroModal = useCallback(
+    () =>
+      dispatch({ type: ClickerActionType.SET_MODAL, modal: ModalView.INTRO }),
+    [dispatch]
+  );
+
+  const closeModal = useCallback(
+    () => dispatch({ type: ClickerActionType.SET_MODAL, modal: null }),
+    [dispatch]
+  );
+
+  return {
+    state,
+    clickButton,
+    tickClock,
+    openIntroModal,
+    closeModal,
+    dispatch,
+  };
 }

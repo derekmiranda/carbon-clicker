@@ -1,6 +1,7 @@
 import {
   EffectTypes,
   MapLikeInterface,
+  ModalView,
   ResourceTypes,
   Resources,
   UpdateResourcesEffect,
@@ -18,9 +19,79 @@ import buttonReducer, {
 export interface ClickerInterface {
   resources: Resources;
   buttons: MapLikeInterface<ButtonInterface>;
+  modal?: ModalView | null;
 }
 
-export type ClickerAction = SharedAction | Record<string, unknown>;
+export enum ClickerActionType {
+  SET_MODAL = "SET_MODAL",
+}
+
+export interface SetModalAction {
+  type: ClickerActionType.SET_MODAL;
+  modal: ModalView | null;
+}
+
+export type ClickerAction =
+  | SetModalAction
+  | SharedAction
+  | Record<string, unknown>;
+
+export const INITIAL_STATE: ClickerInterface = {
+  modal: null,
+  resources: {
+    energy: 200,
+    maxEnergy: 200,
+    dollars: 10,
+    co2Saved: 0,
+    knowledge: 0,
+    globalPpm: null,
+  },
+  buttons: {
+    map: {
+      turnOffLights: {
+        id: "turnOffLights",
+        displayName: "Turn Off Lights",
+        description: "Turn Off Lights",
+        unlocked: true,
+        enabled: true,
+        cooldown: {
+          cooldownSeconds: 1,
+          elapsedCooldownSeconds: 0,
+          onCooldown: false,
+        },
+        effects: [
+          {
+            type: EffectTypes.UPDATE_RESOURCES,
+            resourcesDiff: {
+              co2Saved: 1,
+            },
+          },
+        ],
+      },
+      selfEducate: {
+        id: "selfEducate",
+        displayName: "Self-Educate",
+        description: "Self-Educate",
+        unlocked: true,
+        enabled: true,
+        cooldown: {
+          cooldownSeconds: 1,
+          elapsedCooldownSeconds: 0,
+          onCooldown: false,
+        },
+        effects: [
+          {
+            type: EffectTypes.UPDATE_RESOURCES,
+            resourcesDiff: {
+              knowledge: 1,
+            },
+          },
+        ],
+      },
+    },
+    order: ["turnOffLights", "selfEducate"],
+  },
+};
 
 function updateResources(
   state: ClickerInterface,
@@ -100,6 +171,14 @@ export default function clickerReducer(
           ...state.buttons,
           map: newMap,
         },
+      };
+    }
+
+    case ClickerActionType.SET_MODAL: {
+      const { modal } = action as SetModalAction;
+      return {
+        ...state,
+        modal,
       };
     }
   }

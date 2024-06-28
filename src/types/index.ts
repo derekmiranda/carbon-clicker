@@ -48,3 +48,7 @@ export interface MapLikeInterface<T> {
   map: Record<string, T>;
   order: string[];
 }
+
+export enum ModalView {
+  INTRO = "INTRO",
+}

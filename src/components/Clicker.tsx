@@ -5,6 +5,8 @@ import { useClickerReducer } from "../reducers";
 import { ButtonInterface } from "../reducers/buttonReducer";
 
 import "./Clicker.css";
+import { useEffect } from "react";
+import Modal from "./Modal";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -38,17 +40,25 @@ function Button({ id, displayName, clickButton, cooldown }: ButtonProps) {
 }
 
 function Clicker() {
-  const { state, clickButton, tickClock } = useClickerReducer();
-  const { resources, buttons } = state;
+  const { state, clickButton, tickClock, openIntroModal, closeModal } =
+    useClickerReducer();
+  const { resources, buttons, modal } = state;
   const { energy, maxEnergy, co2Saved, knowledge } = resources;
 
   useTicker((timeDelta) => {
     tickClock(timeDelta);
   });
 
+  // open intro modal
+  useEffect(() => {
+    openIntroModal();
+    return () => closeModal();
+  }, [openIntroModal, closeModal]);
+
   return (
     <>
       <h1>Carbon Clicker</h1>
+      <Modal modal={modal} closeModal={closeModal} />
       <div>
         <p>
           Mood: {energy}/{maxEnergy}
