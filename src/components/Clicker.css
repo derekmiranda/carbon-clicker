@@ -1,0 +1,14 @@
+.buttons-container {
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.button {
+  margin: auto;
+}
+
+.button--cooling-down {
+  cursor: wait;
+}

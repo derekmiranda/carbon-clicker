@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import useTicker from "../hooks/useTicker";
 import { useClickerReducer } from "../reducers";
 import { ButtonInterface } from "../reducers/buttonReducer";
@@ -12,14 +14,18 @@ function Button({ id, displayName, clickButton, cooldown }: ButtonProps) {
   const handleClick = () => {
     clickButton(id);
   };
-  const readiness =
-    cooldown && cooldown.elapsedCooldownSeconds / cooldown.cooldownSeconds;
+  const opacity = cooldown?.onCooldown
+    ? cooldown.elapsedCooldownSeconds / cooldown.cooldownSeconds
+    : 1;
 
   return (
     <>
       <button
+        className={classNames("button", {
+          "button--cooling-down": cooldown?.onCooldown,
+        })}
         style={{
-          opacity: readiness ? Math.max(0.2, readiness) : 1,
+          opacity,
           cursor: cooldown?.onCooldown ? "wait" : "default",
         }}
         disabled={cooldown?.onCooldown}
@@ -49,15 +55,17 @@ function Clicker() {
         </p>
         <p>Knowledge: {knowledge}</p>
         <p>CO2 Saved: {co2Saved} kg</p>
-        {buttons.order
-          .filter((buttonKey) => buttons.map[buttonKey].unlocked)
-          .map((buttonKey) => (
-            <Button
-              key={buttonKey}
-              {...buttons.map[buttonKey]}
-              clickButton={clickButton}
-            />
-          ))}
+        <div className="buttons-container">
+          {buttons.order
+            .filter((buttonKey) => buttons.map[buttonKey].unlocked)
+            .map((buttonKey) => (
+              <Button
+                key={buttonKey}
+                {...buttons.map[buttonKey]}
+                clickButton={clickButton}
+              />
+            ))}
+        </div>
       </div>
     </>
   );
