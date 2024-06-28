@@ -51,10 +51,18 @@ export default function cooldownReducer(
     }
 
     case SharedActionType.TICK_CLOCK: {
-      const { cooldownSeconds, elapsedCooldownSeconds: currSecs } = state;
+      const {
+        onCooldown,
+        cooldownSeconds,
+        elapsedCooldownSeconds: currSecs,
+      } = state;
+
+      if (!onCooldown) {
+        return state;
+      }
+
       const { timeDelta } = action as TickClockAction;
       const newTime = currSecs + timeDelta;
-      console.log(newTime < cooldownSeconds);
 
       return {
         ...state,
