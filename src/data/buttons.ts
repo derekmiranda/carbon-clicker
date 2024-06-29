@@ -122,11 +122,67 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
+    cookVegMeal: {
+      ...INITIAL_BUTTON_STATE,
+      id: "cookVegMeal",
+      displayName: "Cook a Vegeterian Meal",
+      description: "Cook a Vegeterian Meal",
+      unlocked: false,
+      enabled: true,
+      cooldown: {
+        cooldownSeconds: 1 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      requirements: {
+        resources: {
+          knowledge: 2,
+        },
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            co2Saved: 3,
+            mood: 4,
+          },
+        },
+      ],
+    },
+    job: {
+      ...INITIAL_BUTTON_STATE,
+      id: "job",
+      displayName: "Job",
+      description: "Job",
+      unlocked: false,
+      enabled: true,
+      cooldown: {
+        cooldownSeconds: 1 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      requirements: {
+        resources: {
+          knowledge: 3,
+        },
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            dollars: 100,
+            mood: -10,
+          },
+        },
+      ],
+    },
   },
   order: [
     "turnOffLights",
     "selfEducate",
     "bikeInsteadOfDrive",
+    "cookVegMeal",
+    "job",
     "makeHomeEnergyEfficient",
     "buySolarPanels",
   ],

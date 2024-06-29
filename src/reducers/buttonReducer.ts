@@ -112,10 +112,10 @@ export default function buttonReducer(
       if (!cost || (oneTime && purchased)) return state;
 
       const { updatedResources } = action as CheckCostAction;
-      const requirementsMet = checkResourcesMet(cost, updatedResources);
+      const costsMet = checkResourcesMet(cost, updatedResources);
       return {
         ...state,
-        enabled: requirementsMet,
+        enabled: costsMet,
       };
     }
   }
@@ -130,10 +130,7 @@ function checkResourcesMet(
     const reqResource =
       neededResources[resourceKey as keyof Partial<Resources>];
     const currResource = currResources[resourceKey as keyof Resources];
-    return (
-      !reqResource ||
-      (typeof currResource === "number" && reqResource <= currResource)
-    );
+    return !reqResource || reqResource <= currResource;
   });
 }
 

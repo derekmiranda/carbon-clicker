@@ -9,7 +9,7 @@ export const clicker: ClickerInterface = {
   resources: {
     mood: 200,
     maxMood: 200,
-    dollars: 100000,
+    dollars: 0,
     co2Saved: 0,
     knowledge: 0,
     globalPpm: 425,
