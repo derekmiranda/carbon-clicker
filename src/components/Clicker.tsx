@@ -78,7 +78,7 @@ function Button({
                 return Object.entries(resourcesRateDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `+ ${resourceVal} ${resourceKey}/sec`
+                      `+${resourceVal} ${resourceKey}/sec`
                   )
                   .join(", ");
               }

@@ -6,6 +6,7 @@ import {
   ResourceTypes,
   Resources,
   UpdateResourcesEffect,
+  UpdateResourcesRateEffect,
 } from "../types";
 import {
   ClickButtonAction,
@@ -110,7 +111,7 @@ export default function clickerReducer(
   switch (action.type) {
     case SharedActionType.CLICK_BUTTON: {
       const newState = { ...state };
-      const { buttonId } = action as ClickButtonAction;
+      const { buttonId, cost } = action as ClickButtonAction;
       const button = state.buttons.map[buttonId] as ButtonInterface;
       const updatedButtonPresses = newState.buttons.order.reduce<
         Record<string, number>
@@ -141,8 +142,37 @@ export default function clickerReducer(
                 updatedResources: newResources,
               });
             });
+            break;
+          }
+
+          case EffectTypes.UPDATE_RESOURCES_RATE: {
+            const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
+            const newGrowthRates = { ...state.resourceGrowthRates };
+
+            for (const item of Object.entries(resourcesRateDiff)) {
+              const [key, diff] = item as [keyof Resources, number];
+
+              if (typeof newGrowthRates[key] === "number") {
+                (newGrowthRates[key] as number) += diff;
+              } else {
+                newGrowthRates[key] = diff;
+              }
+            }
+
+            newState.resourceGrowthRates = newGrowthRates;
+            break;
           }
         }
+
+        console.log(newState.resourceGrowthRates);
+      }
+
+      // deduct costs, if any
+      if (cost) {
+        Object.entries(cost).forEach(([resourceKey, resourceCost]) => {
+          const key = resourceKey as keyof Resources;
+          newState.resources[key] -= resourceCost;
+        });
       }
 
       // click button

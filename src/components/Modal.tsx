@@ -35,8 +35,8 @@ export default function Modal(rest: ModalProps) {
     >
       {modal === ModalView.INTRO ? (
         <div className="modal-content">
-          {INTRO.map((p) => (
-            <p>{p}</p>
+          {INTRO.map((p, i) => (
+            <p key={i}>{p}</p>
           ))}
           <button className="close-button" onClick={closeIntroModal}>
             Close

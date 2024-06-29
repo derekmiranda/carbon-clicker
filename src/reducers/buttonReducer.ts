@@ -106,8 +106,8 @@ export default function buttonReducer(
     }
 
     case ButtonActionType.CHECK_COST: {
-      const { cost } = state;
-      if (!cost) return state;
+      const { cost, oneTime, purchased } = state;
+      if (!cost || (oneTime && purchased)) return state;
 
       const { updatedResources } = action as CheckCostAction;
       const requirementsMet = checkResourcesMet(cost, updatedResources);

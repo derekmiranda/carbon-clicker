@@ -1,3 +1,5 @@
+import { Cost } from ".";
+
 export enum SharedActionType {
   CLICK_BUTTON = "CLICK_BUTTON",
   TICK_CLOCK = "TICK_CLOCK",
@@ -8,6 +10,7 @@ export type GenericAction = Record<string, unknown>;
 export interface ClickButtonAction {
   type: SharedActionType.CLICK_BUTTON;
   buttonId: string;
+  cost?: Cost;
 }
 
 export interface TickClockAction {
