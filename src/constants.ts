@@ -1,5 +1,32 @@
 export const DEFAULT_KNOWLEDGE_DROPPING = `you gained +1 knowledge!`;
-export const LOG_BOUNDARY = `-----`;
+export const LOG_BOUNDARY = `~~~~~~`;
+
+export const END_PHASE_1 = [
+  `you look into this question more: “what can individuals do to stop the climate crisis?`,
+  `after some research, you learn that the most effective thing you can do is to take part in collective action.`,
+  `you don’t really know what that means. you’ve never organized before! or marched in a rally! will it even make a difference?`,
+  `you’re not sure, but the time for climate doom ‘n gloom is over. let’s try this out!!!`,
+];
+
+export const END_PROTOTYPE = [
+  `that's the end of the prototype!`,
+  `in the next part of the game, we'll introduce collective action, where you can team together with a larger community of climate-minded folks like yourself!`,
+  `you'll be able to choose different paths, such as taking either a cooperative approach or starting a revolution!`,
+  `stay tuned!`,
+];
+
+export const INTRO = [
+  `welcome to summer 2024. it’s hot hot HOT outside!`,
+  `you are a U.S. citizen and you are concerned about climate change. you know that it’s caused by humans and that it’s driving all these record-breaking heat waves and flooding around the world, including in your home. what do!`,
+  `you’ve been told that living a more sustainable lifestyle can help. activities like biking, saving energy, and recycling will emit fewer greenhouse gas emissions (GHGs). that means less carbon dioxide in the atmosphere that traps heat and warms the planet. you want to do your part to help!`,
+  `what can YOU do to lower the world’s carbon footprint?`,
+];
+
+export const END_PHASE_1_KNOWLEDGE_DROPPING = [
+  LOG_BOUNDARY,
+  ...END_PHASE_1,
+  LOG_BOUNDARY,
+];
 
 export const KNOWLEDGE_DROPPINGS = [
   `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
@@ -20,13 +47,7 @@ export const KNOWLEDGE_DROPPINGS = [
     `everything seems hopeless.`,
     LOG_BOUNDARY,
   ],
-];
-
-export const INTRO = [
-  `welcome to summer 2024. it’s hot hot HOT outside!`,
-  `you are a U.S. citizen and you are concerned about climate change. you know that it’s caused by humans and that it’s driving all these record-breaking heat waves and flooding around the world, including in your home. what do!`,
-  `you’ve been told that living a more sustainable lifestyle can help. activities like biking, saving energy, and recycling will emit fewer greenhouse gas emissions (GHGs). that means less carbon dioxide in the atmosphere that traps heat and warms the planet. you want to do your part to help!`,
-  `what can YOU do to lower the world’s carbon footprint?`,
+  END_PHASE_1_KNOWLEDGE_DROPPING,
 ];
 
 export const SECS_PER_DAY = 2;

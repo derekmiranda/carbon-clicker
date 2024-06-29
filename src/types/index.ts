@@ -66,4 +66,5 @@ export interface MapLikeInterface<T> {
 
 export enum ModalView {
   INTRO = "INTRO",
+  END_PROTOTYPE = "END_PROTOTYPE",
 }

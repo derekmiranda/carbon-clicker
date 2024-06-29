@@ -1,8 +1,8 @@
 import ReactModal from "react-modal";
 import { ModalView } from "../types";
 import "./Modal.css";
-import { INTRO, LOG_BOUNDARY } from "../constants";
-import { useContext } from "react";
+import { END_PHASE_1, END_PROTOTYPE, INTRO, LOG_BOUNDARY } from "../constants";
+import { useCallback, useContext } from "react";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { StoryId } from "../types/storyId";
@@ -15,11 +15,15 @@ export default function Modal(rest: ModalProps) {
   } = useContext(ClickerContext);
   const { closeModal, setStorySeen, addLogs } = useDispatchers();
 
-  const closeIntroModal = () => {
+  const handleModalClose = useCallback(() => {
+    switch (modal) {
+      case ModalView.INTRO:
+        addLogs(INTRO.concat(LOG_BOUNDARY));
+        setStorySeen(StoryId.INTRO);
+        break;
+    }
     closeModal();
-    addLogs(INTRO.concat(LOG_BOUNDARY));
-    setStorySeen(StoryId.INTRO);
-  };
+  }, [modal, addLogs, setStorySeen, closeModal]);
 
   return (
     <ReactModal
@@ -33,16 +37,21 @@ export default function Modal(rest: ModalProps) {
         },
       }}
     >
-      {modal === ModalView.INTRO ? (
-        <div className="modal-content">
-          {INTRO.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-          <button className="close-button" onClick={closeIntroModal}>
-            Close
-          </button>
-        </div>
-      ) : null}
+      <div className="modal-content">
+        <>
+          {modal === ModalView.INTRO
+            ? INTRO.map((p, i) => <p key={i}>{p}</p>)
+            : null}
+          {modal === ModalView.END_PROTOTYPE
+            ? END_PHASE_1.concat(LOG_BOUNDARY)
+                .concat(END_PROTOTYPE)
+                .map((p, i) => <p key={i}>{p}</p>)
+            : null}
+        </>
+        <button className="close-button" onClick={handleModalClose}>
+          Close
+        </button>
+      </div>
     </ReactModal>
   );
 }

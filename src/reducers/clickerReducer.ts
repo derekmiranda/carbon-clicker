@@ -1,4 +1,7 @@
-import { KNOWLEDGE_DROPPINGS } from "../constants";
+import {
+  END_PHASE_1_KNOWLEDGE_DROPPING,
+  KNOWLEDGE_DROPPINGS,
+} from "../constants";
 import { clicker } from "../data/clicker";
 import {
   EffectTypes,
@@ -193,6 +196,10 @@ export default function clickerReducer(
                 : newKnowledgeDropping
             )
           : newState.logs;
+
+        if (newKnowledgeDropping === END_PHASE_1_KNOWLEDGE_DROPPING) {
+          newState.modal = ModalView.END_PROTOTYPE;
+        }
       }
 
       return newState;
