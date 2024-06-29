@@ -19,6 +19,8 @@ import buttonReducer, {
 
 export interface ClickerInterface {
   resources: Resources;
+  // difference per second
+  resourceGrowthRates: Partial<Resources>;
   buttons: MapLikeInterface<ButtonInterface>;
   logs: string[];
   storySeen: Record<string, boolean>;
@@ -71,8 +73,10 @@ export const INITIAL_STATE: ClickerInterface = {
     co2Saved: 0,
     knowledge: 0,
     globalPpm: 425,
-    // ppm growth per month
-    globalPpmPerMonth: 0.2,
+  },
+  // diff per second
+  resourceGrowthRates: {
+    globalPpm: 0.0067,
   },
   buttons,
 };
@@ -108,6 +112,12 @@ export default function clickerReducer(
       const newState = { ...state };
       const { buttonId } = action as ClickButtonAction;
       const button = state.buttons.map[buttonId] as ButtonInterface;
+      const updatedButtonPresses = newState.buttons.order.reduce<
+        Record<string, number>
+      >((accum, buttonKey) => {
+        accum[buttonKey] = newState.buttons.map[buttonKey].timesPressed;
+        return accum;
+      }, {});
 
       // process button effects
       for (const effect of button.effects) {
@@ -120,24 +130,16 @@ export default function clickerReducer(
 
             newState.resources = newResources;
 
-            const { buttons: newButtons } = newState;
-
-            const updatedButtonPresses = newButtons.order.reduce<
-              Record<string, number>
-            >((accum, buttonKey) => {
-              accum[buttonKey] = newButtons.map[buttonKey].timesPressed;
-              return accum;
-            }, {});
-
             newState.buttons.order.forEach((buttonKey) => {
-              newState.buttons.map[buttonKey] = buttonReducer(
-                newState.buttons.map[buttonKey],
-                {
-                  type: ButtonActionType.CHECK_REQUIREMENTS,
-                  updatedResources: newResources,
-                  updatedButtonPresses,
-                }
-              );
+              const newButton = buttonReducer(newState.buttons.map[buttonKey], {
+                type: ButtonActionType.CHECK_REQUIREMENTS,
+                updatedResources: newResources,
+                updatedButtonPresses,
+              });
+              newState.buttons.map[buttonKey] = buttonReducer(newButton, {
+                type: ButtonActionType.CHECK_COST,
+                updatedResources: newResources,
+              });
             });
           }
         }

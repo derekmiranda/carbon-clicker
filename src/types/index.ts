@@ -16,10 +16,9 @@ export type Resources = {
   co2Saved: number;
   knowledge: number;
   globalPpm: number;
-  globalPpmPerMonth: number;
 };
 
-export type Cost = Resources;
+export type Cost = Partial<Resources>;
 
 export interface Requirements {
   resources?: Partial<Resources>;
@@ -33,6 +32,7 @@ export interface Requirements {
 
 export enum EffectTypes {
   UPDATE_RESOURCES = "UPDATE_RESOURCES",
+  UPDATE_RESOURCES_RATE = "UPDATE_RESOURCES_RATE",
   UNLOCK_BONUS = "UNLOCK_BONUS",
   UNLOCK_STORY_FLAG = "UNLOCK_STORY_FLAG",
 }
@@ -44,10 +44,18 @@ export interface GenericEffect {
 
 export interface UpdateResourcesEffect {
   type: EffectTypes.UPDATE_RESOURCES;
-  resourcesDiff: Resources;
+  resourcesDiff: Partial<Resources>;
 }
 
-export type Effect = UpdateResourcesEffect | GenericEffect;
+export interface UpdateResourcesRateEffect {
+  type: EffectTypes.UPDATE_RESOURCES_RATE;
+  resourcesRateDiff: Partial<Resources>;
+}
+
+export type Effect =
+  | UpdateResourcesEffect
+  | UpdateResourcesRateEffect
+  | GenericEffect;
 
 export interface MapLikeInterface<T> {
   map: Record<string, T>;

@@ -1,4 +1,4 @@
-import { Effect, Requirements, Resources } from "../types";
+import { Cost, Effect, Requirements, Resources } from "../types";
 import { SharedAction, SharedActionType } from "../types/actions";
 import cooldownReducer, {
   CooldownActionType,
@@ -8,6 +8,7 @@ import cooldownReducer, {
 export enum ButtonActionType {
   ENABLE_BUTTON = "ENABLE_BUTTON",
   CHECK_REQUIREMENTS = "CHECK_REQUIREMENTS",
+  CHECK_COST = "CHECK_COST",
 }
 
 export interface CheckRequirementsAction {
@@ -16,7 +17,15 @@ export interface CheckRequirementsAction {
   updatedButtonPresses: Record<string, number>;
 }
 
-export type ButtonAction = CheckRequirementsAction | SharedAction;
+export interface CheckCostAction {
+  type: ButtonActionType.CHECK_COST;
+  updatedResources: Resources;
+}
+
+export type ButtonAction =
+  | CheckRequirementsAction
+  | CheckCostAction
+  | SharedAction;
 
 export interface ButtonInterface {
   id: string;
@@ -26,8 +35,11 @@ export interface ButtonInterface {
   enabled: boolean;
   timesPressed: number;
   effects: Effect[];
+  purchased?: boolean;
+  oneTime?: boolean;
+  tooltip?: string;
   requirements?: Requirements | null;
-  cost?: Requirements | null;
+  cost?: Cost | null;
   cooldown?: CooldownInterface | null;
 }
 
@@ -50,17 +62,25 @@ export default function buttonReducer(
 ) {
   switch (action.type) {
     case SharedActionType.CLICK_BUTTON: {
-      const { cooldown, timesPressed } = state;
+      const { cooldown, oneTime, timesPressed } = state;
+      const newState = { ...state, timesPressed: timesPressed + 1 };
+
       if (cooldown) {
-        return {
-          ...state,
-          timesPressed: timesPressed + 1,
+        Object.assign(newState, {
           cooldown: cooldownReducer(cooldown, {
             type: CooldownActionType.START_COOLDOWN,
           }),
-        };
+        });
       }
-      return state;
+
+      if (oneTime) {
+        Object.assign(newState, {
+          enabled: false,
+          purchased: true,
+        });
+      }
+
+      return newState;
     }
 
     case SharedActionType.TICK_CLOCK: {
@@ -84,30 +104,50 @@ export default function buttonReducer(
         unlocked: requirementsMet,
       };
     }
+
+    case ButtonActionType.CHECK_COST: {
+      const { cost } = state;
+      if (!cost) return state;
+
+      const { updatedResources } = action as CheckCostAction;
+      const requirementsMet = checkResourcesMet(cost, updatedResources);
+      return {
+        ...state,
+        enabled: requirementsMet,
+      };
+    }
   }
   return state;
 }
 
+function checkResourcesMet(
+  neededResources: Partial<Resources>,
+  currResources: Resources
+) {
+  return Object.keys(neededResources).every((resourceKey) => {
+    const reqResource =
+      neededResources[resourceKey as keyof Partial<Resources>];
+    const currResource = currResources[resourceKey as keyof Resources];
+    return (
+      !reqResource ||
+      (typeof currResource === "number" && reqResource <= currResource)
+    );
+  });
+}
+
 function checkRequirements(state: ButtonInterface, action: ButtonAction) {
   const { requirements } = state;
-  const { updatedResources, updatedButtonPresses } =
-    action as CheckRequirementsAction;
 
   if (requirements?.resources) {
+    const { updatedResources } = action as CheckRequirementsAction;
     const { resources } = requirements;
-    const resourcesMet = Object.keys(resources).every((resourceKey) => {
-      const reqResource = resources[resourceKey as keyof Partial<Resources>];
-      const updatedResource = updatedResources[resourceKey as keyof Resources];
-      return (
-        !reqResource ||
-        (typeof updatedResource === "number" && reqResource <= updatedResource)
-      );
-    });
+    const resourcesMet = checkResourcesMet(resources, updatedResources);
 
     if (!resourcesMet) return false;
   }
 
   if (requirements?.timesButtonsPressed) {
+    const { updatedButtonPresses } = action as CheckRequirementsAction;
     const { timesButtonsPressed } = requirements;
     const buttonPressesMet = Object.keys(timesButtonsPressed).every(
       (buttonKey) => {

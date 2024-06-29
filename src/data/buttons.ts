@@ -1,7 +1,10 @@
-import { INITIAL_STATE as INITIAL_BUTTON_STATE } from "../reducers/buttonReducer";
-import { EffectTypes } from "../types";
+import {
+  ButtonInterface,
+  INITIAL_STATE as INITIAL_BUTTON_STATE,
+} from "../reducers/buttonReducer";
+import { EffectTypes, MapLikeInterface } from "../types";
 
-export const buttons = {
+export const buttons: MapLikeInterface<ButtonInterface> = {
   map: {
     turnOffLights: {
       ...INITIAL_BUTTON_STATE,
@@ -47,11 +50,26 @@ export const buttons = {
       displayName: "Make Home Energy-Efficient",
       description: "Make Home Energy-Efficient",
       unlocked: false,
+      enabled: false,
+      oneTime: true,
+      cost: {
+        // dollars: 500,
+        knowledge: 1,
+      },
       requirements: {
         timesButtonsPressed: {
           turnOffLights: 1,
         },
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            // kg CO2 / second
+            co2Saved: 0.5,
+          },
+        },
+      ],
     },
   },
   order: ["turnOffLights", "selfEducate", "makeHomeEnergyEfficient"],
