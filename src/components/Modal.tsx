@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
 import { ModalView } from "../types";
 import "./Modal.css";
-import { INTRO } from "../constants";
+import { INTRO, LOG_BOUNDARY } from "../constants";
 import { useContext } from "react";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
@@ -17,7 +17,7 @@ export default function Modal(rest: ModalProps) {
 
   const closeIntroModal = () => {
     closeModal();
-    addLogs(INTRO);
+    addLogs(INTRO.concat(LOG_BOUNDARY));
     setStorySeen(StoryId.INTRO);
   };
 

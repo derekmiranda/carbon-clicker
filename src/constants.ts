@@ -1,4 +1,5 @@
 export const DEFAULT_KNOWLEDGE_DROPPING = `you gained +1 knowledge!`;
+export const LOG_BOUNDARY = `-----`;
 
 export const KNOWLEDGE_DROPPINGS = [
   `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
@@ -12,7 +13,13 @@ export const KNOWLEDGE_DROPPINGS = [
   `you're reading "this changes everything" by naomi klein. this climate change issue is much bigger than you thought.`,
   DEFAULT_KNOWLEDGE_DROPPING,
   `you're reading "parable of the sower" by octavia butler. is this where our future is headed?`,
-  DEFAULT_KNOWLEDGE_DROPPING,
+  [
+    LOG_BOUNDARY,
+    `"it’s been several months of living a more sustainable lifestyle, but you feel like your efforts are fruitless. global carbon emissions only continue to go up, and your actions feel like a drop in the bucket. what did you expect? you’re just one person.`,
+    `even worse, you looked up the concept of a personal carbon footprint and learned that BP, aka british petroleum, played a huge role in marketing it to shift the responsibility of climate change onto individuals, not polluting corporations. you had no idea! how were you supposed to know? these companies have been doing everything they can to fuel climate denial and inaction for decades!!!`,
+    `everything seems hopeless.`,
+    LOG_BOUNDARY,
+  ],
 ];
 
 export const INTRO = [

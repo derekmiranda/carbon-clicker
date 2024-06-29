@@ -185,7 +185,11 @@ export default function clickerReducer(
         const newKnowledgeDropping =
           KNOWLEDGE_DROPPINGS[newState.resources.knowledge - 1];
         newState.logs = newKnowledgeDropping
-          ? state.logs.concat(newKnowledgeDropping)
+          ? state.logs.concat(
+              Array.isArray(newKnowledgeDropping)
+                ? newKnowledgeDropping.slice().reverse()
+                : newKnowledgeDropping
+            )
           : newState.logs;
       }
 
