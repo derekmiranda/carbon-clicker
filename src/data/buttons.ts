@@ -1,10 +1,9 @@
-import { SECS_PER_DAY } from "../constants";
+import { MAX_MOOD, SECS_PER_DAY } from "../constants";
 import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
 } from "../reducers/buttonReducer";
 import { EffectTypes, MapLikeInterface } from "../types";
-import { clicker } from "./clicker";
 
 export const buttons: MapLikeInterface<ButtonInterface> = {
   map: {
@@ -225,15 +224,15 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            mood: clicker.resources.maxMood,
+            mood: MAX_MOOD,
           },
         },
       ],
     },
   },
   order: [
-    "turnOffLights",
     "selfEducate",
+    "turnOffLights",
     "bikeInsteadOfDrive",
     "cookVegMeal",
     "job",

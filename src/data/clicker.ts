@@ -1,3 +1,4 @@
+import { MAX_MOOD } from "../constants";
 import { ClickerInterface } from "../reducers/clickerReducer";
 import { ModalView } from "../types";
 import { buttons } from "./buttons";
@@ -8,7 +9,7 @@ export const clicker: ClickerInterface = {
   storySeen: {},
   resources: {
     mood: 200,
-    maxMood: 200,
+    maxMood: MAX_MOOD,
     dollars: 0,
     co2Saved: 0,
     knowledge: 0,
