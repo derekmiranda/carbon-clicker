@@ -7,8 +7,8 @@ export const clicker: ClickerInterface = {
   logs: [],
   storySeen: {},
   resources: {
-    energy: 200,
-    maxEnergy: 200,
+    mood: 200,
+    maxMood: 200,
     dollars: 100000,
     co2Saved: 0,
     knowledge: 0,

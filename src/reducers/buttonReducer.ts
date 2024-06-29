@@ -150,8 +150,6 @@ function checkRequirements(state: ButtonInterface, action: ButtonAction) {
 
   if (requirements?.buttonsUnlocked) {
     const { buttonsUnlocked } = action as CheckRequirementsAction;
-    console.log(buttonsUnlocked);
-
     const allButtonsMet = requirements.buttonsUnlocked.every((buttonKey) =>
       buttonsUnlocked.includes(buttonKey)
     );

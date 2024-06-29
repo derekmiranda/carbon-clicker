@@ -58,8 +58,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       },
       requirements: {
         timesButtonsPressed: {
-          // turnOffLights: 10,
-          turnOffLights: 1,
+          turnOffLights: 10,
         },
       },
       effects: [
@@ -67,6 +66,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
             co2Saved: 2,
+            dollars: 0.333,
           },
         },
       ],
@@ -90,6 +90,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
             co2Saved: 0.5,
+            dollars: 3.33,
           },
         },
       ],
@@ -100,10 +101,11 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       displayName: "Bike Instead of Drive",
       description: "Bike Instead of Drive",
       unlocked: false,
-      enabled: false,
-      oneTime: true,
-      cost: {
-        dollars: 5000,
+      enabled: true,
+      cooldown: {
+        cooldownSeconds: 1 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
       },
       requirements: {
         resources: {
@@ -115,6 +117,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             co2Saved: 2,
+            mood: 2,
           },
         },
       ],

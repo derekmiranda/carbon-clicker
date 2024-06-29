@@ -3,15 +3,15 @@ export enum ResourceTypes {
   GLOBAL_PPM = "globalPpm",
   CO2_SAVED = "co2Saved",
   DOLLARS = "dollars",
-  ENERGY = "energy",
+  MOOD = "mood",
   KNOWLEDGE = "knowledge",
 }
 
 export const ResourceList = Object.values(ResourceTypes);
 
 export type Resources = {
-  energy: number;
-  maxEnergy: number;
+  mood: number;
+  maxMood: number;
   dollars: number;
   co2Saved: number;
   knowledge: number;

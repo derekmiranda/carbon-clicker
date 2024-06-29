@@ -101,8 +101,7 @@ function Clicker() {
   const { state } = useContext(ClickerContext);
   const { clickButton, tickClock, clearGameData } = useDispatchers();
   const { resources, resourceGrowthRates, buttons } = state;
-  const { energy, maxEnergy, co2Saved, knowledge, globalPpm, dollars } =
-    resources;
+  const { mood, maxMood, co2Saved, knowledge, globalPpm, dollars } = resources;
 
   useTicker((timeDelta) => {
     tickClock(timeDelta);
@@ -121,7 +120,7 @@ function Clicker() {
         ) : null}
         <p>--</p>
         <p>
-          Mood: {energy}/{maxEnergy}
+          Mood: {mood}/{maxMood}
         </p>
         <p>Knowledge: {knowledge}</p>
         <p>CO2 Saved: {formatNum(co2Saved)} kg</p>

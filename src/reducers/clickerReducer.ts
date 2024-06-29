@@ -76,10 +76,10 @@ function updateResources(
   for (const item of Object.entries(resourcesDiff)) {
     const [key, diff] = item as [keyof Resources, number];
 
-    if (key === ResourceTypes.ENERGY) {
-      newResources.energy = Math.min(
-        state.resources.energy + diff,
-        state.resources.maxEnergy
+    if (key === ResourceTypes.MOOD) {
+      newResources.mood = Math.min(
+        state.resources.mood + diff,
+        state.resources.maxMood
       );
     } else {
       (newResources[key] as number) += diff;
