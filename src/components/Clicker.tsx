@@ -69,7 +69,9 @@ function Button({
                 return Object.entries(resourcesDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `+${resourceVal} ${resourceKey}`
+                      `${
+                        resourceVal < 0 ? "" : "+"
+                      }${resourceVal} ${resourceKey}`
                   )
                   .join(", ");
               } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
