@@ -4,6 +4,7 @@ import {
   INITIAL_STATE as INITIAL_BUTTON_STATE,
 } from "../reducers/buttonReducer";
 import { EffectTypes, MapLikeInterface } from "../types";
+import { clicker } from "./clicker";
 
 export const buttons: MapLikeInterface<ButtonInterface> = {
   map: {
@@ -157,7 +158,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       unlocked: false,
       enabled: true,
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 2 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -176,6 +177,59 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
+    wallowInMisery: {
+      ...INITIAL_BUTTON_STATE,
+      id: "wallowInMisery",
+      displayName: "Wallow in Misery",
+      description: "Wallow in Misery",
+      unlocked: false,
+      enabled: true,
+      cooldown: {
+        cooldownSeconds: 1 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      requirements: {
+        resources: {
+          knowledge: 12,
+        },
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -1,
+          },
+        },
+      ],
+    },
+    takeABreak: {
+      ...INITIAL_BUTTON_STATE,
+      id: "takeABreak",
+      displayName: "Wallow in Misery",
+      description: "Wallow in Misery",
+      unlocked: false,
+      enabled: true,
+      cooldown: {
+        cooldownSeconds: 4 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      requirements: {
+        resources: {
+          knowledge: 13,
+        },
+        // TODO: phase 2
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: clicker.resources.maxMood,
+          },
+        },
+      ],
+    },
   },
   order: [
     "turnOffLights",
@@ -183,6 +237,8 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
     "bikeInsteadOfDrive",
     "cookVegMeal",
     "job",
+    "takeABreak",
+    "wallowInMisery",
     "makeHomeEnergyEfficient",
     "buySolarPanels",
   ],
