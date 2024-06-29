@@ -12,6 +12,7 @@ import {
   ClickButtonAction,
   SharedAction,
   SharedActionType,
+  TickClockAction,
 } from "../types/actions";
 import buttonReducer, {
   ButtonActionType,
@@ -163,8 +164,6 @@ export default function clickerReducer(
             break;
           }
         }
-
-        console.log(newState.resourceGrowthRates);
       }
 
       // deduct costs, if any
@@ -187,13 +186,22 @@ export default function clickerReducer(
     }
 
     case SharedActionType.TICK_CLOCK: {
+      // handle cooldowns
       const newMap: Record<string, ButtonInterface> = {};
       state.buttons.order.forEach((buttonKey) => {
         newMap[buttonKey] = buttonReducer(state.buttons.map[buttonKey], action);
       });
 
+      // process growth rates
+      const { timeDelta } = action as TickClockAction;
+      const newResources = { ...state.resources };
+      Object.entries(state.resourceGrowthRates).forEach(([key, diff]) => {
+        newResources[key as keyof Resources] += diff * timeDelta;
+      });
+
       return {
         ...state,
+        resources: newResources,
         buttons: {
           ...state.buttons,
           map: newMap,

@@ -11,8 +11,8 @@ export default function Logs() {
       <h2>Logs</h2>
       <div className="logs-box">
         {logs
-          .map((log) => (
-            <p>
+          .map((log, i) => (
+            <p key={i}>
               {"> "}
               {log}
             </p>

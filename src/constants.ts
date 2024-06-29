@@ -12,3 +12,5 @@ export const INTRO = [
   `you’ve been told that living a more sustainable lifestyle can help. activities like biking, saving energy, and recycling will emit fewer greenhouse gas emissions (GHGs). that means less carbon dioxide in the atmosphere that traps heat and warms the planet. you want to do your part to help!`,
   `what can YOU do to lower the world’s carbon footprint?`,
 ];
+
+export const DAYS_PER_SEC = 0.5;

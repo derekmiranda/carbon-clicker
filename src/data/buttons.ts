@@ -53,12 +53,11 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       enabled: false,
       oneTime: true,
       cost: {
-        // dollars: 500,
-        knowledge: 1,
+        dollars: 500,
       },
       requirements: {
         timesButtonsPressed: {
-          turnOffLights: 1,
+          turnOffLights: 10,
         },
       },
       effects: [

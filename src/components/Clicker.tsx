@@ -94,7 +94,7 @@ function Button({
 }
 
 function formatNum(num: number) {
-  return num.toFixed(2);
+  return num.toFixed(1);
 }
 
 function Clicker() {
