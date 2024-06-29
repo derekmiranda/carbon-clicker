@@ -1,9 +1,18 @@
+export const DEFAULT_KNOWLEDGE_DROPPING = `you gained +1 knowledge!`;
+
 export const KNOWLEDGE_DROPPINGS = [
-  "BP recommends you keep your carbon footprint down to save the planet!",
-  "You learn your car emits a ton of carbon. Bike instead!",
-  "The meat industry emits a lot of greenhouse gases. You learn you can eat plants to reduce your dietary carbon footprint",
-  'You read "Silent Spring" by Rachel Carson. Synthetic pesticides in industrial farming harms the environment',
+  `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
+  `did you know that cattle are the #1 source of agricultural emissions in the world? and they're so cute!`,
+  `congrats, you found a job! now you can participate in capitalism and earn that sweet sweet $$$`,
+  `you're reading "silent spring" by rachel carson. what a quintessential environmental book!`,
   "What's this? The 'carbon footprint' was invented by fossil fuel companies?!",
+  DEFAULT_KNOWLEDGE_DROPPING,
+  `you found the "trash is for tossers" blog from lauren singer. #lifegoals, am i right?`,
+  DEFAULT_KNOWLEDGE_DROPPING,
+  `you're reading "this changes everything" by naomi klein. this climate change issue is much bigger than you thought.`,
+  DEFAULT_KNOWLEDGE_DROPPING,
+  `you're reading "parable of the sower" by octavia butler. is this where our future is headed?`,
+  DEFAULT_KNOWLEDGE_DROPPING,
 ];
 
 export const INTRO = [
