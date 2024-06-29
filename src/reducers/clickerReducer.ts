@@ -1,4 +1,4 @@
-import { buttons } from "../data/buttons";
+import { clicker } from "../data/clicker";
 import {
   EffectTypes,
   MapLikeInterface,
@@ -18,6 +18,8 @@ import buttonReducer, {
   ButtonActionType,
   ButtonInterface,
 } from "./buttonReducer";
+
+export const INITIAL_STATE = clicker;
 
 export interface ClickerInterface {
   resources: Resources;
@@ -64,25 +66,6 @@ export type ClickerAction =
   | SharedAction
   | Record<string, unknown>;
 
-export const INITIAL_STATE: ClickerInterface = {
-  modal: ModalView.INTRO,
-  logs: [],
-  storySeen: {},
-  resources: {
-    energy: 200,
-    maxEnergy: 200,
-    dollars: 0,
-    co2Saved: 0,
-    knowledge: 0,
-    globalPpm: 425,
-  },
-  // diff per second
-  resourceGrowthRates: {
-    globalPpm: 0.0067,
-  },
-  buttons,
-};
-
 function updateResources(
   state: ClickerInterface,
   effect: UpdateResourcesEffect
@@ -112,8 +95,11 @@ export default function clickerReducer(
   switch (action.type) {
     case SharedActionType.CLICK_BUTTON: {
       const newState = { ...state };
-      const { buttonId, cost } = action as ClickButtonAction;
+      const { buttonId } = action as ClickButtonAction;
       const button = state.buttons.map[buttonId] as ButtonInterface;
+
+      if (!button.enabled) return state;
+
       const updatedButtonPresses = newState.buttons.order.reduce<
         Record<string, number>
       >((accum, buttonKey) => {
@@ -137,6 +123,17 @@ export default function clickerReducer(
                 type: ButtonActionType.CHECK_REQUIREMENTS,
                 updatedResources: newResources,
                 updatedButtonPresses,
+                buttonsUnlocked: newState.buttons.order.reduce<string[]>(
+                  (accum, buttonKey) => {
+                    const button = newState.buttons.map[buttonKey];
+                    return button.unlocked &&
+                      (!button.oneTime || button.purchased)
+                      ? accum.concat(buttonKey)
+                      : accum;
+                  },
+                  []
+                ),
+                bonusesUnlocked: [],
               });
               newState.buttons.map[buttonKey] = buttonReducer(newButton, {
                 type: ButtonActionType.CHECK_COST,
@@ -167,8 +164,10 @@ export default function clickerReducer(
       }
 
       // deduct costs, if any
-      if (cost) {
-        Object.entries(cost).forEach(([resourceKey, resourceCost]) => {
+      if (button.cost) {
+        console.log(action);
+
+        Object.entries(button.cost).forEach(([resourceKey, resourceCost]) => {
           const key = resourceKey as keyof Resources;
           newState.resources[key] -= resourceCost;
         });
