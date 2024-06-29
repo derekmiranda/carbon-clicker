@@ -12,7 +12,7 @@ export default function Logs() {
       <div className="logs-box">
         {logs
           .map((log, i) => (
-            <p key={i}>
+            <p className="log" key={i}>
               {"> "}
               {log}
             </p>
