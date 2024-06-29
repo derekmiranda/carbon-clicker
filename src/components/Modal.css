@@ -5,3 +5,8 @@
   justify-content: center;
   place-items: center;
 }
+
+.close-button {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+}

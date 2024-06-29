@@ -38,7 +38,9 @@ export default function Modal(rest: ModalProps) {
           {INTRO.map((p) => (
             <p>{p}</p>
           ))}
-          <button onClick={closeIntroModal}>Close</button>
+          <button className="close-button" onClick={closeIntroModal}>
+            Close
+          </button>
         </div>
       ) : null}
     </ReactModal>
