@@ -1,3 +1,4 @@
+import { SECS_PER_DAY } from "../constants";
 import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
@@ -12,7 +13,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       displayName: "Turn Off Lights",
       description: "Turn Off Lights",
       cooldown: {
-        cooldownSeconds: 5,
+        cooldownSeconds: 1 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -31,7 +32,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       displayName: "Self-Educate",
       description: "Self-Educate",
       cooldown: {
-        cooldownSeconds: 1,
+        cooldownSeconds: 4 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -64,12 +65,65 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            // kg CO2 / second
+            co2Saved: 2,
+          },
+        },
+      ],
+    },
+    buySolarPanels: {
+      ...INITIAL_BUTTON_STATE,
+      id: "buySolarPanels",
+      displayName: "Buy Solar Panels",
+      description: "Buy Solar Panels",
+      unlocked: false,
+      enabled: false,
+      oneTime: true,
+      cost: {
+        dollars: 5000,
+      },
+      requirements: {
+        buttonsUnlocked: ["makeHomeEnergyEfficient"],
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
             co2Saved: 0.5,
           },
         },
       ],
     },
+    bikeInsteadOfDrive: {
+      ...INITIAL_BUTTON_STATE,
+      id: "bikeInsteadOfDrive",
+      displayName: "Bike Instead of Drive",
+      description: "Bike Instead of Drive",
+      unlocked: false,
+      enabled: false,
+      oneTime: true,
+      cost: {
+        dollars: 5000,
+      },
+      requirements: {
+        resources: {
+          knowledge: 1,
+        },
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            co2Saved: 2,
+          },
+        },
+      ],
+    },
   },
-  order: ["turnOffLights", "selfEducate", "makeHomeEnergyEfficient"],
+  order: [
+    "turnOffLights",
+    "selfEducate",
+    "bikeInsteadOfDrive",
+    "makeHomeEnergyEfficient",
+    "buySolarPanels",
+  ],
 };

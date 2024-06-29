@@ -71,7 +71,7 @@ export const INITIAL_STATE: ClickerInterface = {
   resources: {
     energy: 200,
     maxEnergy: 200,
-    dollars: 10,
+    dollars: 0,
     co2Saved: 0,
     knowledge: 0,
     globalPpm: 425,

@@ -22,6 +22,8 @@ export type Cost = Partial<Resources>;
 
 export interface Requirements {
   resources?: Partial<Resources>;
+  // array of ids for buttons to unlock
+  buttonsUnlocked?: string[];
   // array of ids for bonuses to unlock
   bonusesUnlocked?: string[];
   // array of ids for story scenes to unlock

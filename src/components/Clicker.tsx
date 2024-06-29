@@ -93,25 +93,25 @@ function Button({
   );
 }
 
-function formatNum(num: number) {
-  return num.toFixed(1);
+function formatNum(num: number, decimals: number = 1) {
+  return num.toFixed(decimals);
 }
 
 function Clicker() {
   const { state } = useContext(ClickerContext);
   const { clickButton, tickClock, clearGameData } = useDispatchers();
   const { resources, resourceGrowthRates, buttons } = state;
-  const { energy, maxEnergy, co2Saved, knowledge, globalPpm } = resources;
+  const { energy, maxEnergy, co2Saved, knowledge, globalPpm, dollars } =
+    resources;
 
   useTicker((timeDelta) => {
     tickClock(timeDelta);
   });
 
   return (
-    <>
-      <h1>Carbon Clicker</h1>
-      <Modal />
-      <div>
+    <main className="game">
+      <div className="resources-container">
+        <h1>Carbon Clicker</h1>
         <p className="ppm-display">Global CO2: {formatNum(globalPpm)} PPM</p>
         {resourceGrowthRates.globalPpm ? (
           <p>
@@ -125,30 +125,32 @@ function Clicker() {
         </p>
         <p>Knowledge: {knowledge}</p>
         <p>CO2 Saved: {formatNum(co2Saved)} kg</p>
-        <div className="buttons-container">
-          {buttons.order
-            .filter((buttonKey) => buttons.map[buttonKey].unlocked)
-            .map((buttonKey) => (
-              <Button
-                key={buttonKey}
-                {...buttons.map[buttonKey]}
-                clickButton={clickButton}
-              />
-            ))}
-        </div>
-        <Logs />
-        <div className="game-data-container">
-          <button
-            onClick={() => {
-              saveGameData(state);
-            }}
-          >
-            Save
-          </button>
-          <button onClick={clearGameData}>Clear</button>
-        </div>
+        <p>${formatNum(dollars, 2)}</p>
       </div>
-    </>
+      <div className="buttons-container">
+        {buttons.order
+          .filter((buttonKey) => buttons.map[buttonKey].unlocked)
+          .map((buttonKey) => (
+            <Button
+              key={buttonKey}
+              {...buttons.map[buttonKey]}
+              clickButton={clickButton}
+            />
+          ))}
+      </div>
+      <Logs />
+      <div className="game-data-container">
+        <button
+          onClick={() => {
+            saveGameData(state);
+          }}
+        >
+          Save
+        </button>
+        <button onClick={clearGameData}>Clear</button>
+      </div>
+      <Modal />
+    </main>
   );
 }
 

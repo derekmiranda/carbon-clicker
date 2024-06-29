@@ -13,4 +13,4 @@ export const INTRO = [
   `what can YOU do to lower the world’s carbon footprint?`,
 ];
 
-export const DAYS_PER_SEC = 0.5;
+export const SECS_PER_DAY = 2;
