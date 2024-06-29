@@ -2,6 +2,7 @@
   background-color: #1a1a1a;
   color: var(--accent-color);
   width: min(95%, 400px);
+  max-height: 50%;
   overflow-y: scroll;
   text-align: left;
 }
