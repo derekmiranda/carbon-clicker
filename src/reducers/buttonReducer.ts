@@ -15,6 +15,8 @@ export interface CheckRequirementsAction {
   type: ButtonActionType.CHECK_REQUIREMENTS;
   updatedResources: Resources;
   updatedButtonPresses: Record<string, number>;
+  buttonsUnlocked: string[];
+  bonusesUnlocked: string[];
 }
 
 export interface CheckCostAction {
@@ -144,6 +146,17 @@ function checkRequirements(state: ButtonInterface, action: ButtonAction) {
     const resourcesMet = checkResourcesMet(resources, updatedResources);
 
     if (!resourcesMet) return false;
+  }
+
+  if (requirements?.buttonsUnlocked) {
+    const { buttonsUnlocked } = action as CheckRequirementsAction;
+    console.log(buttonsUnlocked);
+
+    const allButtonsMet = requirements.buttonsUnlocked.every((buttonKey) =>
+      buttonsUnlocked.includes(buttonKey)
+    );
+
+    if (!allButtonsMet) return false;
   }
 
   if (requirements?.timesButtonsPressed) {

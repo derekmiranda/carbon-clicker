@@ -58,7 +58,8 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       },
       requirements: {
         timesButtonsPressed: {
-          turnOffLights: 10,
+          // turnOffLights: 10,
+          turnOffLights: 1,
         },
       },
       effects: [

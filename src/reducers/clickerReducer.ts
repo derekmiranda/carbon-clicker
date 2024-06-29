@@ -118,28 +118,6 @@ export default function clickerReducer(
 
             newState.resources = newResources;
 
-            newState.buttons.order.forEach((buttonKey) => {
-              const newButton = buttonReducer(newState.buttons.map[buttonKey], {
-                type: ButtonActionType.CHECK_REQUIREMENTS,
-                updatedResources: newResources,
-                updatedButtonPresses,
-                buttonsUnlocked: newState.buttons.order.reduce<string[]>(
-                  (accum, buttonKey) => {
-                    const button = newState.buttons.map[buttonKey];
-                    return button.unlocked &&
-                      (!button.oneTime || button.purchased)
-                      ? accum.concat(buttonKey)
-                      : accum;
-                  },
-                  []
-                ),
-                bonusesUnlocked: [],
-              });
-              newState.buttons.map[buttonKey] = buttonReducer(newButton, {
-                type: ButtonActionType.CHECK_COST,
-                updatedResources: newResources,
-              });
-            });
             break;
           }
 
@@ -165,8 +143,6 @@ export default function clickerReducer(
 
       // deduct costs, if any
       if (button.cost) {
-        console.log(action);
-
         Object.entries(button.cost).forEach(([resourceKey, resourceCost]) => {
           const key = resourceKey as keyof Resources;
           newState.resources[key] -= resourceCost;
@@ -181,9 +157,32 @@ export default function clickerReducer(
         }
       );
 
+      // check requirements and costs
+      newState.buttons.order.forEach((buttonKey) => {
+        const newButton = buttonReducer(newState.buttons.map[buttonKey], {
+          type: ButtonActionType.CHECK_REQUIREMENTS,
+          updatedResources: newState.resources,
+          updatedButtonPresses,
+          buttonsUnlocked: newState.buttons.order
+            .reduce<string[]>((accum, buttonKey) => {
+              const button = newState.buttons.map[buttonKey];
+              return button.unlocked && (!button.oneTime || button.purchased)
+                ? accum.concat(buttonKey)
+                : accum;
+            }, [])
+            .concat(button.oneTime ? buttonId : []),
+          bonusesUnlocked: [],
+        });
+        newState.buttons.map[buttonKey] = buttonReducer(newButton, {
+          type: ButtonActionType.CHECK_COST,
+          updatedResources: newState.resources,
+        });
+      });
+
       return newState;
     }
 
+    // TODO: check requirements at much slower rate
     case SharedActionType.TICK_CLOCK: {
       // handle cooldowns
       const newMap: Record<string, ButtonInterface> = {};
