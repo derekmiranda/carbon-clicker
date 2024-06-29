@@ -32,7 +32,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       displayName: "Self-Educate",
       description: "Self-Educate",
       cooldown: {
-        cooldownSeconds: 4 * SECS_PER_DAY,
+        cooldownSeconds: 1 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },

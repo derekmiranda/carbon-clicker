@@ -1,3 +1,4 @@
+import { KNOWLEDGE_DROPPINGS } from "../constants";
 import { clicker } from "../data/clicker";
 import {
   EffectTypes,
@@ -178,6 +179,15 @@ export default function clickerReducer(
           updatedResources: newState.resources,
         });
       });
+
+      // add knowledge logs
+      if (buttonId === "selfEducate") {
+        const newKnowledgeDropping =
+          KNOWLEDGE_DROPPINGS[newState.resources.knowledge - 1];
+        newState.logs = newKnowledgeDropping
+          ? state.logs.concat(newKnowledgeDropping)
+          : newState.logs;
+      }
 
       return newState;
     }
