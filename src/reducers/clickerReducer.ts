@@ -28,6 +28,8 @@ export interface ClickerInterface {
   resourceGrowthRates: Partial<Resources>;
   buttons: MapLikeInterface<ButtonInterface>;
   logs: string[];
+  // seconds
+  elapsedTime: number;
   storySeen: Record<string, boolean>;
   modal?: ModalView | null;
 }
@@ -218,6 +220,8 @@ export default function clickerReducer(
           ...state.buttons,
           map: newMap,
         },
+        // increment time
+        elapsedTime: state.elapsedTime + timeDelta,
       };
     }
 

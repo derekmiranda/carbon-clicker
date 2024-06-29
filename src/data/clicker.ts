@@ -19,4 +19,5 @@ export const clicker: ClickerInterface = {
     globalPpm: 0.0067,
   },
   buttons,
+  elapsedTime: 0,
 };

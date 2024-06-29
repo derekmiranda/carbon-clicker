@@ -15,6 +15,7 @@ import {
   UpdateResourcesEffect,
   UpdateResourcesRateEffect,
 } from "../types";
+import { SECS_PER_DAY } from "../constants";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -102,7 +103,7 @@ function formatNum(num: number, decimals: number = 1) {
 function Clicker() {
   const { state } = useContext(ClickerContext);
   const { clickButton, tickClock, clearGameData } = useDispatchers();
-  const { resources, resourceGrowthRates, buttons } = state;
+  const { resources, resourceGrowthRates, buttons, elapsedTime } = state;
   const { mood, maxMood, co2Saved, knowledge, globalPpm, dollars } = resources;
 
   useTicker((timeDelta) => {
@@ -120,6 +121,7 @@ function Clicker() {
             PPM/month
           </p>
         ) : null}
+        <p>Month: {formatNum(elapsedTime / SECS_PER_DAY / 30, 0)}</p>
         <p>--</p>
         <p>
           Mood: {mood}/{maxMood}
