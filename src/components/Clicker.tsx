@@ -114,7 +114,15 @@ function Clicker() {
     <main className="game">
       <div className="resources-container">
         <h1>Carbon Clicker</h1>
-        <p className="ppm-display">Global CO2: {formatNum(globalPpm)} PPM</p>
+        <p className="ppm-display">
+          Global CO2: {formatNum(globalPpm)} PPM{" "}
+          <a
+            target="_blank"
+            href="https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide"
+          >
+            info
+          </a>
+        </p>
         {resourceGrowthRates.globalPpm ? (
           <p>
             CO2 Growth Rate: {formatNum(resourceGrowthRates.globalPpm * 30)}{" "}
