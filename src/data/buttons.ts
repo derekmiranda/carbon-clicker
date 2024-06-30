@@ -205,8 +205,8 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
     takeABreak: {
       ...INITIAL_BUTTON_STATE,
       id: "takeABreak",
-      displayName: "Wallow in Misery",
-      description: "Wallow in Misery",
+      displayName: "Take a Break",
+      description: "Take a Break",
       unlocked: false,
       enabled: true,
       cooldown: {
