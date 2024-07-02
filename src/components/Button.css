@@ -1,0 +1,22 @@
+.button {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  width: var(--button-width);
+  height: fit-content;
+  margin-right: auto;
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
+
+.button span {
+  display: block;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--text-color);
+}
+
+.button--cooling-down {
+  cursor: wait;
+}
