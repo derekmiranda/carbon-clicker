@@ -4,17 +4,29 @@
   width: var(--button-width);
   height: fit-content;
   margin-right: auto;
+  margin-left: auto;
 }
 
 .button:disabled {
   opacity: 0.5;
 }
 
-.button span {
+.button span.button__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button span.button__detail {
   display: block;
   font-style: italic;
   font-size: 0.8rem;
   color: var(--text-color);
+}
+
+.button__icon {
+  object-fit: contain;
+  width: var(--icon-width);
 }
 
 .button--cooling-down {

@@ -11,6 +11,11 @@ interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
 }
 
+function Icon({ url }: { url: string }) {
+  const imgUrl = new URL(url, import.meta.url).toString();
+  return <img className="button__icon" src={imgUrl} />;
+}
+
 export default function Button({
   id,
   displayName,
@@ -21,6 +26,7 @@ export default function Button({
   oneTime,
   purchased,
   cost,
+  icon,
 }: ButtonProps) {
   const handleClick = () => {
     clickButton(id);
@@ -42,9 +48,12 @@ export default function Button({
         disabled={!enabled || cooldown?.onCooldown}
         onClick={handleClick}
       >
-        {displayName}
+        <span className="button__title">
+          {icon ? <Icon url={icon} /> : null}
+          {displayName}
+        </span>
         {cost ? (
-          <span>
+          <span className="button__detail">
             Cost:{" "}
             {Object.entries(cost)
               .map(([key, val]) => `${val} ${key}`)
@@ -52,7 +61,7 @@ export default function Button({
           </span>
         ) : null}
         {effects.length ? (
-          <span>
+          <span className="button__detail">
             Effect:{" "}
             {effects.map((effect) => {
               if (effect.type === EffectTypes.UPDATE_RESOURCES) {
@@ -79,7 +88,9 @@ export default function Button({
           </span>
         ) : null}
         {oneTime ? (
-          <span>{purchased ? "Purchased" : "One Time Purchase"}</span>
+          <span className="button__detail">
+            {purchased ? "Purchased" : "One Time Purchase"}
+          </span>
         ) : null}
       </button>
     </>

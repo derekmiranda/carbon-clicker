@@ -12,6 +12,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "turnOffLights",
       displayName: "Turn Off Lights",
       description: "Turn Off Lights",
+      icon: "/public/turnofflights.png",
       cooldown: {
         cooldownSeconds: 1 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,

@@ -37,6 +37,8 @@ export interface ButtonInterface {
   enabled: boolean;
   timesPressed: number;
   effects: Effect[];
+  // image path
+  icon?: string;
   purchased?: boolean;
   oneTime?: boolean;
   tooltip?: string;
