@@ -79,6 +79,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "buySolarPanels",
       displayName: "Buy Solar Panels",
       description: "Buy Solar Panels",
+      icon: "/solarpanel.png",
       unlocked: false,
       enabled: false,
       oneTime: true,
