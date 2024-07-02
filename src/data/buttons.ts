@@ -7,31 +7,12 @@ import { EffectTypes, MapLikeInterface } from "../types";
 
 export const buttons: MapLikeInterface<ButtonInterface> = {
   map: {
-    turnOffLights: {
-      ...INITIAL_BUTTON_STATE,
-      id: "turnOffLights",
-      displayName: "Turn Off Lights",
-      description: "Turn Off Lights",
-      icon: "/public/turnofflights.png",
-      cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
-        elapsedCooldownSeconds: 0,
-        onCooldown: false,
-      },
-      effects: [
-        {
-          type: EffectTypes.UPDATE_RESOURCES,
-          resourcesDiff: {
-            co2Saved: 1,
-          },
-        },
-      ],
-    },
     selfEducate: {
       ...INITIAL_BUTTON_STATE,
       id: "selfEducate",
       displayName: "Self-Educate",
       description: "Self-Educate",
+      icon: "/selfeducate.png",
       cooldown: {
         cooldownSeconds: 1 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
@@ -42,6 +23,26 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             knowledge: 1,
+          },
+        },
+      ],
+    },
+    turnOffLights: {
+      ...INITIAL_BUTTON_STATE,
+      id: "turnOffLights",
+      displayName: "Turn Off Lights",
+      description: "Turn Off Lights",
+      icon: "/turnofflights.png",
+      cooldown: {
+        cooldownSeconds: 1 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            co2Saved: 1,
           },
         },
       ],
@@ -101,6 +102,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "bikeInsteadOfDrive",
       displayName: "Bike Instead of Drive",
       description: "Bike Instead of Drive",
+      icon: "/bike.png",
       unlocked: false,
       enabled: true,
       cooldown: {
@@ -128,6 +130,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "cookVegMeal",
       displayName: "Cook a Vegeterian Meal",
       description: "Cook a Vegeterian Meal",
+      icon: "/vegmeal.png",
       unlocked: false,
       enabled: true,
       cooldown: {
