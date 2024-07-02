@@ -52,6 +52,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "makeHomeEnergyEfficient",
       displayName: "Make Home Energy-Efficient",
       description: "Make Home Energy-Efficient",
+      icon: "/home.png",
       unlocked: false,
       enabled: false,
       oneTime: true,
