@@ -12,7 +12,7 @@ interface ButtonProps extends ButtonInterface {
 }
 
 function Icon({ url }: { url: string }) {
-  const imgUrl = new URL(url, import.meta.url).toString();
+  const imgUrl = `${import.meta.env.BASE_URL}${url}`;
   return <img className="button__icon" src={imgUrl} />;
 }
 
