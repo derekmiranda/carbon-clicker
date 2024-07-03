@@ -123,7 +123,6 @@ export default function clickerReducer(
             );
 
             newState.resources = newResources;
-
             break;
           }
 
@@ -156,12 +155,15 @@ export default function clickerReducer(
       }
 
       // click button
-      newState.buttons.map[buttonId] = buttonReducer(
-        newState.buttons.map[buttonId],
-        {
-          type: SharedActionType.CLICK_BUTTON,
-        }
-      );
+      newState.buttons = {
+        ...newState.buttons,
+        map: {
+          ...newState.buttons.map,
+          [buttonId]: buttonReducer(newState.buttons.map[buttonId], {
+            type: SharedActionType.CLICK_BUTTON,
+          }),
+        },
+      };
 
       // check requirements and costs
       newState.buttons.order.forEach((buttonKey) => {
