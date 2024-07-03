@@ -148,10 +148,12 @@ export default function clickerReducer(
 
       // deduct costs, if any
       if (button.cost) {
+        const newResources: Resources = { ...newState.resources };
         Object.entries(button.cost).forEach(([resourceKey, resourceCost]) => {
           const key = resourceKey as keyof Resources;
-          newState.resources[key] -= resourceCost;
+          newResources[key] -= resourceCost;
         });
+        newState.resources = newResources;
       }
 
       // click button
