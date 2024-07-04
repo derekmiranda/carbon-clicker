@@ -20,6 +20,10 @@
   }
 }
 
+.buttons-container h2 {
+  grid-column: span 2;
+}
+
 .ppm-display {
   color: var(--warn-color);
   font-weight: bolder;

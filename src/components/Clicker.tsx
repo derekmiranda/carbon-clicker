@@ -8,16 +8,13 @@ import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { useContext } from "react";
 import { SECS_PER_DAY } from "../constants";
-import Button from "./Button";
-
-function formatNum(num: number, decimals: number = 1) {
-  return num.toFixed(decimals);
-}
+import Buttons from "./Buttons";
+import { formatNum } from "../utils";
 
 function Clicker() {
   const { state } = useContext(ClickerContext);
-  const { clickButton, tickClock, clearGameData } = useDispatchers();
-  const { resources, resourceGrowthRates, buttons, elapsedTime } = state;
+  const { tickClock, clearGameData } = useDispatchers();
+  const { resources, resourceGrowthRates, elapsedTime } = state;
   const { mood, maxMood, co2Saved, knowledge, globalPpm, dollars } = resources;
 
   useTicker((timeDelta) => {
@@ -52,17 +49,7 @@ function Clicker() {
         <p>CO2 Saved: {formatNum(co2Saved)} kg</p>
         <p>${formatNum(dollars, 2)}</p>
       </div>
-      <div className="buttons-container">
-        {buttons.order
-          .filter((buttonKey) => buttons.map[buttonKey].unlocked)
-          .map((buttonKey) => (
-            <Button
-              key={buttonKey}
-              {...buttons.map[buttonKey]}
-              clickButton={clickButton}
-            />
-          ))}
-      </div>
+      <Buttons />
       <Logs />
       <div className="game-data-container">
         <button
