@@ -299,7 +299,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       displayName: "Take a Break",
       description: "Take a Break",
       icon: "takebreak.png",
-      unlocked: false,
+      unlocked: true,
       enabled: true,
       cooldown: {
         cooldownSeconds: 4 * SECS_PER_DAY,
@@ -310,7 +310,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         resources: {
           knowledge: 13,
         },
-        // TODO: phase 2
+        // TODO: only enable in phase 2
       },
       effects: [
         {

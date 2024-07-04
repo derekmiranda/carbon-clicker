@@ -37,7 +37,6 @@ export enum EffectTypes {
   UPDATE_RESOURCES_RATE = "UPDATE_RESOURCES_RATE",
   UNLOCK_BONUS = "UNLOCK_BONUS",
   UNLOCK_STORY_FLAG = "UNLOCK_STORY_FLAG",
-  TAKE_BREAK = "TAKE_BREAK",
 }
 
 export interface GenericEffect {
@@ -53,10 +52,6 @@ export interface UpdateResourcesEffect {
 export interface UpdateResourcesRateEffect {
   type: EffectTypes.UPDATE_RESOURCES_RATE;
   resourcesRateDiff: Partial<Resources>;
-}
-
-export interface TakeBreakEffect {
-  type: EffectTypes.TAKE_BREAK;
 }
 
 export type Effect =

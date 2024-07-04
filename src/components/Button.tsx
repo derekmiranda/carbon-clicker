@@ -8,6 +8,8 @@ import {
 import "./Button.css";
 import { DISPLAY_NAMES } from "../constants";
 import { CooldownInterface } from "../reducers/cooldownReducer";
+import { ClickerContext } from "../reducers/context";
+import { useContext } from "react";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -43,6 +45,15 @@ export default function Button({
   cost,
   icon,
 }: ButtonProps) {
+  const {
+    state: {
+      buttons: { map },
+    },
+  } = useContext(ClickerContext);
+  const { cooldown: breakCooldown } = map.takeABreak;
+
+  const mainCooldown = breakCooldown?.onCooldown ? breakCooldown : cooldown;
+
   const handleClick = () => {
     clickButton(id);
   };
@@ -51,10 +62,10 @@ export default function Button({
     <>
       <button
         className={classNames("button", {
-          "button--cooling-down": cooldown?.onCooldown,
+          "button--cooling-down": mainCooldown?.onCooldown,
         })}
-        style={cooldown ? getButtonStyles(cooldown) : undefined}
-        disabled={!enabled || cooldown?.onCooldown}
+        style={mainCooldown ? getButtonStyles(mainCooldown) : undefined}
+        disabled={!enabled || mainCooldown?.onCooldown}
         onClick={handleClick}
       >
         <span className="button__title">
