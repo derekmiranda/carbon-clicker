@@ -127,11 +127,52 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
+    driveEV: {
+      ...INITIAL_BUTTON_STATE,
+      id: "driveEV",
+      displayName: "Drive EV",
+      description: "Drive EV",
+      unlocked: false,
+      enabled: false,
+      cooldown: {
+        cooldownSeconds: 1 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      requirements: {
+        buttonsUnlocked: ["buyEV"],
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            co2Saved: 10,
+          },
+        },
+      ],
+    },
+    buyEV: {
+      ...INITIAL_BUTTON_STATE,
+      id: "buyEV",
+      displayName: "Buy Electric Vehicle",
+      description: "Buy Electric Vehicle",
+      oneTime: true,
+      unlocked: false,
+      enabled: false,
+      requirements: {
+        timesButtonsPressed: {
+          bikeInsteadOfDrive: 10,
+        },
+      },
+      cost: {
+        dollars: 10000,
+      },
+    },
     cookVegMeal: {
       ...INITIAL_BUTTON_STATE,
       id: "cookVegMeal",
-      displayName: "Cook a Vegeterian Meal",
-      description: "Cook a Vegeterian Meal",
+      displayName: "Cook a Vegetarian Meal",
+      description: "Cook a Vegetarian Meal",
       icon: "vegmeal.png",
       unlocked: false,
       enabled: true,
@@ -154,6 +195,48 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
           },
         },
       ],
+    },
+    homegrownMeal: {
+      ...INITIAL_BUTTON_STATE,
+      id: "homegrownMeal",
+      displayName: "Cook with Homegrown Produce",
+      description: "Cook with Homegrown Produce",
+      unlocked: false,
+      enabled: true,
+      cooldown: {
+        cooldownSeconds: 1 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      requirements: {
+        buttonsUnlocked: ["startYourOwnGarden"],
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            co2Saved: 6,
+            mood: 4,
+          },
+        },
+      ],
+    },
+    startYourOwnGarden: {
+      ...INITIAL_BUTTON_STATE,
+      id: "startYourOwnGarden",
+      displayName: "Start your own Garden",
+      description: "Start your own Garden",
+      unlocked: false,
+      enabled: true,
+      oneTime: true,
+      requirements: {
+        timesButtonsPressed: {
+          cookVegMeal: 10,
+        },
+      },
+      cost: {
+        dollars: 50,
+      },
     },
     job: {
       ...INITIAL_BUTTON_STATE,
@@ -243,10 +326,15 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
     "selfEducate",
     "turnOffLights",
     "bikeInsteadOfDrive",
+    "driveEV",
     "cookVegMeal",
     "job",
     "takeABreak",
     "wallowInMisery",
+
+    // one time
+    "startYourOwnGarden",
+    "buyEV",
     "makeHomeEnergyEfficient",
     "buySolarPanels",
   ],
