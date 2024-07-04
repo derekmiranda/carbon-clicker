@@ -26,6 +26,8 @@
 .button__icon {
   object-fit: contain;
   width: var(--icon-width);
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .button--cooling-down {
