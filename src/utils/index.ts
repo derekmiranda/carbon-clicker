@@ -1,3 +1,4 @@
+import { SECS_PER_DAY } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import { MapLikeInterface } from "../types";
 
@@ -15,4 +16,16 @@ export function getUpgradeButtons(buttons: MapLikeInterface<ButtonInterface>) {
   return buttons.order
     .filter((buttonKey) => buttons.map[buttonKey].oneTime)
     .filter((buttonKey) => buttons.map[buttonKey].unlocked);
+}
+
+export function getCurrentDay(elapsedTime: number) {
+  return Math.floor(elapsedTime / SECS_PER_DAY) % 30;
+}
+
+export function getCurrentMonth(elapsedTime: number) {
+  return Math.floor(elapsedTime / SECS_PER_DAY / 30) % 12;
+}
+
+export function getCurrentYear(elapsedTime: number) {
+  return 2024 + elapsedTime / SECS_PER_DAY / 365;
 }

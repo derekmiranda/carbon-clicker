@@ -7,9 +7,13 @@ import { saveGameData } from "../storage";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { useContext } from "react";
-import { SECS_PER_DAY } from "../constants";
 import Buttons from "./Buttons";
-import { formatNum } from "../utils";
+import {
+  formatNum,
+  getCurrentDay,
+  getCurrentMonth,
+  getCurrentYear,
+} from "../utils";
 
 function Clicker() {
   const { state } = useContext(ClickerContext);
@@ -40,7 +44,9 @@ function Clicker() {
             PPM/month
           </p>
         ) : null}
-        <p>Month: {formatNum(elapsedTime / SECS_PER_DAY / 30, 0)}</p>
+        <p>Day: {formatNum(getCurrentDay(elapsedTime), 0)}</p>
+        <p>Month: {formatNum(getCurrentMonth(elapsedTime), 0)}</p>
+        <p>Year: {formatNum(getCurrentYear(elapsedTime), 0)}</p>
         <p>--</p>
         <p>
           Mood: {mood}/{maxMood}

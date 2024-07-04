@@ -6,6 +6,7 @@ import {
   UpdateResourcesRateEffect,
 } from "../types";
 import "./Button.css";
+import { DISPLAY_NAMES } from "../constants";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -69,9 +70,9 @@ export default function Button({
                 return Object.entries(resourcesDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `${
-                        resourceVal < 0 ? "" : "+"
-                      }${resourceVal} ${resourceKey}`
+                      `${resourceVal < 0 ? "" : "+"}${resourceVal} ${
+                        DISPLAY_NAMES[resourceKey] || resourceKey
+                      }`
                   )
                   .join(", ");
               } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
@@ -80,7 +81,9 @@ export default function Button({
                 return Object.entries(resourcesRateDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `+${resourceVal} ${resourceKey}/sec`
+                      `+${resourceVal} ${
+                        DISPLAY_NAMES[resourceKey] || resourceKey
+                      }/day`
                   )
                   .join(", ");
               }

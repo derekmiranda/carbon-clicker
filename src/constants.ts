@@ -52,3 +52,9 @@ export const KNOWLEDGE_DROPPINGS = [
 
 export const SECS_PER_DAY = 2;
 export const MAX_MOOD = 200;
+export const DISPLAY_NAMES: Record<string, string> = {
+  knowledge: "Knowledge",
+  mood: "Mood",
+  dollars: "$",
+  co2Saved: "CO2 Saved",
+};
