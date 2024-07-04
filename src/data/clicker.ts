@@ -7,6 +7,7 @@ export const clicker: ClickerInterface = {
   modal: ModalView.INTRO,
   logs: [],
   storySeen: {},
+  phase: 1,
   resources: {
     mood: 200,
     maxMood: MAX_MOOD,
@@ -14,6 +15,10 @@ export const clicker: ClickerInterface = {
     co2Saved: 0,
     knowledge: 0,
     globalPpm: 425,
+
+    // phase 2
+    peoplePower: 0,
+    trust: 0,
   },
   // diff per second
   resourceGrowthRates: {

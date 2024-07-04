@@ -30,6 +30,7 @@ export interface ClickerInterface {
   // difference per second
   resourceGrowthRates: Partial<Resources>;
   buttons: MapLikeInterface<ButtonInterface>;
+  phase: number;
   logs: string[];
   // seconds
   elapsedTime: number;

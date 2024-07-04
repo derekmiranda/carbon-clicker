@@ -16,6 +16,8 @@ export type Resources = {
   co2Saved: number;
   knowledge: number;
   globalPpm: number;
+  peoplePower: number;
+  trust: number;
 };
 
 export type Cost = Partial<Resources>;
