@@ -160,6 +160,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "job",
       displayName: "Job",
       description: "Job",
+      icon: "job.png",
       unlocked: false,
       enabled: true,
       cooldown: {
@@ -189,6 +190,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       description: "Wallow in Misery",
       unlocked: false,
       enabled: true,
+      icon: "wallow.png",
       cooldown: {
         cooldownSeconds: 1 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
@@ -213,6 +215,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "takeABreak",
       displayName: "Take a Break",
       description: "Take a Break",
+      icon: "takebreak.png",
       unlocked: false,
       enabled: true,
       cooldown: {
