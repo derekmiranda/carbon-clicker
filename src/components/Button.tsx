@@ -7,6 +7,7 @@ import {
 } from "../types";
 import "./Button.css";
 import { DISPLAY_NAMES } from "../constants";
+import { CooldownInterface } from "../reducers/cooldownReducer";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -15,6 +16,19 @@ interface ButtonProps extends ButtonInterface {
 function Icon({ url }: { url: string }) {
   const imgUrl = `${import.meta.env.BASE_URL}${url}`;
   return <img className="button__icon" src={imgUrl} />;
+}
+
+function getButtonStyles(cooldown: CooldownInterface) {
+  const progress = cooldown?.onCooldown
+    ? cooldown.elapsedCooldownSeconds / cooldown.cooldownSeconds
+    : undefined;
+  const percent = progress && `${progress * 100}%`;
+
+  return percent
+    ? {
+        background: `linear-gradient(45deg, var(--accent-color) ${percent}, var(--text-color) 0)`,
+      }
+    : undefined;
 }
 
 export default function Button({
@@ -32,9 +46,6 @@ export default function Button({
   const handleClick = () => {
     clickButton(id);
   };
-  const opacity = cooldown?.onCooldown
-    ? cooldown.elapsedCooldownSeconds / cooldown.cooldownSeconds
-    : undefined;
 
   return (
     <>
@@ -42,10 +53,7 @@ export default function Button({
         className={classNames("button", {
           "button--cooling-down": cooldown?.onCooldown,
         })}
-        style={{
-          opacity,
-          cursor: cooldown?.onCooldown ? "wait" : "default",
-        }}
+        style={cooldown ? getButtonStyles(cooldown) : undefined}
         disabled={!enabled || cooldown?.onCooldown}
         onClick={handleClick}
       >
