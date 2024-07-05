@@ -1,4 +1,9 @@
-import { MAX_MOOD, SECS_PER_DAY } from "../constants";
+import {
+  END_PHASE_1_KNOWLEDGE_DROPPING,
+  KNOWLEDGE_DROPPINGS,
+  MAX_MOOD,
+  SECS_PER_DAY,
+} from "../constants";
 import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
@@ -308,7 +313,10 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       },
       requirements: {
         resources: {
-          knowledge: 13,
+          knowledge:
+            KNOWLEDGE_DROPPINGS.findIndex(
+              (message) => message === END_PHASE_1_KNOWLEDGE_DROPPING
+            ) + 1,
         },
         // TODO: only enable in phase 2
       },
