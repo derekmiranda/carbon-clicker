@@ -3,9 +3,14 @@
   background-color: #1a1a1a;
   color: var(--accent-color);
   width: var(--default-container-width);
-  height: 600px;
+  height: 160px;
   overflow-y: scroll;
   text-align: left;
+}
+@media only screen and (min-width: 768px) {
+  .logs-box {
+    height: 600px;
+  }
 }
 
 .log {

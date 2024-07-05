@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: min-content;
   grid-gap: var(--gap);
-  grid-template-areas: "resources" "buttons" "logs";
+  grid-template-areas: "resources" "logs" "buttons";
   align-items: start;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .game-data-container {
-  position: absolute;
+  position: fixed;
   top: 24px;
   right: 24px;
 }
