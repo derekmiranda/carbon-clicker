@@ -22,25 +22,41 @@ function Resources() {
             info
           </a>
         </p>
-        {resourceGrowthRates.globalPpm ? (
-          <>
-            <p className="resource ppm">CO2 Growth Rate:</p>
-            <p className="resource ppm">
-              {formatNum(resourceGrowthRates.globalPpm * 30)} PPM/month
-            </p>
-          </>
-        ) : null}
+        <p className="resource ppm">
+          {resourceGrowthRates.globalPpm
+            ? `+${formatNum(resourceGrowthRates.globalPpm * 30)}/mo.`
+            : ""}
+        </p>
 
         <p>Mood:</p>
         <p>
           {mood}/{maxMood}
         </p>
+        <p className="resource"></p>
+
         <p>Knowledge:</p>
         <p> {knowledge}</p>
+        <p className="resource"></p>
+
         <p>CO2 Saved:</p>
         <p> {formatNum(co2Saved)} kg</p>
+        <p className="resource">
+          {resourceGrowthRates.co2Saved
+            ? `${resourceGrowthRates.co2Saved < 0 ? "-" : "+"}${formatNum(
+                resourceGrowthRates.co2Saved * 30
+              )}/mo.`
+            : ""}
+        </p>
+
         <p>Dollars:</p>
         <p> ${formatNum(dollars, 2)}</p>
+        <p className="resource">
+          {resourceGrowthRates.dollars
+            ? `${resourceGrowthRates.dollars < 0 ? "-" : "+"}${formatNum(
+                resourceGrowthRates.dollars * 30
+              )}/mo.`
+            : ""}
+        </p>
       </div>
     </div>
   );
