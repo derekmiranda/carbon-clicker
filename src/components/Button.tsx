@@ -89,7 +89,7 @@ export default function Button({
                 return Object.entries(resourcesDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `${formatResource(resourceVal, resourceKey)}`
+                      `${formatResource(resourceVal, resourceKey, true)}`
                   )
                   .join(", ");
               } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
@@ -98,7 +98,7 @@ export default function Button({
                 return Object.entries(resourcesRateDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `+${formatResource(resourceVal, resourceKey)}/day`
+                      `+${formatResource(resourceVal, resourceKey, true)}/day`
                   )
                   .join(", ");
               }

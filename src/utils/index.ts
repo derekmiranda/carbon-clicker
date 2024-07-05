@@ -30,9 +30,15 @@ export function getCurrentYear(elapsedTime: number) {
   return 2024 + elapsedTime / SECS_PER_DAY / 365;
 }
 
-export function formatResource(val: string | number, resourceKey: string) {
+export function formatResource(
+  val: string | number,
+  resourceKey: string,
+  showPlus: boolean = false
+) {
+  val = typeof val === "string" ? parseInt(val) : val;
+  const sign = val > 0 && showPlus ? "+" : "";
   if (resourceKey === "dollars") {
-    return `$${val}`;
+    return `${sign}$${val}`;
   }
-  return `${val} ${DISPLAY_NAMES[resourceKey] || resourceKey}`;
+  return `${sign}${val} ${DISPLAY_NAMES[resourceKey] || resourceKey}`;
 }
