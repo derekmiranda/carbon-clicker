@@ -98,7 +98,7 @@ export default function Button({
                 return Object.entries(resourcesRateDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `+${formatResource(resourceVal, resourceKey, true)}/day`
+                      `${formatResource(resourceVal, resourceKey, true)}/day`
                   )
                   .join(", ");
               }
