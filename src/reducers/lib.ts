@@ -15,17 +15,22 @@ export function checkReqsAndCosts(
     updatedResources: newState.resources,
   };
 
+  checkReqsAction.buttonsUnlocked = newState.buttons.order.reduce<string[]>(
+    (accum, buttonKey) => {
+      const button = newState.buttons.map[buttonKey];
+      return button.unlocked && (!button.oneTime || button.purchased)
+        ? accum.concat(buttonKey)
+        : accum;
+    },
+    []
+  );
+  checkReqsAction.updatedButtonPresses = getButtonPresses(newState.buttons);
+
   if (clickedButton) {
     const button = newState.buttons.map[clickedButton];
-    checkReqsAction.updatedButtonPresses = getButtonPresses(newState.buttons);
-    checkReqsAction.buttonsUnlocked = newState.buttons.order
-      .reduce<string[]>((accum, buttonKey) => {
-        const button = newState.buttons.map[buttonKey];
-        return button.unlocked && (!button.oneTime || button.purchased)
-          ? accum.concat(buttonKey)
-          : accum;
-      }, [])
-      .concat(button.oneTime ? clickedButton : []);
+    if (button.oneTime) {
+      checkReqsAction.buttonsUnlocked.push(clickedButton);
+    }
   }
 
   newState.buttons.order.forEach((buttonKey) => {
