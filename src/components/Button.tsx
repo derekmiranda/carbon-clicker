@@ -76,7 +76,7 @@ export default function Button({
           <span className="button__detail">
             Cost:{" "}
             {Object.entries(cost)
-              .map(([key, val]) => `${val} ${key}`)
+              .map(([key, val]) => formatResource(val, key))
               .join(", ")}
           </span>
         ) : null}
@@ -87,9 +87,8 @@ export default function Button({
               if (effect.type === EffectTypes.UPDATE_RESOURCES) {
                 const { resourcesDiff } = effect as UpdateResourcesEffect;
                 return Object.entries(resourcesDiff)
-                  .map(
-                    ([resourceKey, resourceVal]) =>
-                      `${formatResource(resourceVal, resourceKey, true)}`
+                  .map(([resourceKey, resourceVal]) =>
+                    formatResource(resourceVal, resourceKey, true)
                   )
                   .join(", ");
               } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
