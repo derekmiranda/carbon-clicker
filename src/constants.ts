@@ -32,14 +32,15 @@ export const END_PHASE_1_KNOWLEDGE_DROPPING = [
 
 export const KNOWLEDGE_DROPPINGS = [
   `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
-  `did you know that cattle are the #1 source of agricultural emissions in the world? and they're so cute!`,
+  `did you know that factory farming of cattle is the #1 source of agricultural emissions in the world? and cows are so cute!`,
   `congrats, you found a job! now you can participate in capitalism and earn that sweet sweet $$$`,
   `you're reading "silent spring" by rachel carson. what a quintessential environmental book!`,
-  "What's this? The 'carbon footprint' was invented by fossil fuel companies?!",
   DEFAULT_KNOWLEDGE_DROPPING,
   `you found the "trash is for tossers" blog from lauren singer. #lifegoals, am i right?`,
   DEFAULT_KNOWLEDGE_DROPPING,
+  DEFAULT_KNOWLEDGE_DROPPING,
   `you're reading "this changes everything" by naomi klein. this climate change issue is much bigger than you thought.`,
+  DEFAULT_KNOWLEDGE_DROPPING,
   DEFAULT_KNOWLEDGE_DROPPING,
   `you're reading "parable of the sower" by octavia butler. is this where our future is headed?`,
   [
