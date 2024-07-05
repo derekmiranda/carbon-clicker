@@ -133,7 +133,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       displayName: "Drive EV",
       description: "Drive EV",
       unlocked: false,
-      enabled: false,
+      enabled: true,
       cooldown: {
         cooldownSeconds: 1 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
@@ -328,6 +328,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
     "bikeInsteadOfDrive",
     "driveEV",
     "cookVegMeal",
+    "homegrownMeal",
     "job",
     "takeABreak",
     "wallowInMisery",
