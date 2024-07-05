@@ -5,10 +5,6 @@
   align-items: start;
 }
 
-.resources-container {
-  width: var(--default-container-width);
-}
-
 .buttons-container {
   display: inline-grid;
   grid-template-columns: 1fr;
@@ -39,11 +35,6 @@
 
 .buttons-container h2 {
   grid-column: span 2;
-}
-
-.ppm-display {
-  color: var(--warn-color);
-  font-weight: bolder;
 }
 
 .game-data-container {

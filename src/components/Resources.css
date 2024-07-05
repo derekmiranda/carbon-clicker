@@ -1,0 +1,26 @@
+.resources-container {
+  width: var(--default-container-width);
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0;
+}
+
+.resources-grid p {
+  margin: 0;
+}
+
+.ppm-display {
+  color: var(--warn-color);
+  font-weight: bolder;
+}
+
+.resource.ppm {
+  color: var(--warn-color);
+}
+
+.time-display {
+  grid-column: span 2;
+}
