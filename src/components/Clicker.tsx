@@ -1,4 +1,4 @@
-import useTicker from "../hooks/useTicker";
+import useTicker, { useTickThrottle } from "../hooks/useTicker";
 import Modal from "./Modal";
 import Logs from "./Logs";
 
@@ -12,10 +12,13 @@ import Resources from "./Resources";
 
 function Clicker() {
   const { state } = useContext(ClickerContext);
-  const { tickCooldown, clearGameData } = useDispatchers();
+  const { tickCooldown, tickResources, clearGameData } = useDispatchers();
+
+  const throttleTickResources = useTickThrottle(tickResources, 1);
 
   useTicker((timeDelta) => {
     tickCooldown(timeDelta);
+    throttleTickResources(timeDelta);
   }, 60);
 
   return (

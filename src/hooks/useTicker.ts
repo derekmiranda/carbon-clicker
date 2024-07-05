@@ -45,16 +45,16 @@ export function useTickThrottle(
 ) {
   const lastTimeRef = useRef<number>(performance.now());
   const currTimeRef = useRef<number>(performance.now());
-  const frameSecs = 1000 / fps;
+  const frameSecs = 1 / fps;
 
   const animate = useCallback(
     (delta: DOMHighResTimeStamp) => {
-      const currentTime = lastTimeRef.current + delta;
+      const currentTime = currTimeRef.current + delta;
+      currTimeRef.current = currentTime;
       if (currTimeRef.current - lastTimeRef.current > frameSecs) {
         onTick(currentTime - lastTimeRef.current);
         lastTimeRef.current = currentTime;
       }
-      currTimeRef.current = currentTime;
     },
     [onTick, frameSecs]
   );
