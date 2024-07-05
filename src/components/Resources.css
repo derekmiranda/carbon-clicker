@@ -1,5 +1,6 @@
 .resources-container {
   width: var(--default-container-width);
+  grid-area: resources;
 }
 
 .resources-grid {
