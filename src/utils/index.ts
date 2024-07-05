@@ -47,3 +47,7 @@ export function formatResource(
   }
   return `${sign}${val} ${DISPLAY_NAMES[resourceKey] || resourceKey}`;
 }
+
+export function getImgUrl(imgPath: string) {
+  return `${import.meta.env.BASE_URL}${imgPath}`;
+}

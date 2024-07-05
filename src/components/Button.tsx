@@ -9,15 +9,14 @@ import "./Button.css";
 import { CooldownInterface } from "../reducers/cooldownReducer";
 import { ClickerContext } from "../reducers/context";
 import { useContext } from "react";
-import { formatResource } from "../utils";
+import { formatResource, getImgUrl } from "../utils";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
 }
 
 function Icon({ url }: { url: string }) {
-  const imgUrl = `${import.meta.env.BASE_URL}${url}`;
-  return <img className="button__icon" src={imgUrl} />;
+  return <img className="button__icon" src={getImgUrl(url)} />;
 }
 
 function getButtonStyles(cooldown: CooldownInterface) {
