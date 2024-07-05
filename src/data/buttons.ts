@@ -299,7 +299,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       displayName: "Take a Break",
       description: "Take a Break",
       icon: "takebreak.png",
-      unlocked: true,
+      unlocked: false,
       enabled: true,
       cooldown: {
         cooldownSeconds: 4 * SECS_PER_DAY,
