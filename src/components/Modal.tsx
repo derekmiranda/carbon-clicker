@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
 import { ModalView } from "../types";
 import "./Modal.css";
-import { END_PHASE_1, END_PROTOTYPE, INTRO, LOG_BOUNDARY } from "../constants";
+import { END_PHASE_1, INTRO, LOG_BOUNDARY } from "../constants";
 import { useCallback, useContext } from "react";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
@@ -43,9 +43,7 @@ export default function Modal(rest: ModalProps) {
             ? INTRO.map((p, i) => <p key={i}>{p}</p>)
             : null}
           {modal === ModalView.END_PROTOTYPE
-            ? END_PHASE_1.concat(LOG_BOUNDARY)
-                .concat(END_PROTOTYPE)
-                .map((p, i) => <p key={i}>{p}</p>)
+            ? END_PHASE_1.concat(LOG_BOUNDARY).map((p, i) => <p key={i}>{p}</p>)
             : null}
         </>
         <button className="close-button" onClick={handleModalClose}>
