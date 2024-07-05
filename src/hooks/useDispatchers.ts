@@ -3,7 +3,7 @@ import { ClickerContext } from "../reducers/context";
 import { SharedActionType } from "../types/actions";
 import { clearGameData } from "../storage";
 import { ClickerActionType } from "../reducers/clickerReducer";
-import { ModalView } from "../types";
+import { GamePhase, ModalView } from "../types";
 import { StoryId } from "../types/storyId";
 
 export default function useDispatchers() {
@@ -58,6 +58,12 @@ export default function useDispatchers() {
     [dispatch]
   );
 
+  const setPhase = useCallback(
+    (phase: GamePhase) =>
+      dispatch({ type: ClickerActionType.SET_PHASE, phase }),
+    [dispatch]
+  );
+
   const addLogs = useCallback(
     (logs: string[]) => dispatch({ type: ClickerActionType.ADD_LOGS, logs }),
     [dispatch]
@@ -71,6 +77,7 @@ export default function useDispatchers() {
     closeModal,
     clearGameData: clearGameDataCB,
     setStorySeen,
+    setPhase,
     addLogs,
   };
 }

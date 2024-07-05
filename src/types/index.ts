@@ -16,6 +16,9 @@ export type Resources = {
   co2Saved: number;
   knowledge: number;
   globalPpm: number;
+
+  // phase 2
+  collectiveDollars: number;
   peoplePower: number;
   trust: number;
 };
@@ -69,4 +72,9 @@ export interface MapLikeInterface<T> {
 export enum ModalView {
   INTRO = "INTRO",
   END_PROTOTYPE = "END_PROTOTYPE",
+}
+
+export enum GamePhase {
+  ONE,
+  TWO,
 }

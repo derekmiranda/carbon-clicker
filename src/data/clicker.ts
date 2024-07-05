@@ -1,13 +1,13 @@
 import { MAX_MOOD } from "../constants";
 import { ClickerInterface } from "../reducers/clickerReducer";
-import { ModalView } from "../types";
+import { GamePhase, ModalView } from "../types";
 import { buttons } from "./buttons";
 
 export const clicker: ClickerInterface = {
   modal: ModalView.INTRO,
   logs: [],
   storySeen: {},
-  phase: 1,
+  phase: GamePhase.ONE,
   resources: {
     mood: 200,
     maxMood: MAX_MOOD,
@@ -19,6 +19,7 @@ export const clicker: ClickerInterface = {
     // phase 2
     peoplePower: 0,
     trust: 0,
+    collectiveDollars: 0,
   },
   // diff per second
   resourceGrowthRates: {

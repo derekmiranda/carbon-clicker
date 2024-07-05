@@ -5,6 +5,7 @@ import {
 import { clicker } from "../data/clicker";
 import {
   EffectTypes,
+  GamePhase,
   MapLikeInterface,
   ModalView,
   ResourceTypes,
@@ -29,7 +30,7 @@ export interface ClickerInterface {
   // difference per second
   resourceGrowthRates: Partial<Resources>;
   buttons: MapLikeInterface<ButtonInterface>;
-  phase: number;
+  phase: GamePhase;
   logs: string[];
   // seconds
   elapsedTime: number;
@@ -43,6 +44,7 @@ export enum ClickerActionType {
   SET_STORY_SEEN = "SET_STORY_SEEN",
   LOAD_GAME_DATA = "LOAD_GAME_DATA",
   CLEAR_GAME_DATA = "CLEAR_GAME_DATA",
+  SET_PHASE = "SET_PHASE",
 }
 
 export interface AddLogsAction {
@@ -65,10 +67,16 @@ export interface SaveGameDataAction {
   storyId: string;
 }
 
+export interface SetPhaseAction {
+  type: ClickerActionType.SET_PHASE;
+  phase: GamePhase;
+}
+
 export type ClickerAction =
   | AddLogsAction
   | SetModalAction
   | SetStorySeenAction
+  | SetPhaseAction
   | SharedAction
   | Record<string, unknown>;
 
@@ -237,6 +245,13 @@ export default function clickerReducer(
           ...state.storySeen,
           [storyId]: true,
         },
+      };
+    }
+    case ClickerActionType.SET_PHASE: {
+      const { phase } = action as SetPhaseAction;
+      return {
+        ...state,
+        phase,
       };
     }
 

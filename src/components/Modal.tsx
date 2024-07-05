@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { ModalView } from "../types";
+import { GamePhase, ModalView } from "../types";
 import "./Modal.css";
 import { END_PHASE_1, INTRO, LOG_BOUNDARY } from "../constants";
 import { useCallback, useContext } from "react";
@@ -13,7 +13,7 @@ export default function Modal(rest: ModalProps) {
   const {
     state: { modal },
   } = useContext(ClickerContext);
-  const { closeModal, setStorySeen, addLogs } = useDispatchers();
+  const { closeModal, setStorySeen, addLogs, setPhase } = useDispatchers();
 
   const handleModalClose = useCallback(() => {
     switch (modal) {
@@ -21,9 +21,13 @@ export default function Modal(rest: ModalProps) {
         addLogs(INTRO.concat(LOG_BOUNDARY));
         setStorySeen(StoryId.INTRO);
         break;
+      case ModalView.END_PROTOTYPE:
+        setPhase(GamePhase.TWO);
+        setStorySeen(StoryId.EPIPHANY);
+        break;
     }
     closeModal();
-  }, [modal, addLogs, setStorySeen, closeModal]);
+  }, [modal, addLogs, setStorySeen, setPhase, closeModal]);
 
   return (
     <ReactModal
