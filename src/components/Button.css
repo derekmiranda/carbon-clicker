@@ -9,6 +9,11 @@
   opacity: 0.8;
 }
 
+.button:disabled:hover {
+  border: 2px solid var(--bg-color);
+  cursor: not-allowed;
+}
+
 .button span.button__title {
   display: flex;
   justify-content: center;
