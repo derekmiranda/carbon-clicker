@@ -48,6 +48,13 @@ export default function useDispatchers() {
   );
 
   const clearGameDataCB = useCallback(() => {
+    if (
+      !window.confirm(
+        "this will clear your game progress. are you forsure sure you wann do that?"
+      )
+    )
+      return;
+
     clearGameData();
     dispatch({ type: ClickerActionType.CLEAR_GAME_DATA });
   }, [dispatch]);
