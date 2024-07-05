@@ -343,8 +343,8 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
 
     // one time
     "startYourOwnGarden",
-    "buyEV",
     "makeHomeEnergyEfficient",
     "buySolarPanels",
+    "buyEV",
   ],
 };

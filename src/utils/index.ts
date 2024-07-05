@@ -15,7 +15,12 @@ export function getActionButtons(buttons: MapLikeInterface<ButtonInterface>) {
 export function getUpgradeButtons(buttons: MapLikeInterface<ButtonInterface>) {
   return buttons.order
     .filter((buttonKey) => buttons.map[buttonKey].oneTime)
-    .filter((buttonKey) => buttons.map[buttonKey].unlocked);
+    .filter((buttonKey) => buttons.map[buttonKey].unlocked)
+    .sort((keyA, keyB) => {
+      const buttonA = buttons.map[keyA];
+      const buttonB = buttons.map[keyB];
+      return (buttonA.purchased ? 1 : 0) - (buttonB.purchased ? 1 : 0);
+    });
 }
 
 export function getCurrentDay(elapsedTime: number) {

@@ -50,7 +50,7 @@ export default function useDispatchers() {
   const clearGameDataCB = useCallback(() => {
     if (
       !window.confirm(
-        "this will clear your game progress. are you forsure sure you wann do that?"
+        "this will clear your game progress. are you forsure sure you wanna do that?"
       )
     )
       return;
