@@ -16,12 +16,11 @@ import {
   ClickButtonAction,
   SharedAction,
   SharedActionType,
-  TickClockAction,
+  TickResourcesAction,
+  TickCooldownAction,
 } from "../types/actions";
-import buttonReducer, {
-  ButtonActionType,
-  ButtonInterface,
-} from "./buttonReducer";
+import buttonReducer, { ButtonInterface } from "./buttonReducer";
+import { checkReqsAndCosts } from "./lib";
 
 export const INITIAL_STATE = clicker;
 
@@ -107,13 +106,6 @@ export default function clickerReducer(
 
       if (!button.enabled) return state;
 
-      const updatedButtonPresses = newState.buttons.order.reduce<
-        Record<string, number>
-      >((accum, buttonKey) => {
-        accum[buttonKey] = newState.buttons.map[buttonKey].timesPressed;
-        return accum;
-      }, {});
-
       // process button effects
       for (const effect of button.effects) {
         switch (effect.type) {
@@ -169,26 +161,7 @@ export default function clickerReducer(
       };
 
       // check requirements and costs
-      newState.buttons.order.forEach((buttonKey) => {
-        const newButton = buttonReducer(newState.buttons.map[buttonKey], {
-          type: ButtonActionType.CHECK_REQUIREMENTS,
-          updatedResources: newState.resources,
-          updatedButtonPresses,
-          buttonsUnlocked: newState.buttons.order
-            .reduce<string[]>((accum, buttonKey) => {
-              const button = newState.buttons.map[buttonKey];
-              return button.unlocked && (!button.oneTime || button.purchased)
-                ? accum.concat(buttonKey)
-                : accum;
-            }, [])
-            .concat(button.oneTime ? buttonId : []),
-          bonusesUnlocked: [],
-        });
-        newState.buttons.map[buttonKey] = buttonReducer(newButton, {
-          type: ButtonActionType.CHECK_COST,
-          updatedResources: newState.resources,
-        });
-      });
+      checkReqsAndCosts(newState, buttonId);
 
       // add knowledge logs
       if (buttonId === "selfEducate") {
@@ -210,31 +183,42 @@ export default function clickerReducer(
       return newState;
     }
 
-    // TODO: check requirements at much slower rate
-    case SharedActionType.TICK_CLOCK: {
+    case SharedActionType.TICK_RESOURCES: {
       // handle cooldowns
-      const newMap: Record<string, ButtonInterface> = {};
-      state.buttons.order.forEach((buttonKey) => {
-        newMap[buttonKey] = buttonReducer(state.buttons.map[buttonKey], action);
-      });
+      const newState = { ...state };
 
       // process growth rates
-      const { timeDelta } = action as TickClockAction;
+      const { timeDelta } = action as TickResourcesAction;
       const newResources = { ...state.resources };
       Object.entries(state.resourceGrowthRates).forEach(([key, diff]) => {
         newResources[key as keyof Resources] += diff * timeDelta;
       });
 
-      return {
-        ...state,
-        resources: newResources,
-        buttons: {
-          ...state.buttons,
-          map: newMap,
-        },
-        // increment time
-        elapsedTime: state.elapsedTime + timeDelta,
+      newState.resources = newResources;
+      newState.elapsedTime = state.elapsedTime + timeDelta;
+
+      // check requirements and costs
+      checkReqsAndCosts(newState);
+
+      return newState;
+    }
+
+    case SharedActionType.TICK_COOLDOWN: {
+      // handle cooldowns
+      const newState = { ...state };
+      const { timeDelta } = action as TickCooldownAction;
+      const newMap: Record<string, ButtonInterface> = {};
+      state.buttons.order.forEach((buttonKey) => {
+        newMap[buttonKey] = buttonReducer(state.buttons.map[buttonKey], action);
+      });
+
+      newState.buttons = {
+        ...state.buttons,
+        map: newMap,
       };
+      newState.elapsedTime = state.elapsedTime + timeDelta;
+
+      return newState;
     }
 
     case ClickerActionType.SET_MODAL: {

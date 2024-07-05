@@ -1,7 +1,7 @@
 import {
   SharedAction,
   SharedActionType,
-  TickClockAction,
+  TickCooldownAction,
 } from "../types/actions";
 
 export interface CooldownInterface {
@@ -50,7 +50,7 @@ export default function cooldownReducer(
       };
     }
 
-    case SharedActionType.TICK_CLOCK: {
+    case SharedActionType.TICK_COOLDOWN: {
       const {
         onCooldown,
         cooldownSeconds,
@@ -61,7 +61,7 @@ export default function cooldownReducer(
         return state;
       }
 
-      const { timeDelta } = action as TickClockAction;
+      const { timeDelta } = action as TickCooldownAction;
       const newTime = currSecs + timeDelta;
 
       return {

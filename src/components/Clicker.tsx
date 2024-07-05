@@ -12,11 +12,11 @@ import Resources from "./Resources";
 
 function Clicker() {
   const { state } = useContext(ClickerContext);
-  const { tickClock, clearGameData } = useDispatchers();
+  const { tickCooldown, clearGameData } = useDispatchers();
 
   useTicker((timeDelta) => {
-    tickClock(timeDelta);
-  }, 1);
+    tickCooldown(timeDelta);
+  }, 60);
 
   return (
     <main className="game">

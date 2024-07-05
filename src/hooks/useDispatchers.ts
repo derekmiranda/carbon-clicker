@@ -18,10 +18,19 @@ export default function useDispatchers() {
     [dispatch]
   );
 
-  const tickClock = useCallback(
+  const tickResources = useCallback(
     (timeDelta: number) =>
       dispatch({
-        type: SharedActionType.TICK_CLOCK,
+        type: SharedActionType.TICK_RESOURCES,
+        timeDelta,
+      }),
+    [dispatch]
+  );
+
+  const tickCooldown = useCallback(
+    (timeDelta: number) =>
+      dispatch({
+        type: SharedActionType.TICK_COOLDOWN,
         timeDelta,
       }),
     [dispatch]
@@ -56,7 +65,8 @@ export default function useDispatchers() {
 
   return {
     clickButton,
-    tickClock,
+    tickResources,
+    tickCooldown,
     openModal,
     closeModal,
     clearGameData: clearGameDataCB,

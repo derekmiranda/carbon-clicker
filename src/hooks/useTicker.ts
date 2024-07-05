@@ -38,3 +38,26 @@ export default function useTicker(
     togglePause,
   };
 }
+
+export function useTickThrottle(
+  onTick: (delta: DOMHighResTimeStamp) => void,
+  fps: number = 60
+) {
+  const lastTimeRef = useRef<number>(performance.now());
+  const currTimeRef = useRef<number>(performance.now());
+  const frameSecs = 1000 / fps;
+
+  const animate = useCallback(
+    (delta: DOMHighResTimeStamp) => {
+      const currentTime = lastTimeRef.current + delta;
+      if (currTimeRef.current - lastTimeRef.current > frameSecs) {
+        onTick(currentTime - lastTimeRef.current);
+        lastTimeRef.current = currentTime;
+      }
+      currTimeRef.current = currentTime;
+    },
+    [onTick, frameSecs]
+  );
+
+  return animate;
+}

@@ -14,9 +14,9 @@ export enum ButtonActionType {
 export interface CheckRequirementsAction {
   type: ButtonActionType.CHECK_REQUIREMENTS;
   updatedResources: Resources;
-  updatedButtonPresses: Record<string, number>;
-  buttonsUnlocked: string[];
-  bonusesUnlocked: string[];
+  updatedButtonPresses?: Record<string, number>;
+  buttonsUnlocked?: string[];
+  bonusesUnlocked?: string[];
 }
 
 export interface CheckCostAction {
@@ -87,8 +87,9 @@ export default function buttonReducer(
       return newState;
     }
 
-    case SharedActionType.TICK_CLOCK: {
+    case SharedActionType.TICK_COOLDOWN: {
       const { cooldown } = state;
+
       if (cooldown) {
         return {
           ...state,
@@ -102,7 +103,10 @@ export default function buttonReducer(
       const { unlocked, requirements } = state;
       if (unlocked || !requirements) return state;
 
-      const requirementsMet = checkRequirements(state, action);
+      const requirementsMet = checkRequirements(
+        state,
+        action as CheckRequirementsAction
+      );
       return {
         ...state,
         unlocked: requirementsMet,
@@ -136,19 +140,22 @@ function checkResourcesMet(
   });
 }
 
-function checkRequirements(state: ButtonInterface, action: ButtonAction) {
+function checkRequirements(
+  state: ButtonInterface,
+  action: CheckRequirementsAction
+) {
   const { requirements } = state;
 
   if (requirements?.resources) {
-    const { updatedResources } = action as CheckRequirementsAction;
+    const { updatedResources } = action;
     const { resources } = requirements;
     const resourcesMet = checkResourcesMet(resources, updatedResources);
 
     if (!resourcesMet) return false;
   }
 
-  if (requirements?.buttonsUnlocked) {
-    const { buttonsUnlocked } = action as CheckRequirementsAction;
+  if (requirements?.buttonsUnlocked && action.buttonsUnlocked) {
+    const { buttonsUnlocked } = action;
     const allButtonsMet = requirements.buttonsUnlocked.every((buttonKey) =>
       buttonsUnlocked.includes(buttonKey)
     );
@@ -156,8 +163,8 @@ function checkRequirements(state: ButtonInterface, action: ButtonAction) {
     if (!allButtonsMet) return false;
   }
 
-  if (requirements?.timesButtonsPressed) {
-    const { updatedButtonPresses } = action as CheckRequirementsAction;
+  if (requirements?.timesButtonsPressed && action.updatedButtonPresses) {
+    const { updatedButtonPresses } = action;
     const { timesButtonsPressed } = requirements;
     const buttonPressesMet = Object.keys(timesButtonsPressed).every(
       (buttonKey) => {
