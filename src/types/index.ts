@@ -71,7 +71,7 @@ export interface MapLikeInterface<T> {
 
 export enum ModalView {
   INTRO = "INTRO",
-  END_PROTOTYPE = "END_PROTOTYPE",
+  END_PHASE_ONE = "END_PHASE_ONE",
 }
 
 export enum GamePhase {

@@ -21,7 +21,7 @@ export default function Modal(rest: ModalProps) {
         addLogs(INTRO.concat(LOG_BOUNDARY));
         setStorySeen(StoryId.INTRO);
         break;
-      case ModalView.END_PROTOTYPE:
+      case ModalView.END_PHASE_ONE:
         setPhase(GamePhase.TWO);
         setStorySeen(StoryId.EPIPHANY);
         break;
@@ -46,8 +46,8 @@ export default function Modal(rest: ModalProps) {
           {modal === ModalView.INTRO
             ? INTRO.map((p, i) => <p key={i}>{p}</p>)
             : null}
-          {modal === ModalView.END_PROTOTYPE
-            ? END_PHASE_1.concat(LOG_BOUNDARY).map((p, i) => <p key={i}>{p}</p>)
+          {modal === ModalView.END_PHASE_ONE
+            ? END_PHASE_1.map((p, i) => <p key={i}>{p}</p>)
             : null}
         </>
         <button className="close-button" onClick={handleModalClose}>

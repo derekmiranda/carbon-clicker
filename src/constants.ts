@@ -10,7 +10,7 @@ export const END_PHASE_1 = [
   `you’re not sure, but the time for climate doom ‘n gloom is over. let’s try this out!!!`,
 ];
 
-export const END_PROTOTYPE = [
+export const END_PHASE_ONE = [
   `that's the end of the prototype!`,
   `in the next part of the game, we'll introduce collective action, where you can team together with a larger community of climate-minded folks like yourself!`,
   `you'll be able to choose different paths, such as taking either a cooperative approach or starting a revolution!`,

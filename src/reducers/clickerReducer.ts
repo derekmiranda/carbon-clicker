@@ -184,7 +184,7 @@ export default function clickerReducer(
           : newState.logs;
 
         if (newKnowledgeDropping === END_PHASE_1_KNOWLEDGE_DROPPING) {
-          newState.modal = ModalView.END_PROTOTYPE;
+          newState.modal = ModalView.END_PHASE_ONE;
         }
       }
 
