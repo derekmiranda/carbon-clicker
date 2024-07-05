@@ -15,21 +15,21 @@
 
 @media only screen and (min-width: 768px) {
   .game {
-    grid-template-columns: min-content min-content;
+    grid-template-columns: repeat(2, min-content);
   }
 
   .buttons-container {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media only screen and (min-width: 1280px) {
   .game {
-    grid-template-columns: min-content min-content min-content;
+    grid-template-columns: repeat(3, min-content);
   }
 
   .buttons-container {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
