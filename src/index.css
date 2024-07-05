@@ -18,6 +18,8 @@
   --warn-color: #ffd903;
   --button-width: 200px;
   --icon-width: 64px;
+  --default-container-width: 350px;
+  --gap: 32px;
 }
 
 a {

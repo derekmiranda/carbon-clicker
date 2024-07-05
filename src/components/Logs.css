@@ -1,7 +1,7 @@
 .logs-box {
   background-color: #1a1a1a;
   color: var(--accent-color);
-  width: min(95%, 400px);
+  width: var(--default-container-width);
   height: 600px;
   overflow-y: scroll;
   text-align: left;
