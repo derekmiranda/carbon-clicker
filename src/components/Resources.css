@@ -5,8 +5,9 @@
 
 .resources-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0;
+  grid-template-columns: max-content 1fr 1fr;
+  column-gap: 4px;
+  row-gap: 0;
 }
 
 .resources-grid p {
