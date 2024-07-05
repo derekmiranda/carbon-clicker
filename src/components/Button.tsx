@@ -28,7 +28,7 @@ function getButtonStyles(cooldown: CooldownInterface) {
 
   return percent
     ? {
-        background: `linear-gradient(45deg, var(--accent-color) ${percent}, var(--text-color) 0)`,
+        background: `linear-gradient(45deg, transparent ${percent}, var(--accent-color) 0)`,
       }
     : undefined;
 }
