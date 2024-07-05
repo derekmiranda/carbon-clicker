@@ -6,10 +6,10 @@ import {
   UpdateResourcesRateEffect,
 } from "../types";
 import "./Button.css";
-import { DISPLAY_NAMES } from "../constants";
 import { CooldownInterface } from "../reducers/cooldownReducer";
 import { ClickerContext } from "../reducers/context";
 import { useContext } from "react";
+import { formatResource } from "../utils";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string) => void;
@@ -89,9 +89,7 @@ export default function Button({
                 return Object.entries(resourcesDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `${resourceVal < 0 ? "" : "+"}${resourceVal} ${
-                        DISPLAY_NAMES[resourceKey] || resourceKey
-                      }`
+                      `${formatResource(resourceVal, resourceKey)}`
                   )
                   .join(", ");
               } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
@@ -100,9 +98,7 @@ export default function Button({
                 return Object.entries(resourcesRateDiff)
                   .map(
                     ([resourceKey, resourceVal]) =>
-                      `+${resourceVal} ${
-                        DISPLAY_NAMES[resourceKey] || resourceKey
-                      }/day`
+                      `+${formatResource(resourceVal, resourceKey)}/day`
                   )
                   .join(", ");
               }

@@ -1,4 +1,4 @@
-import { SECS_PER_DAY } from "../constants";
+import { DISPLAY_NAMES, SECS_PER_DAY } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import { MapLikeInterface } from "../types";
 
@@ -28,4 +28,11 @@ export function getCurrentMonth(elapsedTime: number) {
 
 export function getCurrentYear(elapsedTime: number) {
   return 2024 + elapsedTime / SECS_PER_DAY / 365;
+}
+
+export function formatResource(val: string | number, resourceKey: string) {
+  if (resourceKey === "dollars") {
+    return `$${val}`;
+  }
+  return `${val} ${DISPLAY_NAMES[resourceKey] || resourceKey}`;
 }

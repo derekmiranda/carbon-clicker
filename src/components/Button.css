@@ -6,11 +6,11 @@
 }
 
 .button:disabled {
+  border: 2px solid var(--bg-color);
   opacity: 0.8;
 }
 
 .button:disabled:hover {
-  border: 2px solid var(--bg-color);
   cursor: not-allowed;
 }
 
