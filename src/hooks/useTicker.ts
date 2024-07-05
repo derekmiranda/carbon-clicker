@@ -1,23 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function useTicker(
-  onTick?: (delta: DOMHighResTimeStamp) => void
+  onTick: (delta: DOMHighResTimeStamp) => void,
+  fps: number = 60
 ) {
   const [initialTime] = useState(performance.now());
   const pausedRef = useRef<boolean>(false);
   const rafRef = useRef<number>(-1);
   const lastTimeRef = useRef<number>(performance.now());
+  const frameSecs = 1000 / fps;
 
   const animate = useCallback(
     (timestamp: DOMHighResTimeStamp) => {
-      if (onTick) {
+      if (timestamp - lastTimeRef.current > frameSecs) {
         const delta = (timestamp - lastTimeRef.current) / 1000;
         onTick(delta);
+        lastTimeRef.current = timestamp;
       }
-      lastTimeRef.current = timestamp;
       rafRef.current = requestAnimationFrame(animate);
     },
-    [onTick]
+    [onTick, frameSecs]
   );
 
   useEffect(() => {

@@ -16,7 +16,7 @@ function Clicker() {
 
   useTicker((timeDelta) => {
     tickClock(timeDelta);
-  });
+  }, 1);
 
   return (
     <main className="game">
