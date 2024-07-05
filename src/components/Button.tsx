@@ -68,11 +68,15 @@ export default function Button({
         disabled={!enabled || mainCooldown?.onCooldown}
         onClick={handleClick}
       >
-        <span className="button__title">
+        <span
+          className={classNames("button__title", {
+            "button__title--purchased": purchased,
+          })}
+        >
           {icon ? <Icon url={icon} /> : null}
           {displayName}
         </span>
-        {cost ? (
+        {cost && !purchased ? (
           <span className="button__detail">
             Cost:{" "}
             {Object.entries(cost)
@@ -106,7 +110,7 @@ export default function Button({
         ) : null}
         {oneTime ? (
           <span className="button__detail">
-            {purchased ? "Purchased" : "One Time Purchase"}
+            {purchased ? "Purchased!" : "One Time Purchase"}
           </span>
         ) : null}
       </button>
