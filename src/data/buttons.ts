@@ -137,6 +137,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "driveEV",
       displayName: "Drive EV",
       description: "Drive EV",
+      icon: "ev.png",
       unlocked: false,
       enabled: true,
       cooldown: {
@@ -161,6 +162,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "buyEV",
       displayName: "Buy Electric Vehicle",
       description: "Buy Electric Vehicle",
+      icon: "ev.png",
       oneTime: true,
       unlocked: false,
       enabled: false,
