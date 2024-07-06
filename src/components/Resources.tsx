@@ -1,12 +1,12 @@
 import { ClickerContext } from "../reducers/context";
 import { useContext } from "react";
-import { formatNum } from "../utils";
+import { formatNum, getCurrentTimes } from "../utils";
 import "./Resources.css";
 import { GamePhase } from "../types";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
-  const { resources, resourceGrowthRates, phase } = state;
+  const { resources, resourceGrowthRates, phase, elapsedTime } = state;
   const {
     mood,
     maxMood,
@@ -19,11 +19,15 @@ function Resources() {
     trust,
   } = resources;
   const isPhaseTwo = phase === GamePhase.TWO;
+  const { day, month, year } = getCurrentTimes(elapsedTime);
 
   return (
     <div className="resources-container">
       <h1>Carbon Clicker</h1>
       <div className="resources-grid">
+        <p className="time-display">
+          Day: {day}, Month: {month}, Year: {year}
+        </p>
         <p className="ppm-display">Global CO2: </p>
         <p className="resource ppm">{formatNum(globalPpm)} PPM </p>
         <p className="resource ppm">

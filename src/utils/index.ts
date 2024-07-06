@@ -51,3 +51,15 @@ export function formatResource(
 export function getImgUrl(imgPath: string) {
   return `${import.meta.env.BASE_URL}${imgPath}`;
 }
+
+export function getCurrentTimes(elapsedTime: number) {
+  const day = formatNum(getCurrentDay(elapsedTime), 0);
+  const month = formatNum(getCurrentMonth(elapsedTime), 0);
+  const year = formatNum(getCurrentYear(elapsedTime), 0);
+
+  return {
+    day,
+    month,
+    year,
+  };
+}
