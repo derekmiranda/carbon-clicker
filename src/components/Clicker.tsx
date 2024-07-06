@@ -25,7 +25,7 @@ function Clicker() {
   useEffect(() => {
     document.body.style.background = `center / contain no-repeat url(${getImgUrl(
       "bg-1.png"
-    )}), linear-gradient(#262b44 0 50%, #3e2731 50% 100%)`;
+    )}) fixed, linear-gradient(#262b44 0 50%, #3e2731 50% 100%)`;
     document.body.style.imageRendering = "pixelated";
   }, []);
 
