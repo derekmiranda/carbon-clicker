@@ -210,6 +210,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       description: "Cook with Homegrown Produce",
       unlocked: false,
       enabled: true,
+      icon: "homegrown.png",
       cooldown: {
         cooldownSeconds: 1 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
@@ -233,6 +234,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       id: "startYourOwnGarden",
       displayName: "Start your own Garden",
       description: "Start your own Garden",
+      icon: "garden.png",
       unlocked: false,
       enabled: true,
       oneTime: true,
