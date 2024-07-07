@@ -3,6 +3,7 @@ import {
   KNOWLEDGE_DROPPINGS,
 } from "../constants";
 import { clicker } from "../data/clicker";
+import { getLogsForClick } from "../data/logs";
 import {
   ButtonKey,
   EffectTypes,
@@ -177,17 +178,16 @@ export default function clickerReducer(
       // check requirements and costs
       checkReqsAndCosts(newState, buttonId);
 
-      // add knowledge logs
+      // add logs happening on button clicks
+      const newLogs = getLogsForClick(newState, action as ClickButtonAction);
+      if (newLogs) {
+        newState.logs = newState.logs.concat(newLogs);
+      }
+
+      // one-off: end phase 1
       if (buttonId === ButtonKey.selfEducate) {
         const newKnowledgeDropping =
           KNOWLEDGE_DROPPINGS[newState.resources.knowledge - 1];
-        newState.logs = newKnowledgeDropping
-          ? state.logs.concat(
-              Array.isArray(newKnowledgeDropping)
-                ? newKnowledgeDropping.slice().reverse()
-                : newKnowledgeDropping
-            )
-          : newState.logs;
 
         if (newKnowledgeDropping === END_PHASE_1_KNOWLEDGE_DROPPING) {
           newState.modal = ModalView.END_PHASE_ONE;
