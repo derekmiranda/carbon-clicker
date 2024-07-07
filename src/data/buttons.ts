@@ -19,7 +19,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Self-Educate",
       icon: "selfeducate.png",
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 4 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -32,6 +32,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.turnOffLights]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.turnOffLights,
@@ -52,6 +53,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.makeHomeEnergyEfficient]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.makeHomeEnergyEfficient,
@@ -79,6 +81,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.buySolarPanels]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.buySolarPanels,
@@ -104,6 +107,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.bikeInsteadOfDrive]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.bikeInsteadOfDrive,
@@ -132,6 +136,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.driveEV]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.driveEV,
@@ -157,6 +162,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.buyEV]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.buyEV,
@@ -175,6 +181,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         dollars: 10000,
       },
     },
+
     [ButtonKey.cookVegMeal]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.cookVegMeal,
@@ -203,6 +210,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.homegrownMeal]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.homegrownMeal,
@@ -229,6 +237,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.startYourOwnGarden]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.startYourOwnGarden,
@@ -247,6 +256,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         dollars: 50,
       },
     },
+
     [ButtonKey.job]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.job,
@@ -275,6 +285,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.wallowInMisery]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.wallowInMisery,
@@ -302,6 +313,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
     [ButtonKey.takeABreak]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.takeABreak,
