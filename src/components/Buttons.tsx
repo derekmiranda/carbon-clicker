@@ -2,9 +2,11 @@ import { useContext } from "react";
 import useDispatchers from "../hooks/useDispatchers";
 import Button from "./Button";
 import { ClickerContext } from "../reducers/context";
-import { getActionButtons, getUpgradeButtons } from "../utils";
 import Logs from "./Logs";
 import "./Buttons.css";
+import { ButtonKey } from "../types";
+import { ButtonInterface } from "../reducers/buttonReducer";
+import useSelectedState from "../hooks/useSelectedState";
 
 export interface ButtonsListProps {
   buttonOrder: string[];
@@ -15,21 +17,19 @@ function ButtonsList({ buttonOrder }: ButtonsListProps) {
   const { clickButton } = useDispatchers();
   const { buttons } = state;
 
-  return (buttonOrder ?? buttons.order).map((buttonKey) => (
-    <Button
-      key={buttonKey}
-      {...buttons.map[buttonKey]}
-      clickButton={clickButton}
-    />
-  ));
+  return (buttonOrder ?? buttons.order)
+    .filter(Boolean)
+    .map((buttonKey) => (
+      <Button
+        key={buttonKey}
+        {...(buttons.map[buttonKey as ButtonKey] as ButtonInterface)}
+        clickButton={clickButton}
+      />
+    ));
 }
 
 export default function Buttons() {
-  const { state } = useContext(ClickerContext);
-  const { buttons } = state;
-
-  const actionButtons = getActionButtons(buttons);
-  const upgradeButtons = getUpgradeButtons(buttons);
+  const { actionButtons, upgradeButtons } = useSelectedState();
 
   return (
     <div className="buttons-container">

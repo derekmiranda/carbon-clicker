@@ -1,26 +1,35 @@
 import { DISPLAY_NAMES, SECS_PER_DAY } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
-import { MapLikeInterface } from "../types";
+import { ButtonKey, MapLikeInterface } from "../types";
 
 export function formatNum(num: number, decimals: number = 1) {
   return num.toFixed(decimals);
 }
 
-export function getActionButtons(buttons: MapLikeInterface<ButtonInterface>) {
+export function getActionButtons(
+  buttons: MapLikeInterface<ButtonInterface, ButtonKey>
+) {
   return buttons.order
-    .filter((buttonKey) => !buttons.map[buttonKey].oneTime)
-    .filter((buttonKey) => buttons.map[buttonKey].unlocked);
+    .filter((buttonKey) => !buttons.map[buttonKey as ButtonKey]?.oneTime)
+    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.unlocked);
 }
 
-export function getUpgradeButtons(buttons: MapLikeInterface<ButtonInterface>) {
+export function getUpgradeButtons(
+  buttons: MapLikeInterface<ButtonInterface, ButtonKey>
+) {
   return buttons.order
-    .filter((buttonKey) => buttons.map[buttonKey].oneTime)
-    .filter((buttonKey) => buttons.map[buttonKey].unlocked)
-    .sort((keyA, keyB) => {
-      const buttonA = buttons.map[keyA];
-      const buttonB = buttons.map[keyB];
-      return (buttonA.purchased ? 1 : 0) - (buttonB.purchased ? 1 : 0);
-    });
+    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.oneTime)
+    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.unlocked)
+    .filter((buttonKey) => !buttons.map[buttonKey as ButtonKey]?.purchased);
+}
+
+export function getPurchasedButtons(
+  buttons: MapLikeInterface<ButtonInterface, ButtonKey>
+) {
+  return buttons.order
+    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.oneTime)
+    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.unlocked)
+    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.purchased);
 }
 
 export function getCurrentDay(elapsedTime: number) {
