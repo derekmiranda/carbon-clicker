@@ -3,6 +3,8 @@ import useDispatchers from "../hooks/useDispatchers";
 import Button from "./Button";
 import { ClickerContext } from "../reducers/context";
 import { getActionButtons, getUpgradeButtons } from "../utils";
+import Logs from "./Logs";
+import "./Buttons.css";
 
 export interface ButtonsListProps {
   buttonOrder: string[];
@@ -32,9 +34,12 @@ export default function Buttons() {
   return (
     <div className="buttons-container">
       <h2>Actions</h2>
-      <ButtonsList buttonOrder={actionButtons} />
-      {upgradeButtons.length ? <h2>Upgrades</h2> : null}
-      <ButtonsList buttonOrder={upgradeButtons} />
+      <Logs />
+      <div className="buttons-box">
+        <ButtonsList buttonOrder={actionButtons} />
+        {upgradeButtons.length ? <h2>Upgrades</h2> : null}
+        <ButtonsList buttonOrder={upgradeButtons} />
+      </div>
     </div>
   );
 }

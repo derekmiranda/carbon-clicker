@@ -1,6 +1,5 @@
 import useTicker, { useTickThrottle } from "../hooks/useTicker";
 import Modal from "./Modal";
-import Logs from "./Logs";
 
 import "./Clicker.css";
 import { saveGameData } from "../storage";
@@ -33,7 +32,6 @@ function Clicker() {
     <main className="game">
       <Resources />
       <Buttons />
-      <Logs />
       <div className="game-data-container">
         <button
           onClick={() => {

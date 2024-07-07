@@ -2,20 +2,23 @@
   grid-area: logs;
   background-color: #1a1a1a;
   color: var(--accent-color);
-  width: var(--default-container-width);
+  grid-column: span 2;
   height: 160px;
   overflow-y: scroll;
   text-align: left;
-}
-@media only screen and (min-width: 768px) {
-  .logs-box {
-    height: 600px;
-  }
+  margin-bottom: var(--gap);
+  border-radius: 8px;
 }
 
 .log {
   animation: fadein 2s;
+  margin: 8px;
 }
+
+.log:first-child {
+  color: var(--text-color);
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
