@@ -8,13 +8,13 @@ import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
 } from "../reducers/buttonReducer";
-import { EffectTypes, MapLikeInterface } from "../types";
+import { ButtonKey, EffectTypes, MapLikeInterface } from "../types";
 
-export const buttons: MapLikeInterface<ButtonInterface> = {
+export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
   map: {
-    selfEducate: {
+    [ButtonKey.selfEducate]: {
       ...INITIAL_BUTTON_STATE,
-      id: "selfEducate",
+      id: ButtonKey.selfEducate,
       displayName: "Self-Educate",
       description: "Self-Educate",
       icon: "selfeducate.png",
@@ -32,9 +32,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    turnOffLights: {
+    [ButtonKey.turnOffLights]: {
       ...INITIAL_BUTTON_STATE,
-      id: "turnOffLights",
+      id: ButtonKey.turnOffLights,
       displayName: "Turn Off Lights",
       description: "Turn Off Lights",
       icon: "turnofflights.png",
@@ -52,9 +52,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    makeHomeEnergyEfficient: {
+    [ButtonKey.makeHomeEnergyEfficient]: {
       ...INITIAL_BUTTON_STATE,
-      id: "makeHomeEnergyEfficient",
+      id: ButtonKey.makeHomeEnergyEfficient,
       displayName: "Make Home Energy-Efficient",
       description: "Make Home Energy-Efficient",
       icon: "home.png",
@@ -79,9 +79,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    buySolarPanels: {
+    [ButtonKey.buySolarPanels]: {
       ...INITIAL_BUTTON_STATE,
-      id: "buySolarPanels",
+      id: ButtonKey.buySolarPanels,
       displayName: "Buy Solar Panels",
       description: "Buy Solar Panels",
       icon: "solarpanel.png",
@@ -92,7 +92,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         dollars: 5000,
       },
       requirements: {
-        buttonsUnlocked: ["makeHomeEnergyEfficient"],
+        buttonsUnlocked: [ButtonKey.makeHomeEnergyEfficient],
       },
       effects: [
         {
@@ -104,9 +104,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    bikeInsteadOfDrive: {
+    [ButtonKey.bikeInsteadOfDrive]: {
       ...INITIAL_BUTTON_STATE,
-      id: "bikeInsteadOfDrive",
+      id: ButtonKey.bikeInsteadOfDrive,
       displayName: "Bike Instead of Drive",
       description: "Bike Instead of Drive",
       icon: "bike.png",
@@ -132,9 +132,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    driveEV: {
+    [ButtonKey.driveEV]: {
       ...INITIAL_BUTTON_STATE,
-      id: "driveEV",
+      id: ButtonKey.driveEV,
       displayName: "Drive EV",
       description: "Drive EV",
       icon: "ev.png",
@@ -146,7 +146,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         onCooldown: false,
       },
       requirements: {
-        buttonsUnlocked: ["buyEV"],
+        buttonsUnlocked: [ButtonKey.buyEV],
       },
       effects: [
         {
@@ -157,9 +157,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    buyEV: {
+    [ButtonKey.buyEV]: {
       ...INITIAL_BUTTON_STATE,
-      id: "buyEV",
+      id: ButtonKey.buyEV,
       displayName: "Buy Electric Vehicle",
       description: "Buy Electric Vehicle",
       icon: "ev.png",
@@ -168,16 +168,16 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       enabled: false,
       requirements: {
         timesButtonsPressed: {
-          bikeInsteadOfDrive: 10,
+          [ButtonKey.bikeInsteadOfDrive]: 10,
         },
       },
       cost: {
         dollars: 10000,
       },
     },
-    cookVegMeal: {
+    [ButtonKey.cookVegMeal]: {
       ...INITIAL_BUTTON_STATE,
-      id: "cookVegMeal",
+      id: ButtonKey.cookVegMeal,
       displayName: "Cook a Vegetarian Meal",
       description: "Cook a Vegetarian Meal",
       icon: "vegmeal.png",
@@ -203,9 +203,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    homegrownMeal: {
+    [ButtonKey.homegrownMeal]: {
       ...INITIAL_BUTTON_STATE,
-      id: "homegrownMeal",
+      id: ButtonKey.homegrownMeal,
       displayName: "Cook with Homegrown Produce",
       description: "Cook with Homegrown Produce",
       unlocked: false,
@@ -217,7 +217,7 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         onCooldown: false,
       },
       requirements: {
-        buttonsUnlocked: ["startYourOwnGarden"],
+        buttonsUnlocked: [ButtonKey.startYourOwnGarden],
       },
       effects: [
         {
@@ -229,9 +229,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    startYourOwnGarden: {
+    [ButtonKey.startYourOwnGarden]: {
       ...INITIAL_BUTTON_STATE,
-      id: "startYourOwnGarden",
+      id: ButtonKey.startYourOwnGarden,
       displayName: "Start your own Garden",
       description: "Start your own Garden",
       icon: "garden.png",
@@ -240,16 +240,16 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
       oneTime: true,
       requirements: {
         timesButtonsPressed: {
-          cookVegMeal: 10,
+          [ButtonKey.cookVegMeal]: 10,
         },
       },
       cost: {
         dollars: 50,
       },
     },
-    job: {
+    [ButtonKey.job]: {
       ...INITIAL_BUTTON_STATE,
-      id: "job",
+      id: ButtonKey.job,
       displayName: "Job",
       description: "Job",
       icon: "job.png",
@@ -275,9 +275,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    wallowInMisery: {
+    [ButtonKey.wallowInMisery]: {
       ...INITIAL_BUTTON_STATE,
-      id: "wallowInMisery",
+      id: ButtonKey.wallowInMisery,
       displayName: "Wallow in Misery",
       description: "Wallow in Misery",
       unlocked: false,
@@ -302,9 +302,9 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
         },
       ],
     },
-    takeABreak: {
+    [ButtonKey.takeABreak]: {
       ...INITIAL_BUTTON_STATE,
-      id: "takeABreak",
+      id: ButtonKey.takeABreak,
       displayName: "Take a Break",
       description: "Take a Break",
       icon: "takebreak.png",
@@ -335,20 +335,20 @@ export const buttons: MapLikeInterface<ButtonInterface> = {
     },
   },
   order: [
-    "selfEducate",
-    "turnOffLights",
-    "bikeInsteadOfDrive",
-    "driveEV",
-    "cookVegMeal",
-    "homegrownMeal",
-    "job",
-    "takeABreak",
-    "wallowInMisery",
+    ButtonKey.selfEducate,
+    ButtonKey.turnOffLights,
+    ButtonKey.bikeInsteadOfDrive,
+    ButtonKey.driveEV,
+    ButtonKey.cookVegMeal,
+    ButtonKey.homegrownMeal,
+    ButtonKey.job,
+    ButtonKey.takeABreak,
+    ButtonKey.wallowInMisery,
 
     // one time
-    "startYourOwnGarden",
-    "makeHomeEnergyEfficient",
-    "buySolarPanels",
-    "buyEV",
+    ButtonKey.startYourOwnGarden,
+    ButtonKey.makeHomeEnergyEfficient,
+    ButtonKey.buySolarPanels,
+    ButtonKey.buyEV,
   ],
 };

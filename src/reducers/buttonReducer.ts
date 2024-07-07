@@ -1,4 +1,11 @@
-import { Cost, Effect, Requirements, Resources } from "../types";
+import {
+  ButtonKeyMap,
+  ButtonKey,
+  Cost,
+  Effect,
+  Requirements,
+  Resources,
+} from "../types";
 import { SharedAction, SharedActionType } from "../types/actions";
 import cooldownReducer, {
   CooldownActionType,
@@ -14,7 +21,7 @@ export enum ButtonActionType {
 export interface CheckRequirementsAction {
   type: ButtonActionType.CHECK_REQUIREMENTS;
   updatedResources: Resources;
-  updatedButtonPresses?: Record<string, number>;
+  updatedButtonPresses?: ButtonKeyMap<number>;
   buttonsUnlocked?: string[];
   bonusesUnlocked?: string[];
 }
@@ -30,7 +37,7 @@ export type ButtonAction =
   | SharedAction;
 
 export interface ButtonInterface {
-  id: string;
+  id: ButtonKey;
   displayName: string;
   description: string;
   unlocked: boolean;
@@ -48,7 +55,7 @@ export interface ButtonInterface {
 }
 
 export const INITIAL_STATE: ButtonInterface = {
-  id: "id",
+  id: ButtonKey.null,
   displayName: "displayName",
   description: "description",
   unlocked: true,
@@ -168,8 +175,8 @@ function checkRequirements(
     const { timesButtonsPressed } = requirements;
     const buttonPressesMet = Object.keys(timesButtonsPressed).every(
       (buttonKey) => {
-        const reqButtonPress = timesButtonsPressed[buttonKey];
-        const updatedButtonPress = updatedButtonPresses[buttonKey];
+        const reqButtonPress = timesButtonsPressed[buttonKey as ButtonKey];
+        const updatedButtonPress = updatedButtonPresses[buttonKey as ButtonKey];
         return (
           !reqButtonPress ||
           (typeof updatedButtonPress === "number" &&

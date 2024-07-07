@@ -23,18 +23,35 @@ export type Resources = {
   trust: number;
 };
 
+export enum ButtonKey {
+  null = "null",
+  selfEducate = "selfEducate",
+  turnOffLights = "turnOffLights",
+  makeHomeEnergyEfficient = "makeHomeEnergyEfficient",
+  buySolarPanels = "buySolarPanels",
+  bikeInsteadOfDrive = "bikeInsteadOfDrive",
+  driveEV = "driveEV",
+  buyEV = "buyEV",
+  cookVegMeal = "cookVegMeal",
+  homegrownMeal = "homegrownMeal",
+  startYourOwnGarden = "startYourOwnGarden",
+  job = "job",
+  wallowInMisery = "wallowInMisery",
+  takeABreak = "takeABreak",
+}
+
+export type ButtonKeyMap<T> = { [key in ButtonKey]?: T };
+
 export type Cost = Partial<Resources>;
 
 export interface Requirements {
   resources?: Partial<Resources>;
   // array of ids for buttons to unlock
-  buttonsUnlocked?: string[];
-  // array of ids for bonuses to unlock
-  bonusesUnlocked?: string[];
+  buttonsUnlocked?: ButtonKey[];
   // array of ids for story scenes to unlock
   storyIdsUnlocked?: string[];
   // required button presses
-  timesButtonsPressed?: Record<string, number>;
+  timesButtonsPressed?: ButtonKeyMap<number>;
 }
 
 export enum EffectTypes {
@@ -64,8 +81,8 @@ export type Effect =
   | UpdateResourcesRateEffect
   | GenericEffect;
 
-export interface MapLikeInterface<T> {
-  map: Record<string, T>;
+export interface MapLikeInterface<T, K extends string = string> {
+  map: { [key in K]?: T };
   order: string[];
 }
 

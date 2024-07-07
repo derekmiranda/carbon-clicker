@@ -4,6 +4,7 @@ import {
 } from "../constants";
 import { clicker } from "../data/clicker";
 import {
+  ButtonKey,
   EffectTypes,
   GamePhase,
   MapLikeInterface,
@@ -29,7 +30,7 @@ export interface ClickerInterface {
   resources: Resources;
   // difference per second
   resourceGrowthRates: Partial<Resources>;
-  buttons: MapLikeInterface<ButtonInterface>;
+  buttons: MapLikeInterface<ButtonInterface, ButtonKey>;
   phase: GamePhase;
   logs: string[];
   // seconds
@@ -110,7 +111,9 @@ export default function clickerReducer(
     case SharedActionType.CLICK_BUTTON: {
       const newState = { ...state };
       const { buttonId } = action as ClickButtonAction;
-      const button = state.buttons.map[buttonId] as ButtonInterface;
+      const button = state.buttons.map[
+        buttonId as ButtonKey
+      ] as ButtonInterface;
 
       if (!button.enabled) return state;
 
@@ -158,13 +161,16 @@ export default function clickerReducer(
       }
 
       // click button
+      const buttonState = newState.buttons.map[buttonId as ButtonKey];
       newState.buttons = {
         ...newState.buttons,
         map: {
           ...newState.buttons.map,
-          [buttonId]: buttonReducer(newState.buttons.map[buttonId], {
-            type: SharedActionType.CLICK_BUTTON,
-          }),
+          [buttonId]:
+            buttonState &&
+            buttonReducer(buttonState, {
+              type: SharedActionType.CLICK_BUTTON,
+            }),
         },
       };
 
@@ -172,7 +178,7 @@ export default function clickerReducer(
       checkReqsAndCosts(newState, buttonId);
 
       // add knowledge logs
-      if (buttonId === "selfEducate") {
+      if (buttonId === ButtonKey.selfEducate) {
         const newKnowledgeDropping =
           KNOWLEDGE_DROPPINGS[newState.resources.knowledge - 1];
         newState.logs = newKnowledgeDropping
@@ -217,7 +223,10 @@ export default function clickerReducer(
       const { timeDelta } = action as TickCooldownAction;
       const newMap: Record<string, ButtonInterface> = {};
       state.buttons.order.forEach((buttonKey) => {
-        newMap[buttonKey] = buttonReducer(state.buttons.map[buttonKey], action);
+        const buttonState = state.buttons.map[buttonKey as ButtonKey];
+        if (!buttonState) return;
+
+        newMap[buttonKey] = buttonReducer(buttonState, action);
       });
 
       newState.buttons = {
