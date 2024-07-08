@@ -8,7 +8,7 @@ import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
 } from "../reducers/buttonReducer";
-import { ButtonKey, EffectTypes, MapLikeInterface } from "../types";
+import { ButtonKey, EffectTypes, GamePhase, MapLikeInterface } from "../types";
 
 export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
   map: {
@@ -314,6 +314,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       ],
     },
 
+    // Phase 2
     [ButtonKey.takeABreak]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.takeABreak,
@@ -334,13 +335,42 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
               (message) => message === END_PHASE_1_KNOWLEDGE_DROPPING
             ) + 1,
         },
-        // TODO: only enable in phase 2
+        phase: GamePhase.TWO,
       },
       effects: [
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             mood: MAX_MOOD,
+          },
+        },
+      ],
+    },
+
+    [ButtonKey.attendRally]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.attendRally,
+      displayName: "Attend a Rally",
+      description: "Attend a Rally",
+      icon: "rally.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        resources: {
+          knowledge:
+            KNOWLEDGE_DROPPINGS.findIndex(
+              (message) => message === END_PHASE_1_KNOWLEDGE_DROPPING
+            ) + 1,
+        },
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 5,
+            peoplePower: 10,
           },
         },
       ],
@@ -358,6 +388,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.wallowInMisery,
 
     // one time
+    ButtonKey.attendRally,
     ButtonKey.startYourOwnGarden,
     ButtonKey.makeHomeEnergyEfficient,
     ButtonKey.buySolarPanels,

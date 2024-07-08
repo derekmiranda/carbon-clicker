@@ -5,6 +5,7 @@ import {
   Effect,
   Requirements,
   Resources,
+  GamePhase,
 } from "../types";
 import { SharedAction, SharedActionType } from "../types/actions";
 import cooldownReducer, {
@@ -21,6 +22,7 @@ export enum ButtonActionType {
 export interface CheckRequirementsAction {
   type: ButtonActionType.CHECK_REQUIREMENTS;
   updatedResources: Resources;
+  phase: GamePhase;
   updatedButtonPresses?: ButtonKeyMap<number>;
   buttonsUnlocked?: string[];
   bonusesUnlocked?: string[];
@@ -186,6 +188,11 @@ function checkRequirements(
     );
 
     if (!buttonPressesMet) return false;
+  }
+
+  if (requirements?.phase) {
+    const { phase } = action;
+    if (phase !== requirements.phase) return false;
   }
 
   return true;

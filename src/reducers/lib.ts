@@ -1,4 +1,4 @@
-import { MapLikeInterface } from "../types";
+import { ButtonKey, MapLikeInterface } from "../types";
 import buttonReducer, {
   ButtonActionType,
   ButtonInterface,
@@ -13,11 +13,14 @@ export function checkReqsAndCosts(
   const checkReqsAction: CheckRequirementsAction = {
     type: ButtonActionType.CHECK_REQUIREMENTS,
     updatedResources: newState.resources,
+    phase: newState.phase,
   };
 
   checkReqsAction.buttonsUnlocked = newState.buttons.order.reduce<string[]>(
     (accum, buttonKey) => {
-      const button = newState.buttons.map[buttonKey];
+      const button = newState.buttons.map[
+        buttonKey as ButtonKey
+      ] as ButtonInterface;
       return button.unlocked && (!button.oneTime || button.purchased)
         ? accum.concat(buttonKey)
         : accum;
@@ -27,7 +30,9 @@ export function checkReqsAndCosts(
   checkReqsAction.updatedButtonPresses = getButtonPresses(newState.buttons);
 
   if (clickedButton) {
-    const button = newState.buttons.map[clickedButton];
+    const button = newState.buttons.map[
+      clickedButton as ButtonKey
+    ] as ButtonInterface;
     if (button.oneTime) {
       checkReqsAction.buttonsUnlocked.push(clickedButton);
     }
@@ -35,20 +40,23 @@ export function checkReqsAndCosts(
 
   newState.buttons.order.forEach((buttonKey) => {
     const newButton = buttonReducer(
-      newState.buttons.map[buttonKey],
+      newState.buttons.map[buttonKey as ButtonKey] as ButtonInterface,
       checkReqsAction
     );
-    newState.buttons.map[buttonKey] = buttonReducer(newButton, {
-      type: ButtonActionType.CHECK_COST,
-      updatedResources: newState.resources,
-    });
+    (newState.buttons.map[buttonKey as ButtonKey] as ButtonInterface) =
+      buttonReducer(newButton, {
+        type: ButtonActionType.CHECK_COST,
+        updatedResources: newState.resources,
+      });
   });
 }
 
 export function getButtonPresses(buttons: MapLikeInterface<ButtonInterface>) {
   const updatedButtonPresses = buttons.order.reduce<Record<string, number>>(
     (accum, buttonKey) => {
-      accum[buttonKey] = buttons.map[buttonKey].timesPressed;
+      accum[buttonKey] = (
+        buttons.map[buttonKey as ButtonKey] as ButtonInterface
+      ).timesPressed;
       return accum;
     },
     {}

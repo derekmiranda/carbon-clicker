@@ -5,6 +5,9 @@ export enum ResourceTypes {
   DOLLARS = "dollars",
   MOOD = "mood",
   KNOWLEDGE = "knowledge",
+  PEOPLE_POWER = "peoplePower",
+  COLLECTIVE_DOLLARS = "collectiveDollars",
+  TRUST = "trust",
 }
 
 export const ResourceList = Object.values(ResourceTypes);
@@ -58,6 +61,7 @@ export interface Requirements {
   storyIdsUnlocked?: string[];
   // required button presses
   timesButtonsPressed?: ButtonKeyMap<number>;
+  phase?: GamePhase;
 }
 
 export enum EffectTypes {
