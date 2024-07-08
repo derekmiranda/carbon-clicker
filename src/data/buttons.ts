@@ -19,7 +19,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Self-Educate",
       icon: "selfeducate.png",
       cooldown: {
-        cooldownSeconds: 4 * SECS_PER_DAY,
+        cooldownSeconds: 3 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -68,7 +68,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       requirements: {
         timesButtonsPressed: {
-          turnOffLights: 10,
+          [ButtonKey.turnOffLights]: 10,
         },
       },
       effects: [

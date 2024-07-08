@@ -26,18 +26,24 @@ export type Resources = {
 export enum ButtonKey {
   null = "null",
   selfEducate = "selfEducate",
-  turnOffLights = "turnOffLights",
-  makeHomeEnergyEfficient = "makeHomeEnergyEfficient",
-  buySolarPanels = "buySolarPanels",
-  bikeInsteadOfDrive = "bikeInsteadOfDrive",
-  driveEV = "driveEV",
-  buyEV = "buyEV",
-  cookVegMeal = "cookVegMeal",
-  homegrownMeal = "homegrownMeal",
-  startYourOwnGarden = "startYourOwnGarden",
+  turnOffLights = "turn off the lights",
+  makeHomeEnergyEfficient = "make home energy efficient",
+  buySolarPanels = "buy solar panels",
+  bikeInsteadOfDrive = "bike instead of drive",
+  driveEV = "drive EV",
+  buyEV = "buy electric vehicle",
+  cookVegMeal = "cook a vegetarian meal",
+  homegrownMeal = "cook meal with homegrown produce",
+  startYourOwnGarden = "start your own garden",
   job = "job",
-  wallowInMisery = "wallowInMisery",
-  takeABreak = "takeABreak",
+  wallowInMisery = "wallow in misery",
+
+  // phase 2
+  takeABreak = "take a break",
+  attendRally = "attend a rally",
+  joinClimateOrg = "join a climate org",
+  formClimateCoalition = "form a climate coalition",
+  talkToNeighbor = "talk to your neighbor",
 }
 
 export type ButtonKeyMap<T> = { [key in ButtonKey]?: T };

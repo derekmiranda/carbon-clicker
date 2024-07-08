@@ -1,32 +1,37 @@
 import { KNOWLEDGE_DROPPINGS } from "../constants";
+import { ButtonInterface } from "../reducers/buttonReducer";
 import { ClickerInterface } from "../reducers/clickerReducer";
 import { ButtonKey } from "../types";
 import { ClickButtonAction } from "../types/actions";
-
-const limitLogs = ({
-  newLogs,
-  state,
-  action,
-  limit,
-}: {
-  newLogs: string | string[];
-  state: ClickerInterface;
-  action: ClickButtonAction;
-  limit: number;
-}) => {
-  const { buttonId } = action;
-  const timesPressed = state.buttons.map[buttonId as ButtonKey]?.timesPressed;
-
-  return typeof timesPressed === "number" && timesPressed <= limit
-    ? newLogs
-    : null;
-};
+import buttonLogs, { LogValues } from "./buttonLogs";
 
 export function getLogsForClick(
   state: ClickerInterface,
   action: ClickButtonAction
 ) {
   const { buttonId } = action;
+
+  if (buttonLogs[buttonId as ButtonKey]) {
+    const button = state.buttons.map[buttonId as ButtonKey] as ButtonInterface;
+    const { clicked, unlocked } = buttonLogs[
+      buttonId as ButtonKey
+    ] as LogValues;
+
+    const timesPressed = button.timesPressed as number;
+    const limit = Array.isArray(clicked)
+      ? Infinity
+      : (unlocked ? 1 : 0) + (clicked ? 1 : 0);
+    const log =
+      unlocked && timesPressed === 1
+        ? unlocked
+        : Array.isArray(clicked)
+        ? clicked[(timesPressed - 1) % clicked.length]
+        : clicked;
+
+    return typeof timesPressed === "number" && timesPressed <= limit
+      ? log
+      : null;
+  }
 
   switch (buttonId) {
     case ButtonKey.selfEducate: {
@@ -39,24 +44,6 @@ export function getLogsForClick(
               : newKnowledgeDropping
           )
         : state.logs;
-    }
-
-    case ButtonKey.turnOffLights: {
-      return limitLogs({
-        newLogs: `climate action is as easy as the flick of a switch!`,
-        limit: 1,
-        state,
-        action,
-      });
-    }
-
-    case ButtonKey.bikeInsteadOfDrive: {
-      return limitLogs({
-        newLogs: `tone those calves!`,
-        limit: 1,
-        state,
-        action,
-      });
     }
   }
 
