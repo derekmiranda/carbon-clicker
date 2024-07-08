@@ -1,5 +1,4 @@
 import useTicker, { useTickThrottle } from "../hooks/useTicker";
-import Modal from "./Modal";
 
 import "./Clicker.css";
 import { saveGameData } from "../storage";
@@ -42,7 +41,6 @@ function Clicker() {
         </button>
         <button onClick={clearGameData}>Clear</button>
       </div>
-      <Modal />
     </main>
   );
 }
