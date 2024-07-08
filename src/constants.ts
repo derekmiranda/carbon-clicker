@@ -1,4 +1,5 @@
 export const GAME_VERSION = "0";
+export const LOG_LIMIT = 50;
 
 export const DEFAULT_KNOWLEDGE_DROPPING = `you gained +1 knowledge!`;
 export const LOG_BOUNDARY = `~~~~~~`;

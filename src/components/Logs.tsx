@@ -1,25 +1,27 @@
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./Logs.css";
-import { ClickerContext } from "../reducers/context";
+import useSelectedState from "../hooks/useSelectedState";
 
 export default function Logs() {
-  const { state } = useContext(ClickerContext);
   const boxRef = useRef<HTMLDivElement>(null);
 
-  const { logs } = state;
+  const { cappedLogs } = useSelectedState();
 
   // scroll back to top when logs change
   useEffect(() => {
     if (boxRef.current) {
       boxRef.current.scrollTo(0, 0);
     }
-  }, [logs]);
+  }, [cappedLogs]);
 
   return (
     <div className="logs-box" ref={boxRef}>
-      {logs
+      {cappedLogs
         .map((log, i) => (
-          <p className="log" key={i}>
+          <p
+            className="log"
+            key={i === cappedLogs.length - 1 ? log : cappedLogs.length - i}
+          >
             {"> "}
             {log}
           </p>

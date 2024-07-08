@@ -17,6 +17,7 @@
 
 .log:first-child {
   color: var(--text-color);
+  font-weight: bolder;
 }
 
 @keyframes fadein {

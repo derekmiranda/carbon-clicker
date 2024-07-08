@@ -6,10 +6,11 @@ import {
   getUpgradeButtons,
 } from "../utils";
 import { ButtonKey } from "../types";
+import { LOG_LIMIT } from "../constants";
 
 export default function useSelectedState() {
   const {
-    state: { buttons },
+    state: { buttons, logs },
   } = useContext(ClickerContext);
 
   const actionButtons = useMemo(() => getActionButtons(buttons), [buttons]);
@@ -25,11 +26,13 @@ export default function useSelectedState() {
         .filter(Boolean),
     [buttons, purchasedButtons]
   );
+  const cappedLogs = useMemo(() => logs.slice(-LOG_LIMIT), [logs]);
 
   return {
     actionButtons,
     upgradeButtons,
     purchasedButtons,
     purchasedIcons,
+    cappedLogs,
   };
 }

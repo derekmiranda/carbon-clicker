@@ -1,6 +1,7 @@
 import {
   END_PHASE_1_KNOWLEDGE_DROPPING,
   KNOWLEDGE_DROPPINGS,
+  LOG_LIMIT,
 } from "../constants";
 import { clicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
@@ -181,7 +182,8 @@ export default function clickerReducer(
       // add logs happening on button clicks
       const newLogs = getLogsForClick(newState, action as ClickButtonAction);
       if (newLogs) {
-        newState.logs = newState.logs.concat(newLogs);
+        // TODO: make logs reducer, to DRY
+        newState.logs = newState.logs.concat(newLogs).slice(-LOG_LIMIT);
       }
 
       // one-off: end phase 1
@@ -268,7 +270,7 @@ export default function clickerReducer(
       const { logs } = action as AddLogsAction;
       return {
         ...state,
-        logs: state.logs.concat(logs),
+        logs: state.logs.concat(logs).slice(-LOG_LIMIT),
       };
     }
 
