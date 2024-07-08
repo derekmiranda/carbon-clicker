@@ -48,6 +48,25 @@ export enum ButtonKey {
   joinClimateOrg = "join a climate org",
   formClimateCoalition = "form a climate coalition",
   talkToNeighbor = "talk to your neighbor",
+  startMutualAid = "start a mutual aid fund",
+  organizeCommunity = "organize your community",
+  vote = "vote",
+  cityCouncilMeeting = "go to a city council meeting",
+  volunteer = "volunteer for a local politician's campaign",
+
+  directAction = "direct action",
+  communityCare = "community care",
+  politicalAction = "political action",
+
+  revolution = "revolution",
+  blowUpPipeline = "blow up a pipeline",
+  intimidateBank = "intimidate a bank into divestment from fossil fuels",
+  takeOver = "take over a city government",
+
+  cooperation = "cooperation",
+  fillCityCouncil = "fill city council with climate justice champions",
+  passBills = "pass a package of climate action bills",
+  speakAtCOP = "speak at the next conference of parties (COP)",
 }
 
 export type ButtonKeyMap<T> = { [key in ButtonKey]?: T };
@@ -105,4 +124,9 @@ export enum ModalView {
 export enum GamePhase {
   ONE,
   TWO,
+}
+
+export enum Pathway {
+  COOPERATION = "cooperation",
+  REVOLUTION = "revolution",
 }
