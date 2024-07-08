@@ -28,6 +28,7 @@ export type Resources = {
 
 export enum ButtonKey {
   null = "null",
+  destroyFossilFuelIndustry = "destroy the fossil fuel industry",
   selfEducate = "selfEducate",
   turnOffLights = "turn off the lights",
   makeHomeEnergyEfficient = "make home energy efficient",

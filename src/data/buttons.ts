@@ -315,6 +315,46 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     },
 
     // Phase 2
+    [ButtonKey.destroyFossilFuelIndustry]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.destroyFossilFuelIndustry,
+      displayName: "Destroy the Fossil Fuel Industry",
+      description: "Destroy the Fossil Fuel Industry",
+      // icon: "destroyfossilfuels.png",
+      unlocked: false,
+      enabled: true,
+      cooldown: {
+        cooldownSeconds: 4 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      requirements: {
+        buttonsUnlocked: [
+          ButtonKey.formClimateCoalition /* ButtonKey.organizeCommunity, ButtonKey.volunteer */,
+        ],
+        resources: {
+          knowledge: 500,
+          peoplePower: 1000,
+          trust: 100,
+        },
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 50,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: 0.9,
+          },
+        },
+      ],
+    },
+
     [ButtonKey.takeABreak]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.takeABreak,
@@ -481,6 +521,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.wallowInMisery,
 
     // one time
+    ButtonKey.destroyFossilFuelIndustry,
+
     ButtonKey.attendRally,
     ButtonKey.joinClimateOrg,
     ButtonKey.formClimateCoalition,
