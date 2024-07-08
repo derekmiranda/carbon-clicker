@@ -39,4 +39,17 @@
 
 .button--cooling-down {
   cursor: wait;
+  /* hard-coding color b/c disappears on subsequent anims */
+  background: linear-gradient(45deg, transparent 50%, #67ceab 0) no-repeat;
+  background-size: 400% 400%;
+  background-position: 0% 50%;
+}
+
+@keyframes wipe {
+  from {
+    background-position: 80%;
+  }
+  to {
+    background-position: 20%;
+  }
 }

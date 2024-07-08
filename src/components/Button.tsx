@@ -1,14 +1,14 @@
 import classNames from "classnames";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import {
+  ButtonKey,
   EffectTypes,
   UpdateResourcesEffect,
   UpdateResourcesRateEffect,
 } from "../types";
 import "./Button.css";
-import { CooldownInterface } from "../reducers/cooldownReducer";
 import { ClickerContext } from "../reducers/context";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { formatResource, getImgUrl } from "../utils";
 
 interface ButtonProps extends ButtonInterface {
@@ -17,19 +17,6 @@ interface ButtonProps extends ButtonInterface {
 
 function Icon({ url }: { url: string }) {
   return <img className="button__icon" src={getImgUrl(url)} />;
-}
-
-function getButtonStyles(cooldown: CooldownInterface) {
-  const progress = cooldown?.onCooldown
-    ? cooldown.elapsedCooldownSeconds / cooldown.cooldownSeconds
-    : undefined;
-  const percent = progress && `${progress * 100}%`;
-
-  return percent
-    ? {
-        background: `linear-gradient(45deg, transparent ${percent}, var(--accent-color) 0)`,
-      }
-    : undefined;
 }
 
 export default function Button({
@@ -49,7 +36,10 @@ export default function Button({
       buttons: { map },
     },
   } = useContext(ClickerContext);
-  const { cooldown: breakCooldown } = map.takeABreak;
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { cooldown: breakCooldown } = map[
+    ButtonKey.takeABreak
+  ] as ButtonInterface;
 
   const mainCooldown = breakCooldown?.onCooldown ? breakCooldown : cooldown;
 
@@ -57,15 +47,29 @@ export default function Button({
     clickButton(id);
   };
 
+  useEffect(() => {
+    if (
+      buttonRef.current &&
+      cooldown?.onCooldown &&
+      cooldown?.cooldownSeconds
+    ) {
+      const button = buttonRef.current;
+      button.style.animation = "";
+      setTimeout(() => {
+        button.style.animation = `wipe ${cooldown?.cooldownSeconds}s linear`;
+      }, 0);
+    }
+  }, [cooldown?.onCooldown, cooldown?.cooldownSeconds]);
+
   return (
     <>
       <button
         className={classNames("button", {
           "button--cooling-down": mainCooldown?.onCooldown,
         })}
-        style={mainCooldown ? getButtonStyles(mainCooldown) : undefined}
         disabled={!enabled || mainCooldown?.onCooldown}
         onClick={handleClick}
+        ref={buttonRef}
       >
         <span
           className={classNames("button__title", {
