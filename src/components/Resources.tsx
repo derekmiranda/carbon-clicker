@@ -1,8 +1,9 @@
 import { ClickerContext } from "../reducers/context";
 import { useContext } from "react";
-import { formatNum, getCurrentTimes } from "../utils";
+import { formatNum, getCurrentTimes, getImgUrl } from "../utils";
 import "./Resources.css";
 import { GamePhase } from "../types";
+import useSelectedState from "../hooks/useSelectedState";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
@@ -20,6 +21,7 @@ function Resources() {
   } = resources;
   const isPhaseTwo = phase === GamePhase.TWO;
   const { day, month, year } = getCurrentTimes(elapsedTime);
+  const { purchasedIcons } = useSelectedState();
 
   return (
     <div className="resources-container">
@@ -32,7 +34,7 @@ function Resources() {
         <p className="resource ppm">{formatNum(globalPpm)} PPM </p>
         <p className="resource ppm">
           {resourceGrowthRates.globalPpm
-            ? `+${formatNum(resourceGrowthRates.globalPpm * 30)}/mo.`
+            ? `+${formatNum(resourceGrowthRates.globalPpm * 30, 3)}/mo.`
             : ""}{" "}
           <a
             target="_blank"
@@ -75,7 +77,7 @@ function Resources() {
         {isPhaseTwo ? (
           <>
             <p>People Power:</p>
-            <p> ${formatNum(peoplePower, 0)}</p>
+            <p>{formatNum(peoplePower, 0)}</p>
             <p className="resource">
               {resourceGrowthRates.peoplePower
                 ? `${
@@ -85,7 +87,7 @@ function Resources() {
             </p>
 
             <p>Trust:</p>
-            <p> ${formatNum(trust, 2)}</p>
+            <p>{formatNum(trust, 0)}</p>
             <p className="resource">
               {resourceGrowthRates.trust
                 ? `${resourceGrowthRates.trust < 0 ? "-" : "+"}${formatNum(
@@ -95,7 +97,7 @@ function Resources() {
             </p>
 
             <p>Dollars (Collective):</p>
-            <p> ${formatNum(collectiveDollars, 2)}</p>
+            <p>${formatNum(collectiveDollars, 2)}</p>
             <p className="resource">
               {resourceGrowthRates.collectiveDollars
                 ? `${
@@ -106,6 +108,11 @@ function Resources() {
           </>
         ) : null}
       </div>
+      {purchasedIcons.length
+        ? purchasedIcons.map((icon: string) => (
+            <img key={icon} src={getImgUrl(icon)} />
+          ))
+        : null}
     </div>
   );
 }

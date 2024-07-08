@@ -50,16 +50,39 @@ export default function Button({
   useEffect(() => {
     if (
       buttonRef.current &&
-      cooldown?.onCooldown &&
-      cooldown?.cooldownSeconds
+      mainCooldown?.onCooldown &&
+      mainCooldown?.cooldownSeconds
     ) {
       const button = buttonRef.current;
       button.style.animation = "";
       setTimeout(() => {
-        button.style.animation = `wipe ${cooldown?.cooldownSeconds}s linear`;
+        button.style.animation = `wipe ${mainCooldown?.cooldownSeconds}s linear`;
       }, 0);
     }
-  }, [cooldown?.onCooldown, cooldown?.cooldownSeconds]);
+  }, [mainCooldown?.onCooldown, mainCooldown?.cooldownSeconds]);
+
+  const effectDetails = effects.map((effect) => {
+    if (effect.type === EffectTypes.UPDATE_RESOURCES) {
+      const { resourcesDiff } = effect as UpdateResourcesEffect;
+      return Object.entries(resourcesDiff)
+        .map(([resourceKey, resourceVal]) =>
+          formatResource(resourceVal, resourceKey, true)
+        )
+        .join(", ");
+    } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
+      const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
+      return Object.entries(resourcesRateDiff)
+        .map(
+          ([resourceKey, resourceVal]) =>
+            `${formatResource(resourceVal, resourceKey, true)}/day`
+        )
+        .join(", ");
+    }
+  });
+
+  if (id === ButtonKey.takeABreak) {
+    effectDetails.push(", pause all actions");
+  }
 
   return (
     <>
@@ -88,28 +111,7 @@ export default function Button({
           </span>
         ) : null}
         {effects.length ? (
-          <span className="button__detail">
-            Effect:{" "}
-            {effects.map((effect) => {
-              if (effect.type === EffectTypes.UPDATE_RESOURCES) {
-                const { resourcesDiff } = effect as UpdateResourcesEffect;
-                return Object.entries(resourcesDiff)
-                  .map(([resourceKey, resourceVal]) =>
-                    formatResource(resourceVal, resourceKey, true)
-                  )
-                  .join(", ");
-              } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
-                const { resourcesRateDiff } =
-                  effect as UpdateResourcesRateEffect;
-                return Object.entries(resourcesRateDiff)
-                  .map(
-                    ([resourceKey, resourceVal]) =>
-                      `${formatResource(resourceVal, resourceKey, true)}/day`
-                  )
-                  .join(", ");
-              }
-            })}
-          </span>
+          <span className="button__detail">Effect: {effectDetails}</span>
         ) : null}
         {oneTime ? (
           <span className="button__detail">
