@@ -8,6 +8,7 @@ export interface CooldownInterface {
   cooldownSeconds: number;
   elapsedCooldownSeconds: number;
   onCooldown: boolean;
+  temporary?: boolean;
 }
 
 export enum CooldownActionType {
@@ -33,6 +34,8 @@ export default function cooldownReducer(
   state: CooldownInterface,
   action: CooldownActions
 ) {
+  if (!state) return state;
+
   switch (action.type) {
     case CooldownActionType.START_COOLDOWN: {
       return {
@@ -43,11 +46,13 @@ export default function cooldownReducer(
     }
 
     case CooldownActionType.END_COOLDOWN: {
-      return {
-        ...state,
-        onCooldown: false,
-        elapsedCooldownSeconds: 0,
-      };
+      return state.temporary
+        ? null
+        : {
+            ...state,
+            onCooldown: false,
+            elapsedCooldownSeconds: 0,
+          };
     }
 
     case SharedActionType.TICK_COOLDOWN: {
@@ -63,12 +68,18 @@ export default function cooldownReducer(
 
       const { timeDelta } = action as TickCooldownAction;
       const newTime = currSecs + timeDelta;
+      const coolingDown = newTime < cooldownSeconds;
 
-      return {
-        ...state,
-        onCooldown: newTime < cooldownSeconds,
-        elapsedCooldownSeconds: Math.min(currSecs + timeDelta, cooldownSeconds),
-      };
+      return state.temporary && !coolingDown
+        ? null
+        : {
+            ...state,
+            onCooldown: coolingDown,
+            elapsedCooldownSeconds: Math.min(
+              currSecs + timeDelta,
+              cooldownSeconds
+            ),
+          };
     }
   }
 }

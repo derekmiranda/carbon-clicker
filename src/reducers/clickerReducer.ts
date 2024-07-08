@@ -3,6 +3,7 @@ import {
   KNOWLEDGE_DROPPINGS,
   LOG_LIMIT,
   STARTING_PPM_RATE,
+  WALLOW_DROPPING,
 } from "../constants";
 import { clicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
@@ -25,6 +26,7 @@ import {
   TickCooldownAction,
 } from "../types/actions";
 import buttonReducer, { ButtonInterface } from "./buttonReducer";
+import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts } from "./lib";
 
 export const INITIAL_STATE = clicker;
@@ -197,7 +199,31 @@ export default function clickerReducer(
         const newKnowledgeDropping =
           KNOWLEDGE_DROPPINGS[newState.resources.knowledge - 1];
 
-        if (newKnowledgeDropping === END_PHASE_1_KNOWLEDGE_DROPPING) {
+        if (newKnowledgeDropping === WALLOW_DROPPING) {
+          newState.modal = ModalView.WALLOW;
+          const selfEducateButton = newState.buttons.map[
+            ButtonKey.selfEducate
+          ] as ButtonInterface;
+          const currCooldown = selfEducateButton.cooldown as CooldownInterface;
+
+          // set temp cooldown
+          newState.buttons.map[ButtonKey.selfEducate] = {
+            ...selfEducateButton,
+            cooldown: {
+              ...currCooldown,
+              onCooldown: false,
+            },
+            temporaryCooldown: {
+              cooldownSeconds: currCooldown.cooldownSeconds * 3,
+              elapsedCooldownSeconds: 0,
+              onCooldown: true,
+              temporary: true,
+            },
+          };
+
+          // up knowledge by 5 total
+          newState.resources.knowledge += 5 - 1;
+        } else if (newKnowledgeDropping === END_PHASE_1_KNOWLEDGE_DROPPING) {
           newState.modal = ModalView.END_PHASE_ONE;
         }
       }

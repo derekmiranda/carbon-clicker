@@ -54,6 +54,7 @@ export interface ButtonInterface {
   requirements?: Requirements | null;
   cost?: Cost | null;
   cooldown?: CooldownInterface | null;
+  temporaryCooldown?: CooldownInterface | null;
 }
 
 export const INITIAL_STATE: ButtonInterface = {
@@ -95,9 +96,14 @@ export default function buttonReducer(
     }
 
     case SharedActionType.TICK_COOLDOWN: {
-      const { cooldown } = state;
+      const { cooldown, temporaryCooldown } = state;
 
-      if (cooldown) {
+      if (temporaryCooldown) {
+        return {
+          ...state,
+          temporaryCooldown: cooldownReducer(temporaryCooldown, action),
+        };
+      } else if (cooldown) {
         return {
           ...state,
           cooldown: cooldownReducer(cooldown, action),

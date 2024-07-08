@@ -25,6 +25,7 @@ export default function Button({
   clickButton,
   enabled,
   cooldown,
+  temporaryCooldown,
   effects,
   oneTime,
   purchased,
@@ -41,7 +42,9 @@ export default function Button({
     ButtonKey.takeABreak
   ] as ButtonInterface;
 
-  const mainCooldown = breakCooldown?.onCooldown ? breakCooldown : cooldown;
+  const mainCooldown = breakCooldown?.onCooldown
+    ? breakCooldown
+    : temporaryCooldown || cooldown;
 
   const handleClick = () => {
     clickButton(id);
