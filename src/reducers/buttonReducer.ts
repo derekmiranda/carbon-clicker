@@ -78,18 +78,16 @@ export default function buttonReducer(
       const { cooldown, oneTime, timesPressed } = state;
       const newState = { ...state, timesPressed: timesPressed + 1 };
 
-      if (cooldown) {
-        Object.assign(newState, {
-          cooldown: cooldownReducer(cooldown, {
-            type: CooldownActionType.START_COOLDOWN,
-          }),
-        });
-      }
-
       if (oneTime) {
         Object.assign(newState, {
           enabled: false,
           purchased: true,
+        });
+      } else if (cooldown) {
+        Object.assign(newState, {
+          cooldown: cooldownReducer(cooldown, {
+            type: CooldownActionType.START_COOLDOWN,
+          }),
         });
       }
 
@@ -165,6 +163,11 @@ function checkRequirements(
 
   if (requirements?.buttonsUnlocked && action.buttonsUnlocked) {
     const { buttonsUnlocked } = action;
+
+    if (state.id === ButtonKey.joinClimateOrg) {
+      console.log(buttonsUnlocked);
+    }
+
     const allButtonsMet = requirements.buttonsUnlocked.every((buttonKey) =>
       buttonsUnlocked.includes(buttonKey)
     );

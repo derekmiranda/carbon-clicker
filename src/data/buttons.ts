@@ -375,7 +375,38 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
+    [ButtonKey.joinClimateOrg]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.joinClimateOrg,
+      displayName: "Join a Climate Organization",
+      description: "Join a Climate Organization",
+      // icon: "org.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.attendRally],
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            trust: 10,
+            peoplePower: 30,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: 0.02,
+          },
+        },
+      ],
+    },
   },
+
   order: [
     ButtonKey.selfEducate,
     ButtonKey.turnOffLights,
@@ -389,6 +420,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
 
     // one time
     ButtonKey.attendRally,
+    ButtonKey.joinClimateOrg,
     ButtonKey.startYourOwnGarden,
     ButtonKey.makeHomeEnergyEfficient,
     ButtonKey.buySolarPanels,

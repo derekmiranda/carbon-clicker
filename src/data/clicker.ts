@@ -1,4 +1,4 @@
-import { MAX_MOOD } from "../constants";
+import { MAX_MOOD, STARTING_PPM, STARTING_PPM_RATE } from "../constants";
 import { ClickerInterface } from "../reducers/clickerReducer";
 import { GamePhase, ModalView } from "../types";
 import { buttons } from "./buttons";
@@ -14,7 +14,7 @@ export const clicker: ClickerInterface = {
     dollars: 0,
     co2Saved: 0,
     knowledge: 0,
-    globalPpm: 425,
+    globalPpm: STARTING_PPM,
 
     // phase 2
     peoplePower: 0,
@@ -23,7 +23,7 @@ export const clicker: ClickerInterface = {
   },
   // diff per second
   resourceGrowthRates: {
-    globalPpm: 0.0067,
+    globalPpm: STARTING_PPM_RATE,
   },
   buttons,
   elapsedTime: 0,

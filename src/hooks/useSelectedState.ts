@@ -23,7 +23,7 @@ export default function useSelectedState() {
     () =>
       purchasedButtons
         .map((buttonKey) => buttons.map[buttonKey as ButtonKey]?.icon)
-        .filter(Boolean),
+        .filter(Boolean) as string[],
     [buttons, purchasedButtons]
   );
   const cappedLogs = useMemo(() => logs.slice(-LOG_LIMIT), [logs]);
