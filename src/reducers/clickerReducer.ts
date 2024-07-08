@@ -2,6 +2,7 @@ import {
   END_PHASE_1_KNOWLEDGE_DROPPING,
   KNOWLEDGE_DROPPINGS,
   LOG_LIMIT,
+  STARTING_PPM_RATE,
 } from "../constants";
 import { clicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
@@ -139,7 +140,10 @@ export default function clickerReducer(
             for (const item of Object.entries(resourcesRateDiff)) {
               const [key, diff] = item as [keyof Resources, number];
 
-              if (typeof newGrowthRates[key] === "number") {
+              if (key === "globalPpm") {
+                newGrowthRates.globalPpm =
+                  (newGrowthRates.globalPpm ?? STARTING_PPM_RATE) * (1 - diff);
+              } else if (typeof newGrowthRates[key] === "number") {
                 (newGrowthRates[key] as number) += diff;
               } else {
                 newGrowthRates[key] = diff;
