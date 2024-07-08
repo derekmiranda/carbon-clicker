@@ -405,6 +405,36 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
+    [ButtonKey.formClimateCoalition]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.formClimateCoalition,
+      displayName: "Form a Climate Coalition",
+      description: "Form a Climate Coalition",
+      // icon: "coalition.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.joinClimateOrg],
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            trust: 30,
+            peoplePower: 100,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: 0.05,
+          },
+        },
+      ],
+    },
   },
 
   order: [
@@ -421,6 +451,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     // one time
     ButtonKey.attendRally,
     ButtonKey.joinClimateOrg,
+    ButtonKey.formClimateCoalition,
     ButtonKey.startYourOwnGarden,
     ButtonKey.makeHomeEnergyEfficient,
     ButtonKey.buySolarPanels,
