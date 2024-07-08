@@ -42,7 +42,6 @@ export const WALLOW = [
 export const WALLOW_DROPPING = [LOG_BOUNDARY, ...WALLOW, LOG_BOUNDARY];
 
 export const KNOWLEDGE_DROPPINGS = [
-  WALLOW_DROPPING,
   `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
   `did you know that factory farming of cattle is the #1 source of agricultural emissions in the world? and cows are so cute!`,
   `congrats, you found a job! now you can participate in capitalism and earn that sweet sweet $$$`,
