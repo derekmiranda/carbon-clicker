@@ -108,11 +108,13 @@ function Resources() {
           </>
         ) : null}
       </div>
-      {purchasedIcons.length
-        ? purchasedIcons.map((icon: string) => (
+      {purchasedIcons.length ? (
+        <div className="icons-box">
+          {purchasedIcons.map((icon: string) => (
             <img key={icon} src={getImgUrl(icon)} />
-          ))
-        : null}
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

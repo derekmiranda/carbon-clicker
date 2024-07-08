@@ -27,3 +27,13 @@
   grid-column: span 3;
   justify-self: center;
 }
+
+.icons-box {
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+}
+
+.icons-box img {
+  width: 100%;
+  image-rendering: auto;
+}
