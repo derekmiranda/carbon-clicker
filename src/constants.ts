@@ -33,7 +33,16 @@ export const END_PHASE_1_KNOWLEDGE_DROPPING = [
   LOG_BOUNDARY,
 ];
 
+export const WALLOW = [
+  `"it’s been several months of living a more sustainable lifestyle, but you feel like your efforts are fruitless. global carbon emissions only continue to go up, and your actions feel like a drop in the bucket. what did you expect? you’re just one person.`,
+  `even worse, you looked up the concept of a personal carbon footprint and learned that BP, aka british petroleum, played a huge role in marketing it to shift the responsibility of climate change onto individuals, not polluting corporations. you had no idea! how were you supposed to know? these companies have been doing everything they can to fuel climate denial and inaction for decades!!!`,
+  `everything seems hopeless.`,
+];
+
+export const WALLOW_DROPPING = [LOG_BOUNDARY, ...WALLOW, LOG_BOUNDARY];
+
 export const KNOWLEDGE_DROPPINGS = [
+  WALLOW_DROPPING,
   `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
   `did you know that factory farming of cattle is the #1 source of agricultural emissions in the world? and cows are so cute!`,
   `congrats, you found a job! now you can participate in capitalism and earn that sweet sweet $$$`,
@@ -44,15 +53,9 @@ export const KNOWLEDGE_DROPPINGS = [
   DEFAULT_KNOWLEDGE_DROPPING,
   `you're reading "this changes everything" by naomi klein. this climate change issue is much bigger than you thought.`,
   DEFAULT_KNOWLEDGE_DROPPING,
-  DEFAULT_KNOWLEDGE_DROPPING,
   `you're reading "parable of the sower" by octavia butler. is this where our future is headed?`,
-  [
-    LOG_BOUNDARY,
-    `"it’s been several months of living a more sustainable lifestyle, but you feel like your efforts are fruitless. global carbon emissions only continue to go up, and your actions feel like a drop in the bucket. what did you expect? you’re just one person.`,
-    `even worse, you looked up the concept of a personal carbon footprint and learned that BP, aka british petroleum, played a huge role in marketing it to shift the responsibility of climate change onto individuals, not polluting corporations. you had no idea! how were you supposed to know? these companies have been doing everything they can to fuel climate denial and inaction for decades!!!`,
-    `everything seems hopeless.`,
-    LOG_BOUNDARY,
-  ],
+  DEFAULT_KNOWLEDGE_DROPPING,
+  WALLOW_DROPPING,
   END_PHASE_1_KNOWLEDGE_DROPPING,
 ];
 

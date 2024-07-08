@@ -118,6 +118,7 @@ export interface MapLikeInterface<T, K extends string = string> {
 
 export enum ModalView {
   INTRO = "INTRO",
+  WALLOW = "WALLOW",
   END_PHASE_ONE = "END_PHASE_ONE",
 }
 

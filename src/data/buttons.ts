@@ -3,6 +3,7 @@ import {
   KNOWLEDGE_DROPPINGS,
   MAX_MOOD,
   SECS_PER_DAY,
+  WALLOW_DROPPING,
 } from "../constants";
 import {
   ButtonInterface,
@@ -301,7 +302,10 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       requirements: {
         resources: {
-          knowledge: 12,
+          knowledge:
+            KNOWLEDGE_DROPPINGS.findIndex(
+              (message) => message === WALLOW_DROPPING
+            ) + 1,
         },
       },
       effects: [
