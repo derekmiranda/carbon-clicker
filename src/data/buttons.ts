@@ -435,6 +435,38 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
+    [ButtonKey.talkToNeighbor]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.talkToNeighbor,
+      displayName: "Talk to your Neighbor",
+      description: "Talk to your Neighbor",
+      // icon: "neighbor.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        resources: {
+          knowledge: 21,
+        },
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            trust: 30,
+            peoplePower: 100,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: 0.05,
+          },
+        },
+      ],
+    },
   },
 
   order: [
@@ -453,6 +485,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.joinClimateOrg,
     ButtonKey.formClimateCoalition,
     ButtonKey.startYourOwnGarden,
+    ButtonKey.talkToNeighbor,
+
     ButtonKey.makeHomeEnergyEfficient,
     ButtonKey.buySolarPanels,
     ButtonKey.buyEV,
