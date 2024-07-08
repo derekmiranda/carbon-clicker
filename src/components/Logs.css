@@ -20,6 +20,10 @@
   font-weight: bolder;
 }
 
+.log span {
+  display: block;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

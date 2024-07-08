@@ -20,10 +20,17 @@ export default function Logs() {
         .map((log, i) => (
           <p
             className="log"
-            key={i === cappedLogs.length - 1 ? log : cappedLogs.length - i}
+            key={
+              i === cappedLogs.length - 1
+                ? Array.isArray(log)
+                  ? log[0]
+                  : log
+                : cappedLogs.length - i
+            }
           >
-            {"> "}
-            {log}
+            {Array.isArray(log)
+              ? log.map((subLog, j) => <span key={j}>{`> ${subLog}`}</span>)
+              : `> ${log}`}
           </p>
         ))
         .reverse()}

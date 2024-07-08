@@ -164,10 +164,6 @@ function checkRequirements(
   if (requirements?.buttonsUnlocked && action.buttonsUnlocked) {
     const { buttonsUnlocked } = action;
 
-    if (state.id === ButtonKey.joinClimateOrg) {
-      console.log(buttonsUnlocked);
-    }
-
     const allButtonsMet = requirements.buttonsUnlocked.every((buttonKey) =>
       buttonsUnlocked.includes(buttonKey)
     );

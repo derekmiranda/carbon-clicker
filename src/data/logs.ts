@@ -1,4 +1,4 @@
-import { KNOWLEDGE_DROPPINGS } from "../constants";
+import { DEFAULT_KNOWLEDGE_DROPPING, KNOWLEDGE_DROPPINGS } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import { ClickerInterface } from "../reducers/clickerReducer";
 import { ButtonKey } from "../types";
@@ -37,13 +37,7 @@ export function getLogsForClick(
     case ButtonKey.selfEducate: {
       const newKnowledgeDropping =
         KNOWLEDGE_DROPPINGS[state.resources.knowledge - 1];
-      return newKnowledgeDropping
-        ? state.logs.concat(
-            Array.isArray(newKnowledgeDropping)
-              ? newKnowledgeDropping.slice().reverse()
-              : newKnowledgeDropping
-          )
-        : state.logs;
+      return newKnowledgeDropping || DEFAULT_KNOWLEDGE_DROPPING;
     }
   }
 

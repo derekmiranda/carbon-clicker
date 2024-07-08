@@ -35,7 +35,7 @@ export interface ClickerInterface {
   resourceGrowthRates: Partial<Resources>;
   buttons: MapLikeInterface<ButtonInterface, ButtonKey>;
   phase: GamePhase;
-  logs: string[];
+  logs: (string | string[])[];
   // seconds
   elapsedTime: number;
   storySeen: Record<string, boolean>;
@@ -184,10 +184,12 @@ export default function clickerReducer(
       checkReqsAndCosts(newState, buttonId);
 
       // add logs happening on button clicks
-      const newLogs = getLogsForClick(newState, action as ClickButtonAction);
-      if (newLogs) {
+      const logsToAdd = getLogsForClick(newState, action as ClickButtonAction);
+      if (logsToAdd) {
         // TODO: make logs reducer, to DRY
-        newState.logs = newState.logs.concat(newLogs).slice(-LOG_LIMIT);
+        const newLogs = newState.logs.slice(-LOG_LIMIT + 1);
+        newLogs.push(logsToAdd);
+        newState.logs = newLogs;
       }
 
       // one-off: end phase 1
@@ -272,9 +274,12 @@ export default function clickerReducer(
 
     case ClickerActionType.ADD_LOGS: {
       const { logs } = action as AddLogsAction;
+      const newLogs = state.logs.slice(-LOG_LIMIT + 1);
+      newLogs.push(logs);
+
       return {
         ...state,
-        logs: state.logs.concat(logs).slice(-LOG_LIMIT),
+        logs: newLogs,
       };
     }
 
