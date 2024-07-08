@@ -44,7 +44,25 @@ export default function Modal(rest: ModalProps) {
       <div className="modal-content">
         <>
           {modal === ModalView.INTRO
-            ? INTRO.map((p, i) => <p key={i}>{p}</p>)
+            ? [
+                <>
+                  welcome to summer 2024. it’s{" "}
+                  <span className="hot">hot hot HOT</span> outside!
+                </>,
+                `you are a U.S. citizen and you are concerned about climate change. you know that it’s caused by humans and that it’s driving all these record-breaking heat waves and flooding around the world, including in your home. what do!`,
+                <>
+                  you’ve been told that living a more{" "}
+                  <span className="eco">sustainable lifestyle</span> can help.
+                  activities like biking, saving energy, and recycling will emit
+                  fewer greenhouse gas emissions (GHGs). that means less carbon
+                  dioxide in the atmosphere that traps heat and warms the
+                  planet. you want to do your part to help!
+                </>,
+                <span className="warn">
+                  what can <strong>YOU</strong> do to lower the world’s carbon
+                  footprint?
+                </span>,
+              ].map((p, i) => <p key={i}>{p}</p>)
             : null}
           {modal === ModalView.END_PHASE_ONE
             ? END_PHASE_1.map((p, i) => <p key={i}>{p}</p>)
