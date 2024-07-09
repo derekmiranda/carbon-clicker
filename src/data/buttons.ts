@@ -316,6 +316,37 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       ],
     },
 
+    [ButtonKey.directAction]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.directAction,
+      displayName: "Direct Action",
+      description: "Direct Action",
+      unlocked: false,
+      enabled: true,
+      // icon: "directaction.png",
+      cooldown: {
+        cooldownSeconds: 4 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      cost: {
+        collectiveDollars: 100,
+      },
+      requirements: {
+        buttonsUnlocked: [ButtonKey.attendRally],
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -10,
+            peoplePower: 10,
+            trust: 5,
+          },
+        },
+      ],
+    },
+
     // Phase 2
     [ButtonKey.destroyFossilFuelIndustry]: {
       ...INITIAL_BUTTON_STATE,
@@ -685,7 +716,14 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
   order: [
     ButtonKey.destroyFossilFuelIndustry, // !! SHOWS UP AT TOP WHEN AVAILABLE !!
 
+    // phase 2-specific
     ButtonKey.selfEducate,
+    ButtonKey.takeABreak,
+    ButtonKey.directAction,
+    ButtonKey.communityCare,
+    ButtonKey.politicalAction,
+
+    // phase 1-specific
     ButtonKey.turnOffLights,
 
     ButtonKey.bikeInsteadOfDrive,
@@ -695,7 +733,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.homegrownMeal,
 
     ButtonKey.job,
-    ButtonKey.takeABreak,
     ButtonKey.wallowInMisery, // last action button
 
     // one time
