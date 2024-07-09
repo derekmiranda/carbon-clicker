@@ -260,6 +260,9 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       icon: "job.png",
       unlocked: false,
       enabled: true,
+      cost: {
+        mood: 20,
+      },
       cooldown: {
         cooldownSeconds: 2 * SECS_PER_DAY,
         elapsedCooldownSeconds: 0,
@@ -275,7 +278,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             dollars: 100,
-            mood: -100,
           },
         },
       ],
