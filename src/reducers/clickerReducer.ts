@@ -37,7 +37,10 @@ export interface ClickerInterface {
   buttons: MapLikeInterface<ButtonInterface, ButtonKey>;
   phase: GamePhase;
   logs: (string | string[])[];
+  // self-educate counter after picking pathway
   endgameSelfEducateTimesPressed: number;
+  // keep track of next PPM event
+  ppmEventIndex: number;
   // seconds
   elapsedTime: number;
   storySeen: Record<string, boolean>;
@@ -96,23 +99,24 @@ function updateResources(
   state: ClickerInterface,
   effect: UpdateResourcesEffect
 ) {
-  const { resourcesDiff } = effect;
+  const { resourcesDiff, proportionalDiffs } = effect;
 
   const newResources = { ...state.resources };
   for (const item of Object.entries(resourcesDiff)) {
     const [key, diff] = item as [keyof Resources, number];
 
+    const newResource = proportionalDiffs?.[key as ResourceTypes]
+      ? state.resources[key] * diff
+      : state.resources[key] + diff;
+    newResources[key] = newResource;
+
     if (key === ResourceTypes.MOOD) {
-      newResources.mood = Math.min(
-        state.resources.mood + diff,
-        state.resources.maxMood
-      );
+      newResources.mood = Math.min(newResources.mood, state.resources.maxMood);
     } else if (key === ResourceTypes.TRUST) {
-      newResources.trust = Math.min(state.resources.trust + diff, 100);
-    } else {
-      (newResources[key] as number) += diff;
+      newResources.trust = Math.min(newResources.trust, 100);
     }
   }
+
   return newResources;
 }
 
