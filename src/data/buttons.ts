@@ -347,6 +347,43 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       ],
     },
 
+    [ButtonKey.communityCare]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.communityCare,
+      displayName: "Community Care",
+      description: "Community Care",
+      unlocked: false,
+      enabled: true,
+      // icon: "communitycare.png",
+      cooldown: {
+        cooldownSeconds: 4 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      cost: {
+        collectiveDollars: 100,
+      },
+      requirements: {
+        buttonsUnlocked: [ButtonKey.talkToNeighbor],
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -5,
+            collectiveDollars: 200, // TODO: scale up amount
+            peoplePower: 5,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.01,
+          },
+        },
+      ],
+    },
+
     // Phase 2
     [ButtonKey.destroyFossilFuelIndustry]: {
       ...INITIAL_BUTTON_STATE,
