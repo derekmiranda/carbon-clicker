@@ -529,8 +529,44 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
             globalPpm: 0.01,
-            // TODO: update
+            // TODO: update collective $ rate
             collectiveDollars: 100,
+          },
+        },
+      ],
+    },
+
+    [ButtonKey.organizeCommunity]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.organizeCommunity,
+      displayName: "Organize your Community",
+      description: "Organize your Community",
+      // icon: "organizecommuntiy.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.startMutualAidFund],
+        phase: GamePhase.TWO,
+        resources: {
+          peoplePower: 200,
+          trust: 90,
+        },
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 10,
+            peoplePower: 50,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: 0.03,
+            // TODO: update collective $ rate
+            collectiveDollars: 200,
           },
         },
       ],
@@ -538,27 +574,35 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
   },
 
   order: [
+    ButtonKey.destroyFossilFuelIndustry, // !! SHOWS UP AT TOP WHEN AVAILABLE !!
+
     ButtonKey.selfEducate,
     ButtonKey.turnOffLights,
+
     ButtonKey.bikeInsteadOfDrive,
     ButtonKey.driveEV,
+
     ButtonKey.cookVegMeal,
     ButtonKey.homegrownMeal,
+
     ButtonKey.job,
     ButtonKey.takeABreak,
     ButtonKey.wallowInMisery, // last action button
 
     // one time
-    ButtonKey.destroyFossilFuelIndustry,
+
+    // phase 2
 
     ButtonKey.attendRally,
     ButtonKey.joinClimateOrg,
     ButtonKey.formClimateCoalition,
-    ButtonKey.startYourOwnGarden,
 
     ButtonKey.talkToNeighbor,
     ButtonKey.startMutualAidFund,
+    ButtonKey.organizeCommunity,
 
+    // phase 1
+    ButtonKey.startYourOwnGarden,
     ButtonKey.makeHomeEnergyEfficient,
     ButtonKey.buySolarPanels,
     ButtonKey.buyEV,
