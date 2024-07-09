@@ -571,6 +571,33 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
+    [ButtonKey.vote]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.vote,
+      displayName: "Vote",
+      description: "Vote",
+      // icon: "vote.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        timesButtonsPressed: {
+          [ButtonKey.selfEducate]: 23,
+        },
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 5,
+            peoplePower: 5,
+            knowledge: 5,
+          },
+        },
+      ],
+    },
   },
 
   order: [
@@ -600,6 +627,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.talkToNeighbor,
     ButtonKey.startMutualAidFund,
     ButtonKey.organizeCommunity,
+
+    ButtonKey.vote,
 
     // phase 1
     ButtonKey.startYourOwnGarden,
