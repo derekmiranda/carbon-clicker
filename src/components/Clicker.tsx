@@ -12,6 +12,9 @@ import { getImgUrl } from "../utils";
 function Clicker() {
   const { state } = useContext(ClickerContext);
   const { tickCooldown, tickResources, clearGameData } = useDispatchers();
+  const {
+    resources: { peoplePower },
+  } = state;
 
   const throttleTickResources = useTickThrottle(tickResources, 1);
 
@@ -21,11 +24,17 @@ function Clicker() {
   }, 60);
 
   useEffect(() => {
+    const imgUrl =
+      peoplePower >= 100
+        ? "bg-3.png"
+        : peoplePower >= 10
+        ? "bg-2.png"
+        : "bg-1.png";
     document.body.style.background = `center / contain no-repeat url(${getImgUrl(
-      "bg-1.png"
-    )}) fixed, linear-gradient(#262b44 0 50%, #3e2731 50% 100%) fixed`;
+      imgUrl
+    )}) fixed, linear-gradient(#181425 0 50%, #262b44 50% 100%) fixed`;
     document.body.style.imageRendering = "pixelated";
-  }, []);
+  }, [peoplePower]);
 
   return (
     <main className="game">
