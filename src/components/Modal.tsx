@@ -2,7 +2,7 @@ import ReactModal from "react-modal";
 import { GamePhase, ModalView } from "../types";
 import "./Modal.css";
 import { END_PHASE_1, INTRO, LOG_BOUNDARY, WALLOW } from "../constants";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { StoryId } from "../types/storyId";
@@ -29,6 +29,16 @@ export default function Modal(rest: ModalProps) {
     closeModal();
   }, [modal, addLogs, setStorySeen, setPhase, closeModal]);
 
+  const closeText = useMemo(() => {
+    switch (modal) {
+      case ModalView.INTRO:
+        return "Fight CO2!!";
+      case ModalView.END_PHASE_ONE:
+        return "Let's GOOOO";
+    }
+    return "Close";
+  }, [modal]);
+
   return (
     <ReactModal
       {...rest}
@@ -36,7 +46,7 @@ export default function Modal(rest: ModalProps) {
       style={{
         content: {
           backgroundColor: "#242424",
-          inset: "min(10%,160px)",
+          inset: "min(10%,160px) min(10%,300px)",
           borderRadius: 24,
         },
       }}
@@ -74,7 +84,7 @@ export default function Modal(rest: ModalProps) {
             : null}
         </>
         <button className="close-button" onClick={handleModalClose}>
-          Close
+          {closeText}
         </button>
       </div>
     </ReactModal>
