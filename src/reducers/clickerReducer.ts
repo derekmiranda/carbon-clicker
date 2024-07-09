@@ -147,7 +147,7 @@ export default function clickerReducer(
 
               if (key === "globalPpm") {
                 newGrowthRates.globalPpm =
-                  (newGrowthRates.globalPpm ?? STARTING_PPM_RATE) * (1 - diff);
+                  (newGrowthRates.globalPpm ?? STARTING_PPM_RATE) * (1 + diff);
               } else if (typeof newGrowthRates[key] === "number") {
                 (newGrowthRates[key] as number) += diff;
               } else {
