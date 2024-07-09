@@ -275,7 +275,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             dollars: 100,
-            mood: -10,
+            mood: -100,
           },
         },
       ],
