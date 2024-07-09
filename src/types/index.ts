@@ -93,17 +93,18 @@ export enum EffectTypes {
 
 export interface GenericEffect {
   type: EffectTypes;
-  [key: string]: unknown;
 }
 
 export interface UpdateResourcesEffect {
   type: EffectTypes.UPDATE_RESOURCES;
   resourcesDiff: Partial<Resources>;
+  proportionalDiffs?: { [key in ResourceTypes]?: true };
 }
 
 export interface UpdateResourcesRateEffect {
   type: EffectTypes.UPDATE_RESOURCES_RATE;
   resourcesRateDiff: Partial<Resources>;
+  proportionalDiffs?: { [key in ResourceTypes]?: true };
 }
 
 export type Effect =
