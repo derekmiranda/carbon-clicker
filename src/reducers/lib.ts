@@ -1,4 +1,14 @@
-import { ButtonKey, MapLikeInterface } from "../types";
+import { STARTING_PPM_RATE } from "../constants";
+import {
+  ButtonKey,
+  EffectTypes,
+  GenericEffect,
+  MapLikeInterface,
+  Resources,
+  ResourceTypes,
+  UpdateResourcesEffect,
+  UpdateResourcesRateEffect,
+} from "../types";
 import buttonReducer, {
   ButtonActionType,
   ButtonInterface,
@@ -62,4 +72,69 @@ export function getButtonPresses(buttons: MapLikeInterface<ButtonInterface>) {
     {}
   );
   return updatedButtonPresses;
+}
+
+export function updateResources(
+  state: ClickerInterface,
+  effect: UpdateResourcesEffect
+) {
+  const { resourcesDiff, proportionalDiffs } = effect;
+
+  const newResources = { ...state.resources };
+  for (const item of Object.entries(resourcesDiff)) {
+    const [key, diff] = item as [keyof Resources, number];
+
+    const newResource = proportionalDiffs?.[key as ResourceTypes]
+      ? state.resources[key] * diff
+      : state.resources[key] + diff;
+    newResources[key] = newResource;
+
+    if (key === ResourceTypes.MOOD) {
+      newResources.mood = Math.min(newResources.mood, state.resources.maxMood);
+    } else if (key === ResourceTypes.TRUST) {
+      newResources.trust = Math.min(newResources.trust, 100);
+    }
+  }
+
+  return newResources;
+}
+
+export function processEffects(
+  newState: ClickerInterface,
+  effects: GenericEffect[]
+) {
+  for (const effect of effects) {
+    switch (effect.type) {
+      case EffectTypes.UPDATE_RESOURCES: {
+        const newResources = updateResources(
+          newState,
+          effect as UpdateResourcesEffect
+        );
+
+        newState.resources = newResources;
+        break;
+      }
+
+      case EffectTypes.UPDATE_RESOURCES_RATE: {
+        const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
+        const newGrowthRates = { ...newState.resourceGrowthRates };
+
+        for (const item of Object.entries(resourcesRateDiff)) {
+          const [key, diff] = item as [keyof Resources, number];
+
+          if (key === "globalPpm") {
+            newGrowthRates.globalPpm =
+              (newGrowthRates.globalPpm ?? STARTING_PPM_RATE) * (1 + diff);
+          } else if (typeof newGrowthRates[key] === "number") {
+            (newGrowthRates[key] as number) += diff;
+          } else {
+            newGrowthRates[key] = diff;
+          }
+        }
+
+        newState.resourceGrowthRates = newGrowthRates;
+        break;
+      }
+    }
+  }
 }
