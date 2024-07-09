@@ -334,6 +334,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.attendRally],
+        phase: GamePhase.TWO,
       },
       effects: [
         {
@@ -365,6 +366,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.talkToNeighbor],
+        phase: GamePhase.TWO,
       },
       effects: [
         {
@@ -379,6 +381,45 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
             globalPpm: -0.01,
+          },
+        },
+      ],
+    },
+
+    [ButtonKey.politicalAction]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.politicalAction,
+      displayName: "Political Action",
+      description: "Political Action",
+      unlocked: false,
+      enabled: true,
+      // icon: "politicalaction.png",
+      cooldown: {
+        cooldownSeconds: 4 * SECS_PER_DAY,
+        elapsedCooldownSeconds: 0,
+        onCooldown: false,
+      },
+      cost: {
+        collectiveDollars: 200,
+      },
+      requirements: {
+        buttonsUnlocked: [ButtonKey.vote],
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -10,
+            peoplePower: 5,
+            knowledge: 5,
+            trust: -5,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.03,
           },
         },
       ],
