@@ -351,7 +351,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            globalPpm: 0.9,
+            globalPpm: -0.9,
           },
         },
       ],
@@ -436,7 +436,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            globalPpm: 0.02,
+            globalPpm: -0.02,
           },
         },
       ],
@@ -466,7 +466,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            globalPpm: 0.05,
+            globalPpm: -0.05,
           },
         },
       ],
@@ -498,7 +498,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            globalPpm: 0.05,
+            globalPpm: -0.05,
           },
         },
       ],
@@ -533,7 +533,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            globalPpm: 0.01,
+            globalPpm: -0.01,
             // TODO: update collective $ rate
             collectiveDollars: 100,
           },
@@ -569,7 +569,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            globalPpm: 0.03,
+            globalPpm: -0.03,
             // TODO: update collective $ rate
             collectiveDollars: 200,
           },
@@ -601,22 +601,28 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
             knowledge: 5,
           },
         },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.03,
+            // TODO: update collective $ rate
+            collectiveDollars: 200,
+          },
+        },
       ],
     },
 
     [ButtonKey.cityCouncilMeeting]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.cityCouncilMeeting,
-      displayName: "City Council",
-      description: "City Council",
+      displayName: "Go to a City Council Meeting",
+      description: "Go to a City Council Meeting",
       // icon: "citycouncil.png",
       oneTime: true,
       unlocked: false,
       enabled: true,
       requirements: {
-        timesButtonsPressed: {
-          [ButtonKey.selfEducate]: 23,
-        },
+        buttonsUnlocked: [ButtonKey.vote],
         phase: GamePhase.TWO,
       },
       effects: [
@@ -624,8 +630,14 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             mood: 5,
-            peoplePower: 5,
-            knowledge: 5,
+            peoplePower: 10,
+            knowledge: 10,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.02,
           },
         },
       ],
