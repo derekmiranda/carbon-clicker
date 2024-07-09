@@ -623,6 +623,9 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       requirements: {
         buttonsUnlocked: [ButtonKey.vote],
+        resources: {
+          knowledge: 70,
+        },
         phase: GamePhase.TWO,
       },
       effects: [
@@ -638,6 +641,41 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
             globalPpm: -0.02,
+          },
+        },
+      ],
+    },
+
+    [ButtonKey.volunteer]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.volunteer,
+      displayName: "Volunteer",
+      description: "Volunteer",
+      // icon: "volunteer.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.cityCouncilMeeting],
+        resources: {
+          collectiveDollars: 2000,
+          knowledge: 100,
+        },
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 5,
+            peoplePower: 20,
+            knowledge: 30,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.05,
           },
         },
       ],
@@ -673,6 +711,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.organizeCommunity,
 
     ButtonKey.vote,
+    ButtonKey.cityCouncilMeeting,
+    ButtonKey.volunteer,
 
     // phase 1
     ButtonKey.startYourOwnGarden,
