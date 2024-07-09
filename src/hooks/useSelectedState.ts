@@ -2,6 +2,7 @@ import { useContext, useMemo } from "react";
 import { ClickerContext } from "../reducers/context";
 import {
   getActionButtons,
+  getCurrentTimes,
   getPurchasedButtons,
   getUpgradeButtons,
 } from "../utils";
@@ -10,7 +11,7 @@ import { LOG_LIMIT } from "../constants";
 
 export default function useSelectedState() {
   const {
-    state: { buttons, logs },
+    state: { buttons, logs, elapsedTime },
   } = useContext(ClickerContext);
 
   const actionButtons = useMemo(() => getActionButtons(buttons), [buttons]);
@@ -27,6 +28,10 @@ export default function useSelectedState() {
     [buttons, purchasedButtons]
   );
   const cappedLogs = useMemo(() => logs.slice(-LOG_LIMIT), [logs]);
+  const currentTimes = useMemo(
+    () => getCurrentTimes(elapsedTime),
+    [elapsedTime]
+  );
 
   return {
     actionButtons,
@@ -34,5 +39,6 @@ export default function useSelectedState() {
     purchasedButtons,
     purchasedIcons,
     cappedLogs,
+    currentTimes,
   };
 }

@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@2015&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@2050&display=swap");
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -64,6 +66,14 @@ h4 {
   font-weight: 400;
   font-style: normal;
   font-variation-settings: "YEAR" 1979;
+}
+
+.year-2030 {
+  font-variation-settings: "YEAR" 2015;
+}
+
+.year-2040 {
+  font-variation-settings: "YEAR" 2050;
 }
 
 button {

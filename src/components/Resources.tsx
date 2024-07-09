@@ -1,13 +1,14 @@
 import { ClickerContext } from "../reducers/context";
 import { useContext } from "react";
-import { formatNum, getCurrentTimes, getImgUrl } from "../utils";
+import { formatNum, getImgUrl } from "../utils";
 import "./Resources.css";
 import { GamePhase } from "../types";
 import useSelectedState from "../hooks/useSelectedState";
+import classNames from "classnames";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
-  const { resources, resourceGrowthRates, phase, elapsedTime } = state;
+  const { resources, resourceGrowthRates, phase } = state;
   const {
     mood,
     maxMood,
@@ -20,12 +21,20 @@ function Resources() {
     trust,
   } = resources;
   const isPhaseTwo = phase === GamePhase.TWO;
-  const { day, month, year } = getCurrentTimes(elapsedTime);
-  const { purchasedIcons } = useSelectedState();
+  const { purchasedIcons, currentTimes } = useSelectedState();
+  const { day, month, year } = currentTimes;
+  const parsedYear = parseInt(year);
 
   return (
     <div className="resources-container">
-      <h1>Carbon Clicker</h1>
+      <h1
+        className={classNames({
+          "year-2030": 2030 <= parsedYear && parsedYear < 2040,
+          "year-2040": 2040 <= parsedYear,
+        })}
+      >
+        Carbon Clicker
+      </h1>
       <div className="resources-grid">
         <p className="time-display">
           Day: {day}, Month: {month}, Year: {year}
