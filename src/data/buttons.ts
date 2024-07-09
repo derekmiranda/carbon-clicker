@@ -477,8 +477,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       requirements: {
-        resources: {
-          knowledge: 21,
+        timesButtonsPressed: {
+          [ButtonKey.selfEducate]: 21,
         },
         phase: GamePhase.TWO,
       },
@@ -498,6 +498,43 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       ],
     },
+
+    [ButtonKey.startMutualAidFund]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.startMutualAidFund,
+      displayName: "Start a Mutual Aid Fund",
+      description: "Start a Mutual Aid Fund",
+      // icon: "mutualaidfund.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.talkToNeighbor],
+        phase: GamePhase.TWO,
+        resources: {
+          collectiveDollars: 1000,
+          peoplePower: 50,
+          trust: 75,
+        },
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 10,
+            peoplePower: 20,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: 0.01,
+            // TODO: update
+            collectiveDollars: 100,
+          },
+        },
+      ],
+    },
   },
 
   order: [
@@ -509,7 +546,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.homegrownMeal,
     ButtonKey.job,
     ButtonKey.takeABreak,
-    ButtonKey.wallowInMisery,
+    ButtonKey.wallowInMisery, // last action button
 
     // one time
     ButtonKey.destroyFossilFuelIndustry,
@@ -518,7 +555,9 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.joinClimateOrg,
     ButtonKey.formClimateCoalition,
     ButtonKey.startYourOwnGarden,
+
     ButtonKey.talkToNeighbor,
+    ButtonKey.startMutualAidFund,
 
     ButtonKey.makeHomeEnergyEfficient,
     ButtonKey.buySolarPanels,

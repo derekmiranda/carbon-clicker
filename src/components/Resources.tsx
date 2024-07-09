@@ -96,7 +96,7 @@ function Resources() {
             </p>
 
             <p>Trust:</p>
-            <p>{formatNum(trust, 0)}</p>
+            <p>{formatNum(trust, 0)}%</p>
             <p className="resource">
               {resourceGrowthRates.trust
                 ? `${resourceGrowthRates.trust < 0 ? "-" : "+"}${formatNum(

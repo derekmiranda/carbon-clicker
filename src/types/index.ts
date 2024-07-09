@@ -48,7 +48,7 @@ export enum ButtonKey {
   joinClimateOrg = "join a climate org",
   formClimateCoalition = "form a climate coalition",
   talkToNeighbor = "talk to your neighbor",
-  startMutualAid = "start a mutual aid fund",
+  startMutualAidFund = "start a mutual aid fund",
   organizeCommunity = "organize your community",
   vote = "vote",
   cityCouncilMeeting = "go to a city council meeting",
