@@ -5,23 +5,12 @@ export const STARTING_PPM_RATE = 0.0067;
 
 export const DEFAULT_KNOWLEDGE_DROPPING = `you gained +1 knowledge!`;
 export const LOG_BOUNDARY = `~~~~~~`;
-export const SELF_EDUCATE_THRESHOLDS = {
-  WALLOW: 15,
-  PHASE_TWO: 19,
-};
 
 export const END_PHASE_1 = [
   `you look into this question more: “what can individuals do to stop the climate crisis?`,
   `after some research, you learn that the most effective thing you can do is to take part in collective action.`,
   `you don’t really know what that means. you’ve never organized before! or marched in a rally! will it even make a difference?`,
   `you’re not sure, but the time for climate doom ‘n gloom is over. let’s try this out!!!`,
-];
-
-export const END_PHASE_ONE = [
-  `that's the end of the prototype!`,
-  `in the next part of the game, we'll introduce collective action, where you can team together with a larger community of climate-minded folks like yourself!`,
-  `you'll be able to choose different paths, such as taking either a cooperative approach or starting a revolution!`,
-  `stay tuned!`,
 ];
 
 export const INTRO = [
@@ -59,8 +48,43 @@ export const KNOWLEDGE_DROPPINGS = [
   `you're reading "parable of the sower" by octavia butler. is this where our future is headed?`,
   DEFAULT_KNOWLEDGE_DROPPING,
   WALLOW_DROPPING,
+  "you gained +1 knowledge! but you're still sad.",
   END_PHASE_1_KNOWLEDGE_DROPPING,
+  `you learn about all the emotions that people experience with climate change: anxiety, grief, anger, guilt. you've definitely felt all of those. in fact, all this focus on living a "sustainable lifestyle" has enhanced your guilt. you'll never be perfect. the twinge of panic every time you buy a drink in plastic or turn on the AC can't be good for you.\n` +
+    "\n" +
+    "there must be another way to help. but what?",
+  "you gained +1 knowledge!",
+  "you look into this question more: “what can individuals do to stop the climate crisis?”\n" +
+    "\n" +
+    "after some research, you learn that the most effective thing you can do is to take part in collective action.\n" +
+    "\n" +
+    "you don’t really know what that means. you’ve never organized before! or marched in a rally! will it even make a difference?\n" +
+    "\n" +
+    "you’re not sure, but the time for climate doom ‘n gloom is over. let’s try this out!!!",
+  "you're gaining knowledge at a faster rate now that you're in a collective!",
+  "we've been taught to fear our neighbors, but actually, getting to know your community is climate action.",
+  "you gained +3 knowledge!",
+  "electoral power has strong climate consequences, even at the local level.",
+  "you gained +3 knowledge!",
+  `you're reading "how to blow up a pipeline" by andreas malm. peaceful protest is no longer sufficient; we need action that screams we've had enough with rich polluters.`,
+  "you gained +3 knowledge!",
+  `you're reading "everything for everyone" by m.e. o'brien and eman abdelhadi. our future relies on communities taking care of each other.`,
+  "you gained +3 knowledge!",
+  `you're reading "drawdown" by paul hawken. so many carbon reduction solutions to carry out -- but is there enough time to do it all?`,
+  "you gained +3 knowledge!",
+  `you're reading "ministry for the future" by kim stanley robinson. the governments of the world have to band together to win this fight.`,
+  "you gained +3 knowledge!",
+  `you're reading "all we can save" by dr. ayana elizabeth johnson and dr. katharine wilkinson. you're starting to feel more in touch with nature again, and all the hope and love that comes with a healthy planet.`,
+  `you're reading "a psalm for the wild built" by becky chambers. a better world is possible, and you are just one of the many humans building it.`,
 ];
+
+const getSelfEducateThreshold = (targetDrop: string | string[]) =>
+  KNOWLEDGE_DROPPINGS.findIndex((drop) => drop === targetDrop);
+
+export const SELF_EDUCATE_THRESHOLDS = {
+  WALLOW: getSelfEducateThreshold(WALLOW_DROPPING),
+  PHASE_TWO: getSelfEducateThreshold(END_PHASE_1_KNOWLEDGE_DROPPING),
+};
 
 export const SECS_PER_DAY = 2;
 export const MAX_MOOD = 200;

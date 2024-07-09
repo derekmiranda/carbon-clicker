@@ -35,8 +35,11 @@ export function getLogsForClick(
 
   switch (buttonId) {
     case ButtonKey.selfEducate: {
+      const selfEducateButton = state.buttons.map[
+        ButtonKey.selfEducate
+      ] as ButtonInterface;
       const newKnowledgeDropping =
-        KNOWLEDGE_DROPPINGS[state.resources.knowledge - 1];
+        KNOWLEDGE_DROPPINGS[selfEducateButton.timesPressed - 1];
       return newKnowledgeDropping || DEFAULT_KNOWLEDGE_DROPPING;
     }
   }
