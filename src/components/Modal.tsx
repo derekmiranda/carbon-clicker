@@ -15,9 +15,10 @@ export default function Modal(rest: ModalProps) {
   } = useContext(ClickerContext);
   const { closeModal, setStorySeen, addLogs, setPhase } = useDispatchers();
   const modal = modalQueue[0];
+  const { view } = modal || {};
 
   const handleModalClose = useCallback(() => {
-    switch (modal) {
+    switch (view) {
       case ModalView.INTRO:
         addLogs(INTRO.concat(LOG_BOUNDARY));
         setStorySeen(StoryId.INTRO);
@@ -28,22 +29,22 @@ export default function Modal(rest: ModalProps) {
         break;
     }
     closeModal();
-  }, [modal, addLogs, setStorySeen, setPhase, closeModal]);
+  }, [view, addLogs, setStorySeen, setPhase, closeModal]);
 
   const closeText = useMemo(() => {
-    switch (modal) {
+    switch (view) {
       case ModalView.INTRO:
         return "Fight CO2!!";
       case ModalView.END_PHASE_ONE:
         return "Let's GOOOO";
     }
     return "Close";
-  }, [modal]);
+  }, [view]);
 
   return (
     <ReactModal
       {...rest}
-      isOpen={!!modal}
+      isOpen={!!view}
       style={{
         content: {
           backgroundColor: "#242424",
@@ -57,7 +58,7 @@ export default function Modal(rest: ModalProps) {
     >
       <div className="modal-content">
         <>
-          {modal === ModalView.INTRO
+          {view === ModalView.INTRO
             ? [
                 <>
                   welcome to summer 2024. it’s{" "}
@@ -79,13 +80,17 @@ export default function Modal(rest: ModalProps) {
               ].map((p, i) => <p key={i}>{p}</p>)
             : null}
 
-          {modal === ModalView.WALLOW
+          {view === ModalView.WALLOW
             ? WALLOW.map((p, i) => <p key={i}>{p}</p>)
             : null}
 
-          {modal === ModalView.END_PHASE_ONE
+          {view === ModalView.END_PHASE_ONE
             ? END_PHASE_1.map((p, i) => <p key={i}>{p}</p>)
             : null}
+
+          {view === ModalView.PPM_EVENT && modal.props?.content ? (
+            <p>{modal.props.content}</p>
+          ) : null}
         </>
         <button className="close-button" onClick={handleModalClose}>
           {closeText}

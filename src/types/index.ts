@@ -121,6 +121,11 @@ export enum ModalView {
   INTRO = "INTRO",
   WALLOW = "WALLOW",
   END_PHASE_ONE = "END_PHASE_ONE",
+  PPM_EVENT = "PPM_EVENT",
+}
+
+export interface ModalViewProps {
+  content?: string;
 }
 
 export enum GamePhase {
