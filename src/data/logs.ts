@@ -1,7 +1,12 @@
-import { DEFAULT_KNOWLEDGE_DROPPING, KNOWLEDGE_DROPPINGS } from "../constants";
+import {
+  DEFAULT_KNOWLEDGE_DROPPING,
+  KNOWLEDGE_DROPPINGS,
+  PHASE_1_KNOWLEDGE_GAIN,
+  PHASE_2_KNOWLEDGE_GAIN,
+} from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import { ClickerInterface } from "../reducers/clickerReducer";
-import { ButtonKey } from "../types";
+import { ButtonKey, GamePhase } from "../types";
 import { ClickButtonAction } from "../types/actions";
 import buttonLogs, { LogValues } from "./buttonLogs";
 
@@ -40,7 +45,14 @@ export function getLogsForClick(
       ] as ButtonInterface;
       const newKnowledgeDropping =
         KNOWLEDGE_DROPPINGS[selfEducateButton.timesPressed - 1];
-      return newKnowledgeDropping || DEFAULT_KNOWLEDGE_DROPPING;
+      return (
+        newKnowledgeDropping ||
+        DEFAULT_KNOWLEDGE_DROPPING(
+          state.phase === GamePhase.ONE
+            ? PHASE_1_KNOWLEDGE_GAIN
+            : PHASE_2_KNOWLEDGE_GAIN
+        )
+      );
     }
   }
 

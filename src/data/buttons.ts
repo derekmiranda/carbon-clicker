@@ -1,4 +1,9 @@
-import { SELF_EDUCATE_THRESHOLDS, MAX_MOOD, SECS_PER_DAY } from "../constants";
+import {
+  SELF_EDUCATE_THRESHOLDS,
+  MAX_MOOD,
+  SECS_PER_DAY,
+  PHASE_1_KNOWLEDGE_GAIN,
+} from "../constants";
 import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
@@ -22,7 +27,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            knowledge: 1,
+            knowledge: PHASE_1_KNOWLEDGE_GAIN,
           },
         },
       ],
@@ -578,6 +583,33 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       displayName: "Vote",
       description: "Vote",
       // icon: "vote.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: true,
+      requirements: {
+        timesButtonsPressed: {
+          [ButtonKey.selfEducate]: 23,
+        },
+        phase: GamePhase.TWO,
+      },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 5,
+            peoplePower: 5,
+            knowledge: 5,
+          },
+        },
+      ],
+    },
+
+    [ButtonKey.cityCouncilMeeting]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.cityCouncilMeeting,
+      displayName: "City Council",
+      description: "City Council",
+      // icon: "citycouncil.png",
       oneTime: true,
       unlocked: false,
       enabled: true,
