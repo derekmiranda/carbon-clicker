@@ -43,7 +43,7 @@ export default function useDispatchers() {
   );
 
   const closeModal = useCallback(
-    () => dispatch({ type: ClickerActionType.SET_MODAL, modal: null }),
+    () => dispatch({ type: ClickerActionType.CLOSE_MODAL }),
     [dispatch]
   );
 

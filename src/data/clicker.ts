@@ -4,7 +4,7 @@ import { GamePhase, ModalView } from "../types";
 import { buttons } from "./buttons";
 
 export const clicker: ClickerInterface = {
-  modal: ModalView.INTRO,
+  modalQueue: [ModalView.INTRO],
   logs: [],
   storySeen: {},
   phase: GamePhase.ONE,

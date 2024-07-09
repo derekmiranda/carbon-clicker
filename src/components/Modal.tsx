@@ -11,9 +11,10 @@ export interface ModalProps extends Partial<ReactModal.Props> {}
 
 export default function Modal(rest: ModalProps) {
   const {
-    state: { modal },
+    state: { modalQueue },
   } = useContext(ClickerContext);
   const { closeModal, setStorySeen, addLogs, setPhase } = useDispatchers();
+  const modal = modalQueue[0];
 
   const handleModalClose = useCallback(() => {
     switch (modal) {

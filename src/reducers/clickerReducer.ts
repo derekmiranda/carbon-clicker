@@ -41,13 +41,14 @@ export interface ClickerInterface {
   // seconds
   elapsedTime: number;
   storySeen: Record<string, boolean>;
-  modal?: ModalView | null;
+  modalQueue: ModalView[];
   pathway?: Pathway;
 }
 
 export enum ClickerActionType {
   ADD_LOGS = "ADD_LOGS",
   SET_MODAL = "SET_MODAL",
+  CLOSE_MODAL = "CLOSE_MODAL",
   SET_STORY_SEEN = "SET_STORY_SEEN",
   LOAD_GAME_DATA = "LOAD_GAME_DATA",
   CLEAR_GAME_DATA = "CLEAR_GAME_DATA",
@@ -61,7 +62,11 @@ export interface AddLogsAction {
 
 export interface SetModalAction {
   type: ClickerActionType.SET_MODAL;
-  modal: ModalView | null;
+  modal: ModalView;
+}
+
+export interface CloseModalAction {
+  type: ClickerActionType.CLOSE_MODAL;
 }
 
 export interface SetStorySeenAction {
@@ -205,7 +210,7 @@ export default function clickerReducer(
         ] as ButtonInterface;
 
         if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.WALLOW) {
-          newState.modal = ModalView.WALLOW;
+          newState.modalQueue = newState.modalQueue.concat(ModalView.WALLOW);
           const selfEducateButton = newState.buttons.map[
             ButtonKey.selfEducate
           ] as ButtonInterface;
@@ -233,7 +238,9 @@ export default function clickerReducer(
             ButtonKey.selfEducate
           ] as ButtonInterface;
 
-          newState.modal = ModalView.END_PHASE_ONE;
+          newState.modalQueue = newState.modalQueue.concat(
+            ModalView.END_PHASE_ONE
+          );
 
           // up knowledge rate
           newState.buttons.map[ButtonKey.selfEducate] = {
@@ -295,10 +302,22 @@ export default function clickerReducer(
     }
 
     case ClickerActionType.SET_MODAL: {
+      const { modalQueue } = state;
       const { modal } = action as SetModalAction;
+
       return {
         ...state,
-        modal,
+        modalQueue: modalQueue
+          .concat(modal)
+          .filter((m, i) => modalQueue.indexOf(m) !== i),
+      };
+    }
+
+    case ClickerActionType.CLOSE_MODAL: {
+      return {
+        ...state,
+        // remove first
+        modalQueue: state.modalQueue.filter((_, i) => i > 0),
       };
     }
 
