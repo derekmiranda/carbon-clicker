@@ -47,7 +47,10 @@ export default function Modal(rest: ModalProps) {
         content: {
           backgroundColor: "#242424",
           inset: "min(10%,160px) min(10%,300px)",
-          borderRadius: 24,
+          height: "max-content",
+          borderRadius: "var(--gap)",
+          margin: "auto",
+          maxHeight: "80%",
         },
       }}
     >
