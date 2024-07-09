@@ -1,21 +1,16 @@
-import {
-  SELF_EDUCATE_THRESHOLDS,
-  LOG_LIMIT,
-  STARTING_PPM_RATE,
-} from "../constants";
+import { SELF_EDUCATE_THRESHOLDS, LOG_LIMIT } from "../constants";
 import { clicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
+import ppmEvents from "../data/ppmEvents";
 import {
   ButtonKey,
   EffectTypes,
   GamePhase,
   MapLikeInterface,
   ModalView,
+  ModalViewProps,
   Pathway,
-  ResourceTypes,
   Resources,
-  UpdateResourcesEffect,
-  UpdateResourcesRateEffect,
 } from "../types";
 import {
   ClickButtonAction,
@@ -26,9 +21,14 @@ import {
 } from "../types/actions";
 import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
-import { checkReqsAndCosts } from "./lib";
+import { checkReqsAndCosts, processEffects } from "./lib";
 
 export const INITIAL_STATE = clicker;
+
+interface ModalData {
+  view: ModalView;
+  props?: ModalViewProps;
+}
 
 export interface ClickerInterface {
   resources: Resources;
@@ -44,7 +44,7 @@ export interface ClickerInterface {
   // seconds
   elapsedTime: number;
   storySeen: Record<string, boolean>;
-  modalQueue: ModalView[];
+  modalQueue: ModalData[];
   pathway?: Pathway;
 }
 
@@ -66,6 +66,7 @@ export interface AddLogsAction {
 export interface SetModalAction {
   type: ClickerActionType.SET_MODAL;
   modal: ModalView;
+  props?: ModalViewProps;
 }
 
 export interface CloseModalAction {
@@ -95,31 +96,6 @@ export type ClickerAction =
   | SharedAction
   | Record<string, unknown>;
 
-function updateResources(
-  state: ClickerInterface,
-  effect: UpdateResourcesEffect
-) {
-  const { resourcesDiff, proportionalDiffs } = effect;
-
-  const newResources = { ...state.resources };
-  for (const item of Object.entries(resourcesDiff)) {
-    const [key, diff] = item as [keyof Resources, number];
-
-    const newResource = proportionalDiffs?.[key as ResourceTypes]
-      ? state.resources[key] * diff
-      : state.resources[key] + diff;
-    newResources[key] = newResource;
-
-    if (key === ResourceTypes.MOOD) {
-      newResources.mood = Math.min(newResources.mood, state.resources.maxMood);
-    } else if (key === ResourceTypes.TRUST) {
-      newResources.trust = Math.min(newResources.trust, 100);
-    }
-  }
-
-  return newResources;
-}
-
 export default function clickerReducer(
   state: ClickerInterface,
   action: ClickerAction
@@ -134,41 +110,7 @@ export default function clickerReducer(
 
       if (!button.enabled) return state;
 
-      // process button effects
-      for (const effect of button.effects) {
-        switch (effect.type) {
-          case EffectTypes.UPDATE_RESOURCES: {
-            const newResources = updateResources(
-              state,
-              effect as UpdateResourcesEffect
-            );
-
-            newState.resources = newResources;
-            break;
-          }
-
-          case EffectTypes.UPDATE_RESOURCES_RATE: {
-            const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
-            const newGrowthRates = { ...state.resourceGrowthRates };
-
-            for (const item of Object.entries(resourcesRateDiff)) {
-              const [key, diff] = item as [keyof Resources, number];
-
-              if (key === "globalPpm") {
-                newGrowthRates.globalPpm =
-                  (newGrowthRates.globalPpm ?? STARTING_PPM_RATE) * (1 + diff);
-              } else if (typeof newGrowthRates[key] === "number") {
-                (newGrowthRates[key] as number) += diff;
-              } else {
-                newGrowthRates[key] = diff;
-              }
-            }
-
-            newState.resourceGrowthRates = newGrowthRates;
-            break;
-          }
-        }
-      }
+      processEffects(newState, button.effects);
 
       // deduct costs, if any
       if (button.cost) {
@@ -214,7 +156,9 @@ export default function clickerReducer(
         ] as ButtonInterface;
 
         if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.WALLOW) {
-          newState.modalQueue = newState.modalQueue.concat(ModalView.WALLOW);
+          newState.modalQueue = newState.modalQueue.concat({
+            view: ModalView.WALLOW,
+          });
           const selfEducateButton = newState.buttons.map[
             ButtonKey.selfEducate
           ] as ButtonInterface;
@@ -242,9 +186,9 @@ export default function clickerReducer(
             ButtonKey.selfEducate
           ] as ButtonInterface;
 
-          newState.modalQueue = newState.modalQueue.concat(
-            ModalView.END_PHASE_ONE
-          );
+          newState.modalQueue = newState.modalQueue.concat({
+            view: ModalView.END_PHASE_ONE,
+          });
 
           // up knowledge rate
           newState.buttons.map[ButtonKey.selfEducate] = {
@@ -281,6 +225,17 @@ export default function clickerReducer(
       // check requirements and costs
       checkReqsAndCosts(newState);
 
+      // check for PPM events
+      const nextPpmEvent = ppmEvents[state.ppmEventIndex + 1];
+      if (nextPpmEvent && newState.resources.globalPpm >= nextPpmEvent.ppm) {
+        newState.modalQueue = newState.modalQueue.concat({
+          view: ModalView.PPM_EVENT,
+          props: { content: nextPpmEvent.text },
+        });
+        newState.ppmEventIndex = state.ppmEventIndex + 1;
+
+        processEffects(newState, nextPpmEvent.effects);
+      }
       return newState;
     }
 
@@ -307,13 +262,15 @@ export default function clickerReducer(
 
     case ClickerActionType.SET_MODAL: {
       const { modalQueue } = state;
-      const { modal } = action as SetModalAction;
+      const { modal, props } = action as SetModalAction;
 
       return {
         ...state,
         modalQueue: modalQueue
-          .concat(modal)
-          .filter((m, i) => modalQueue.indexOf(m) !== i),
+          .concat({ view: modal, props })
+          .filter(
+            (m1, i) => modalQueue.findIndex((m2) => m1.view === m2.view) !== i
+          ),
       };
     }
 

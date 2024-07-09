@@ -1,4 +1,4 @@
-export const GAME_VERSION = "0";
+export const GAME_VERSION = "1";
 export const LOG_LIMIT = 50;
 export const STARTING_PPM = 425;
 export const STARTING_PPM_RATE = 0.0067;
