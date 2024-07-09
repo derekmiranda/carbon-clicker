@@ -192,7 +192,8 @@ export default function clickerReducer(
         newState.logs = newLogs;
       }
 
-      // one-off: end phase 1
+      // one-off: self-educate events
+      // TODO: split off into self-educate-specific EffectType
       if (buttonId === ButtonKey.selfEducate) {
         const { timesPressed: timesSelfEducated } = newState.buttons.map[
           ButtonKey.selfEducate
@@ -223,7 +224,24 @@ export default function clickerReducer(
           // up knowledge by 5 total
           newState.resources.knowledge += 5 - 1;
         } else if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.PHASE_TWO) {
+          const selfEducateButton = newState.buttons.map[
+            ButtonKey.selfEducate
+          ] as ButtonInterface;
+
           newState.modal = ModalView.END_PHASE_ONE;
+
+          // up knowledge rate
+          newState.buttons.map[ButtonKey.selfEducate] = {
+            ...selfEducateButton,
+            effects: [
+              {
+                type: EffectTypes.UPDATE_RESOURCES,
+                resourcesDiff: {
+                  knowledge: 3,
+                },
+              },
+            ],
+          };
         }
       }
 
