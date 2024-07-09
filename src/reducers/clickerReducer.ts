@@ -99,6 +99,8 @@ function updateResources(
         state.resources.mood + diff,
         state.resources.maxMood
       );
+    } else if (key === ResourceTypes.TRUST) {
+      newResources.trust = Math.min(state.resources.trust + diff, 100);
     } else {
       (newResources[key] as number) += diff;
     }
