@@ -68,20 +68,28 @@ export const KNOWLEDGE_DROPPINGS = [
   "we've been taught to fear our neighbors, but actually, getting to know your community is climate action.",
   DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
   "electoral power has strong climate consequences, even at the local level.",
-  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
-  `you're reading "how to blow up a pipeline" by andreas malm. peaceful protest is no longer sufficient; we need action that screams we've had enough with rich polluters.`,
-  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
-  `you're reading "everything for everyone" by m.e. o'brien and eman abdelhadi. our future relies on communities taking care of each other.`,
-  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
-  `you're reading "drawdown" by paul hawken. so many carbon reduction solutions to carry out -- but is there enough time to do it all?`,
-  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
-  `you're reading "ministry for the future" by kim stanley robinson. the governments of the world have to band together to win this fight.`,
-  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
+];
+
+export const END_GAME_KNOWLEDGE_DROPPINGS = [
   `you're reading "all we can save" by dr. ayana elizabeth johnson and dr. katharine wilkinson. you're starting to feel more in touch with nature again, and all the hope and love that comes with a healthy planet.`,
   `you're reading "a psalm for the wild built" by becky chambers. a better world is possible, and you are just one of the many humans building it.`,
 ];
 
-export const REVOLUTION_KNOWLEDGE_DROPPINGS = [];
+export const REVOLUTION_KNOWLEDGE_DROPPINGS = [
+  `you're reading "how to blow up a pipeline" by andreas malm. peaceful protest is no longer sufficient; we need action that screams we've had enough with rich polluters.`,
+  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
+  `you're reading "everything for everyone" by m.e. o'brien and eman abdelhadi. our future relies on communities taking care of each other.`,
+  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
+  ...END_GAME_KNOWLEDGE_DROPPINGS,
+];
+
+export const COOPERATION_KNOWLEDGE_DROPPINGS = [
+  `you're reading "drawdown" by paul hawken. so many carbon reduction solutions to carry out -- but is there enough time to do it all?`,
+  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
+  `you're reading "ministry for the future" by kim stanley robinson. the governments of the world have to band together to win this fight.`,
+  DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
+  ...END_GAME_KNOWLEDGE_DROPPINGS,
+];
 
 const getSelfEducateThreshold = (targetDrop: string | string[]) =>
   KNOWLEDGE_DROPPINGS.findIndex((drop) => drop === targetDrop);

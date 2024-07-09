@@ -27,4 +27,5 @@ export const clicker: ClickerInterface = {
   },
   buttons,
   elapsedTime: 0,
+  endgameSelfEducateTimesPressed: 0,
 };

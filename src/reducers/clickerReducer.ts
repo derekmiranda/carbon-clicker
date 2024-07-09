@@ -11,6 +11,7 @@ import {
   GamePhase,
   MapLikeInterface,
   ModalView,
+  Pathway,
   ResourceTypes,
   Resources,
   UpdateResourcesEffect,
@@ -36,10 +37,12 @@ export interface ClickerInterface {
   buttons: MapLikeInterface<ButtonInterface, ButtonKey>;
   phase: GamePhase;
   logs: (string | string[])[];
+  endgameSelfEducateTimesPressed: number;
   // seconds
   elapsedTime: number;
   storySeen: Record<string, boolean>;
   modal?: ModalView | null;
+  pathway?: Pathway;
 }
 
 export enum ClickerActionType {
