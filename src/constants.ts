@@ -5,6 +5,10 @@ export const STARTING_PPM_RATE = 0.0067;
 
 export const DEFAULT_KNOWLEDGE_DROPPING = `you gained +1 knowledge!`;
 export const LOG_BOUNDARY = `~~~~~~`;
+export const SELF_EDUCATE_THRESHOLDS = {
+  WALLOW: 15,
+  PHASE_TWO: 19,
+};
 
 export const END_PHASE_1 = [
   `you look into this question more: “what can individuals do to stop the climate crisis?`,

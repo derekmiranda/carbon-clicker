@@ -1,10 +1,4 @@
-import {
-  END_PHASE_1_KNOWLEDGE_DROPPING,
-  KNOWLEDGE_DROPPINGS,
-  MAX_MOOD,
-  SECS_PER_DAY,
-  WALLOW_DROPPING,
-} from "../constants";
+import { SELF_EDUCATE_THRESHOLDS, MAX_MOOD, SECS_PER_DAY } from "../constants";
 import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
@@ -301,11 +295,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         onCooldown: false,
       },
       requirements: {
-        resources: {
-          knowledge:
-            KNOWLEDGE_DROPPINGS.findIndex(
-              (message) => message === WALLOW_DROPPING
-            ) + 1,
+        timesButtonsPressed: {
+          [ButtonKey.selfEducate]: SELF_EDUCATE_THRESHOLDS.WALLOW,
         },
       },
       effects: [
@@ -373,11 +364,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         onCooldown: false,
       },
       requirements: {
-        resources: {
-          knowledge:
-            KNOWLEDGE_DROPPINGS.findIndex(
-              (message) => message === END_PHASE_1_KNOWLEDGE_DROPPING
-            ) + 1,
+        timesButtonsPressed: {
+          [ButtonKey.selfEducate]: SELF_EDUCATE_THRESHOLDS.PHASE_TWO,
         },
         phase: GamePhase.TWO,
       },
@@ -401,11 +389,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       requirements: {
-        resources: {
-          knowledge:
-            KNOWLEDGE_DROPPINGS.findIndex(
-              (message) => message === END_PHASE_1_KNOWLEDGE_DROPPING
-            ) + 1,
+        timesButtonsPressed: {
+          [ButtonKey.selfEducate]: SELF_EDUCATE_THRESHOLDS.PHASE_TWO,
         },
         phase: GamePhase.TWO,
       },

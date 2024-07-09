@@ -1,9 +1,7 @@
 import {
-  END_PHASE_1_KNOWLEDGE_DROPPING,
-  KNOWLEDGE_DROPPINGS,
+  SELF_EDUCATE_THRESHOLDS,
   LOG_LIMIT,
   STARTING_PPM_RATE,
-  WALLOW_DROPPING,
 } from "../constants";
 import { clicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
@@ -196,10 +194,11 @@ export default function clickerReducer(
 
       // one-off: end phase 1
       if (buttonId === ButtonKey.selfEducate) {
-        const newKnowledgeDropping =
-          KNOWLEDGE_DROPPINGS[newState.resources.knowledge - 1];
+        const { timesPressed: timesSelfEducated } = newState.buttons.map[
+          ButtonKey.selfEducate
+        ] as ButtonInterface;
 
-        if (newKnowledgeDropping === WALLOW_DROPPING) {
+        if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.WALLOW) {
           newState.modal = ModalView.WALLOW;
           const selfEducateButton = newState.buttons.map[
             ButtonKey.selfEducate
@@ -223,7 +222,7 @@ export default function clickerReducer(
 
           // up knowledge by 5 total
           newState.resources.knowledge += 5 - 1;
-        } else if (newKnowledgeDropping === END_PHASE_1_KNOWLEDGE_DROPPING) {
+        } else if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.PHASE_TWO) {
           newState.modal = ModalView.END_PHASE_ONE;
         }
       }
