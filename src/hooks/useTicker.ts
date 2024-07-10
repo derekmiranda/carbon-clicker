@@ -10,6 +10,19 @@ export default function useTicker(
   const lastTimeRef = useRef<number>(performance.now());
   const frameSecs = 1000 / fps;
 
+  useEffect(() => {
+    function handleVisibilityChange() {
+      if (!document.hidden) {
+        lastTimeRef.current = performance.now();
+      }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   const animate = useCallback(
     (timestamp: DOMHighResTimeStamp) => {
       if (timestamp - lastTimeRef.current > frameSecs) {
