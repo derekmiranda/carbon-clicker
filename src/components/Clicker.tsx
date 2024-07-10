@@ -16,12 +16,13 @@ function Clicker() {
     resources: { peoplePower },
   } = state;
 
+  const throttleTickCooldown = useTickThrottle(tickCooldown, 60);
   const throttleTickResources = useTickThrottle(tickResources, 1);
 
   useTicker((timeDelta) => {
-    tickCooldown(timeDelta);
+    throttleTickCooldown(timeDelta);
     throttleTickResources(timeDelta);
-  }, 60);
+  }, 120);
 
   useEffect(() => {
     const imgUrl =

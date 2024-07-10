@@ -4,6 +4,7 @@
   border: 2px solid var(--accent-color);
   animation: 2s enter;
   user-select: none;
+  transition: border-color 1s;
 }
 
 .button:disabled {
@@ -46,6 +47,14 @@
   background: linear-gradient(45deg, transparent 50%, #67ceab 0) no-repeat;
   background-size: 400% 400%;
   background-position: 0% 50%;
+}
+
+.button--tired {
+  border-color: var(--accent-color-desaturate);
+}
+
+.button--real-tired {
+  border-color: var(--hot-color);
 }
 
 .button--take-break {

@@ -10,6 +10,10 @@ import "./Button.css";
 import { ClickerContext } from "../reducers/context";
 import { useContext, useEffect, useRef } from "react";
 import { formatResource, getImgUrl } from "../utils";
+import {
+  REAAAALLLYYY_TIRED_MOOD_PERCENT,
+  TIRED_MOOD_PERCENT,
+} from "../constants";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
@@ -47,11 +51,12 @@ export default function Button({
     ? breakCooldown
     : temporaryCooldown || cooldown;
 
-  const handleClick = () => {
-    clickButton(id, id === ButtonKey.takeABreak ? 1 : mood / maxMood);
-  };
-
+  const moodPercent = mood / maxMood;
   const isBreakButton = id === ButtonKey.takeABreak;
+
+  const handleClick = () => {
+    clickButton(id, id === ButtonKey.takeABreak ? 1 : moodPercent);
+  };
 
   useEffect(() => {
     if (
@@ -93,6 +98,15 @@ export default function Button({
       <button
         className={classNames("button", {
           "button--cooling-down": mainCooldown?.onCooldown,
+          "button--tired":
+            !isBreakButton &&
+            !oneTime &&
+            REAAAALLLYYY_TIRED_MOOD_PERCENT < moodPercent &&
+            moodPercent <= TIRED_MOOD_PERCENT,
+          "button--real-tired":
+            !isBreakButton &&
+            !oneTime &&
+            moodPercent <= REAAAALLLYYY_TIRED_MOOD_PERCENT,
           "button--take-break": isBreakButton,
         })}
         disabled={!enabled || mainCooldown?.onCooldown}
