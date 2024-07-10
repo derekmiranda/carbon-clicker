@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { GamePhase, ModalView } from "../types";
+import { GamePhase, ModalView, Pathway } from "../types";
 import "./Modal.css";
 import { END_PHASE_1, INTRO, LOG_BOUNDARY, WALLOW } from "../constants";
 import { useCallback, useContext, useMemo } from "react";
@@ -13,7 +13,8 @@ export default function Modal(rest: ModalProps) {
   const {
     state: { modalQueue },
   } = useContext(ClickerContext);
-  const { closeModal, setStorySeen, addLogs, setPhase } = useDispatchers();
+  const { closeModal, setStorySeen, addLogs, setPhase, setPathway } =
+    useDispatchers();
   const modal = modalQueue[0];
   const { view } = modal || {};
 
@@ -40,6 +41,36 @@ export default function Modal(rest: ModalProps) {
     }
     return "Close";
   }, [view]);
+
+  const closeSection = (() => {
+    switch (view) {
+      case ModalView.CHOOSE_PATHWAY: {
+        const chooseRevolution = () => {
+          setPathway(Pathway.REVOLUTION);
+          handleModalClose();
+        };
+        const chooseCooperation = () => {
+          setPathway(Pathway.COOPERATION);
+          handleModalClose();
+        };
+        return (
+          <>
+            <button className="close-button" onClick={chooseCooperation}>
+              nicely???
+            </button>
+            <button className="close-button" onClick={chooseRevolution}>
+              meanly???
+            </button>
+          </>
+        );
+      }
+    }
+    return (
+      <button className="close-button" onClick={handleModalClose}>
+        {closeText}
+      </button>
+    );
+  })();
 
   return (
     <ReactModal
@@ -91,10 +122,12 @@ export default function Modal(rest: ModalProps) {
           {view === ModalView.PPM_EVENT && modal.props?.content ? (
             <p>{modal.props.content}</p>
           ) : null}
+
+          {view === ModalView.CHOOSE_PATHWAY && modal.props?.content ? (
+            <p>{modal.props.content}</p>
+          ) : null}
         </>
-        <button className="close-button" onClick={handleModalClose}>
-          {closeText}
-        </button>
+        {closeSection}
       </div>
     </ReactModal>
   );

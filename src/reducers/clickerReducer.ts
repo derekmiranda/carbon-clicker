@@ -1,4 +1,8 @@
-import { SELF_EDUCATE_THRESHOLDS, LOG_LIMIT } from "../constants";
+import {
+  SELF_EDUCATE_THRESHOLDS,
+  LOG_LIMIT,
+  CHOOSE_PATHWAY,
+} from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
 import { pathwayClicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
@@ -56,6 +60,7 @@ export enum ClickerActionType {
   LOAD_GAME_DATA = "LOAD_GAME_DATA",
   CLEAR_GAME_DATA = "CLEAR_GAME_DATA",
   SET_PHASE = "SET_PHASE",
+  SET_PATHWAY = "SET_PATHWAY",
 }
 
 export interface AddLogsAction {
@@ -88,11 +93,17 @@ export interface SetPhaseAction {
   phase: GamePhase;
 }
 
+export interface SetPathwayAction {
+  type: ClickerActionType.SET_PATHWAY;
+  pathway: Pathway;
+}
+
 export type ClickerAction =
   | AddLogsAction
   | SetModalAction
   | SetStorySeenAction
   | SetPhaseAction
+  | SetPathwayAction
   | SharedAction
   | Record<string, unknown>;
 
@@ -191,6 +202,19 @@ export default function clickerReducer(
         }
       }
 
+      // check for pathway time
+      if (
+        !newState.pathway &&
+        newState.buttons.map[ButtonKey.formClimateCoalition]?.purchased &&
+        newState.buttons.map[ButtonKey.organizeCommunity]?.purchased &&
+        newState.buttons.map[ButtonKey.volunteer]?.purchased
+      ) {
+        newState.modalQueue = newState.modalQueue.concat({
+          view: ModalView.CHOOSE_PATHWAY,
+          props: { content: CHOOSE_PATHWAY.join("\n") },
+        });
+      }
+
       return newState;
     }
 
@@ -283,6 +307,14 @@ export default function clickerReducer(
       return {
         ...state,
         phase,
+      };
+    }
+
+    case ClickerActionType.SET_PATHWAY: {
+      const { pathway } = action as SetPathwayAction;
+      return {
+        ...state,
+        pathway,
       };
     }
 

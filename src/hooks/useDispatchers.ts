@@ -3,7 +3,7 @@ import { ClickerContext } from "../reducers/context";
 import { SharedActionType } from "../types/actions";
 import { clearGameData } from "../storage";
 import { ClickerActionType } from "../reducers/clickerReducer";
-import { GamePhase, ModalView } from "../types";
+import { GamePhase, ModalView, Pathway } from "../types";
 import { StoryId } from "../types/storyId";
 
 export default function useDispatchers() {
@@ -72,6 +72,12 @@ export default function useDispatchers() {
     [dispatch]
   );
 
+  const setPathway = useCallback(
+    (pathway: Pathway) =>
+      dispatch({ type: ClickerActionType.SET_PATHWAY, pathway }),
+    [dispatch]
+  );
+
   const addLogs = useCallback(
     (logs: string[]) => dispatch({ type: ClickerActionType.ADD_LOGS, logs }),
     [dispatch]
@@ -86,6 +92,7 @@ export default function useDispatchers() {
     clearGameData: clearGameDataCB,
     setStorySeen,
     setPhase,
+    setPathway,
     addLogs,
   };
 }

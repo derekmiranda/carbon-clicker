@@ -24,6 +24,7 @@ export function checkReqsAndCosts(
     type: ButtonActionType.CHECK_REQUIREMENTS,
     updatedResources: newState.resources,
     phase: newState.phase,
+    pathway: newState.pathway,
   };
 
   checkReqsAction.buttonsUnlocked = newState.buttons.order.reduce<string[]>(
