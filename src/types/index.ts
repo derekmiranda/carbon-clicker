@@ -71,7 +71,9 @@ export enum ButtonKey {
 
 export type ButtonKeyMap<T> = { [key in ButtonKey]?: T };
 
-export type Cost = Partial<Resources>;
+export interface Cost extends Partial<Resources> {
+  noDeduct?: boolean;
+}
 
 export interface Requirements {
   resources?: Partial<Resources>;

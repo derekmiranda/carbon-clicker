@@ -149,6 +149,8 @@ function checkResourcesMet(
   currResources: Resources
 ) {
   return Object.keys(neededResources).every((resourceKey) => {
+    if (resourceKey === "noDeduct") return true;
+
     const reqResource =
       neededResources[resourceKey as keyof Partial<Resources>];
     const currResource = currResources[resourceKey as keyof Resources];
@@ -166,9 +168,6 @@ function checkRequirements(
     const { updatedResources } = action;
     const { resources } = requirements;
     const resourcesMet = checkResourcesMet(resources, updatedResources);
-    if (state.id === ButtonKey.destroyFossilFuelIndustry) {
-      console.log(resourcesMet, resources);
-    }
 
     if (!resourcesMet) return false;
   }
@@ -179,10 +178,6 @@ function checkRequirements(
     const allButtonsMet = requirements.buttonsUnlocked.every((buttonKey) =>
       buttonsUnlocked.includes(buttonKey)
     );
-
-    if (state.id === ButtonKey.destroyFossilFuelIndustry) {
-      console.log(allButtonsMet);
-    }
 
     if (!allButtonsMet) return false;
   }

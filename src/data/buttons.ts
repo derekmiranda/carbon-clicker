@@ -445,19 +445,20 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Destroy the Fossil Fuel Industry",
       // icon: "destroyfossilfuels.png",
       unlocked: false,
-      enabled: true,
+      enabled: false,
       oneTime: true,
+      cost: {
+        knowledge: 500,
+        peoplePower: 1000,
+        trust: 100,
+        noDeduct: true,
+      },
       requirements: {
         buttonsUnlocked: [
           ButtonKey.formClimateCoalition,
           ButtonKey.organizeCommunity,
           ButtonKey.volunteer,
         ],
-        resources: {
-          knowledge: 500,
-          peoplePower: 1000,
-          trust: 100,
-        },
         phase: GamePhase.TWO,
       },
       effects: [

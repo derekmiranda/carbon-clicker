@@ -36,7 +36,7 @@ export function getPurchasedButtons(
       buttonKey !== ButtonKey.destroyFossilFuelIndustry &&
       buttons.map[buttonKey as ButtonKey]?.oneTime &&
       buttons.map[buttonKey as ButtonKey]?.unlocked &&
-      !buttons.map[buttonKey as ButtonKey]?.purchased
+      buttons.map[buttonKey as ButtonKey]?.purchased
   );
 }
 

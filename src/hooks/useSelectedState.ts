@@ -20,6 +20,9 @@ export default function useSelectedState() {
     () => getPurchasedButtons(buttons),
     [buttons]
   );
+
+  console.log(purchasedButtons);
+
   const purchasedIcons = useMemo(
     () =>
       purchasedButtons

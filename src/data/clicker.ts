@@ -91,7 +91,7 @@ export const endgameClicker: ClickerInterface = {
     globalPpm: 428,
 
     // phase 2
-    peoplePower: 1000,
+    peoplePower: 999,
     trust: 100,
     collectiveDollars: 5000000,
   },
