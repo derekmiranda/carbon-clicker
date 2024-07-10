@@ -93,7 +93,7 @@ export const pathwayClicker: ClickerInterface = {
     // phase 2
     peoplePower: 300,
     trust: 90,
-    collectiveDollars: 10000,
+    collectiveDollars: 5000000,
   },
   // diff per second
   resourceGrowthRates: {
