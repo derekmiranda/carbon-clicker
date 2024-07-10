@@ -454,7 +454,9 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       requirements: {
         buttonsUnlocked: [
-          ButtonKey.formClimateCoalition /* ButtonKey.organizeCommunity, ButtonKey.volunteer */,
+          ButtonKey.formClimateCoalition,
+          ButtonKey.organizeCommunity,
+          ButtonKey.volunteer,
         ],
         resources: {
           knowledge: 500,
@@ -570,7 +572,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.formClimateCoalition,
       displayName: "Form a Climate Coalition",
       description: "Form a Climate Coalition",
-      // icon: "coalition.png",
+      icon: "coalition.png",
       oneTime: true,
       unlocked: false,
       enabled: true,
@@ -673,7 +675,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.organizeCommunity,
       displayName: "Organize your Community",
       description: "Organize your Community",
-      // icon: "organizecommuntiy.png",
+      icon: "organizecommunity.png",
       oneTime: true,
       unlocked: false,
       enabled: true,
@@ -778,7 +780,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.volunteer,
       displayName: "Volunteer",
       description: "Volunteer",
-      // icon: "volunteer.png",
+      icon: "volunteer.png",
       oneTime: true,
       unlocked: false,
       enabled: true,

@@ -6,6 +6,7 @@ import {
   Requirements,
   Resources,
   GamePhase,
+  Pathway,
 } from "../types";
 import { SharedAction, SharedActionType } from "../types/actions";
 import cooldownReducer, {
@@ -24,6 +25,7 @@ export interface CheckRequirementsAction {
   updatedResources: Resources;
   phase: GamePhase;
   updatedButtonPresses?: ButtonKeyMap<number>;
+  pathway?: Pathway;
   buttonsUnlocked?: string[];
   bonusesUnlocked?: string[];
 }
@@ -199,6 +201,11 @@ function checkRequirements(
   if (requirements?.phase) {
     const { phase } = action;
     if (phase !== requirements.phase) return false;
+  }
+
+  if (requirements?.pathway) {
+    const { pathway } = action;
+    if (pathway !== requirements.pathway) return false;
   }
 
   return true;

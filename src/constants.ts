@@ -44,6 +44,10 @@ export const NEIGHBOR_DROPPING =
 export const VOTE_DROPPING =
   "electoral power has strong climate consequences, even at the local level.";
 
+export const CHOOSE_PATHWAY = [
+  `wowie, should i blow up fossil fuels nicely or meanly?????`,
+];
+
 export const KNOWLEDGE_DROPPINGS = [
   `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
   `did you know that factory farming of cattle is the #1 source of agricultural emissions in the world? and cows are so cute!`,

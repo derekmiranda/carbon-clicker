@@ -40,7 +40,7 @@ export const clicker: ClickerInterface = {
 export const phaseTwoClicker: ClickerInterface = {
   modalQueue: [{ view: ModalView.END_PHASE_ONE }],
   logs: [],
-  ppmEventIndex: -1,
+  ppmEventIndex: 3,
   storySeen: {},
   phase: GamePhase.TWO,
   resources: {
@@ -68,6 +68,67 @@ export const phaseTwoClicker: ClickerInterface = {
         ...(clicker.buttons.map[ButtonKey.selfEducate] as ButtonInterface),
         timesPressed: SELF_EDUCATE_THRESHOLDS.PHASE_TWO + 1,
         effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
+      },
+    },
+  },
+  elapsedTime: 0,
+  endgameSelfEducateTimesPressed: 0,
+};
+
+// test data for pathway
+export const pathwayClicker: ClickerInterface = {
+  modalQueue: [],
+  logs: [],
+  ppmEventIndex: 5,
+  storySeen: {},
+  phase: GamePhase.TWO,
+  resources: {
+    mood: MAX_MOOD,
+    maxMood: MAX_MOOD,
+    dollars: 1000,
+    co2Saved: 5000,
+    knowledge: 70,
+    globalPpm: 428,
+
+    // phase 2
+    peoplePower: 300,
+    trust: 90,
+    collectiveDollars: 10000,
+  },
+  // diff per second
+  resourceGrowthRates: {
+    globalPpm: STARTING_PPM_RATE,
+  },
+  buttons: {
+    ...clicker.buttons,
+    map: {
+      ...clicker.buttons.map,
+      [ButtonKey.selfEducate]: {
+        ...(clicker.buttons.map[ButtonKey.selfEducate] as ButtonInterface),
+        timesPressed: SELF_EDUCATE_THRESHOLDS.PHASE_TWO + 4,
+        effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
+      },
+      [ButtonKey.formClimateCoalition]: {
+        ...(clicker.buttons.map[
+          ButtonKey.formClimateCoalition
+        ] as ButtonInterface),
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.organizeCommunity]: {
+        ...(clicker.buttons.map[
+          ButtonKey.organizeCommunity
+        ] as ButtonInterface),
+        purchased: false,
+        unlocked: true,
+        enabled: true,
+      },
+      [ButtonKey.volunteer]: {
+        ...(clicker.buttons.map[ButtonKey.volunteer] as ButtonInterface),
+        purchased: true,
+        unlocked: true,
+        enabled: false,
       },
     },
   },

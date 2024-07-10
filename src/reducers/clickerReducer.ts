@@ -1,6 +1,6 @@
 import { SELF_EDUCATE_THRESHOLDS, LOG_LIMIT } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
-import { phaseTwoClicker } from "../data/clicker";
+import { pathwayClicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
 import {
@@ -23,7 +23,7 @@ import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts, processEffects } from "./lib";
 
-export const INITIAL_STATE = phaseTwoClicker;
+export const INITIAL_STATE = pathwayClicker;
 
 interface ModalData {
   view: ModalView;
