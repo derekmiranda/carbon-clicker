@@ -166,6 +166,9 @@ function checkRequirements(
     const { updatedResources } = action;
     const { resources } = requirements;
     const resourcesMet = checkResourcesMet(resources, updatedResources);
+    if (state.id === ButtonKey.destroyFossilFuelIndustry) {
+      console.log(resourcesMet, resources);
+    }
 
     if (!resourcesMet) return false;
   }
@@ -176,6 +179,10 @@ function checkRequirements(
     const allButtonsMet = requirements.buttonsUnlocked.every((buttonKey) =>
       buttonsUnlocked.includes(buttonKey)
     );
+
+    if (state.id === ButtonKey.destroyFossilFuelIndustry) {
+      console.log(allButtonsMet);
+    }
 
     if (!allButtonsMet) return false;
   }

@@ -446,12 +446,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       // icon: "destroyfossilfuels.png",
       unlocked: false,
       enabled: true,
-      cooldown: {
-        baseCooldownSeconds: 4 * SECS_PER_DAY,
-        cooldownSeconds: 1,
-        elapsedCooldownSeconds: 0,
-        onCooldown: false,
-      },
+      oneTime: true,
       requirements: {
         buttonsUnlocked: [
           ButtonKey.formClimateCoalition,

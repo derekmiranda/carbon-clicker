@@ -4,7 +4,7 @@ import {
   CHOOSE_PATHWAY,
 } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
-import { pathwayClicker } from "../data/clicker";
+import { endgameClicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
 import {
@@ -27,7 +27,7 @@ import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts, processEffects } from "./lib";
 
-export const INITIAL_STATE = pathwayClicker;
+export const INITIAL_STATE = endgameClicker;
 
 interface ModalData {
   view: ModalView;

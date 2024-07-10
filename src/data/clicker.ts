@@ -75,8 +75,8 @@ export const phaseTwoClicker: ClickerInterface = {
   endgameSelfEducateTimesPressed: 0,
 };
 
-// test data for pathway
-export const pathwayClicker: ClickerInterface = {
+// test data for endgame
+export const endgameClicker: ClickerInterface = {
   modalQueue: [],
   logs: [],
   ppmEventIndex: 5,
@@ -87,12 +87,12 @@ export const pathwayClicker: ClickerInterface = {
     maxMood: MAX_MOOD,
     dollars: 1000,
     co2Saved: 5000,
-    knowledge: 70,
+    knowledge: 500,
     globalPpm: 428,
 
     // phase 2
-    peoplePower: 300,
-    trust: 90,
+    peoplePower: 1000,
+    trust: 100,
     collectiveDollars: 5000000,
   },
   // diff per second
