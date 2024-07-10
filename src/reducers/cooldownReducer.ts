@@ -1,10 +1,15 @@
 import {
+  REAAAALLLYYY_TIRED_MOOD_PERCENT,
+  TIRED_MOOD_PERCENT,
+} from "../constants";
+import {
   SharedAction,
   SharedActionType,
   TickCooldownAction,
 } from "../types/actions";
 
 export interface CooldownInterface {
+  baseCooldownSeconds: number;
   cooldownSeconds: number;
   elapsedCooldownSeconds: number;
   onCooldown: boolean;
@@ -19,6 +24,7 @@ export enum CooldownActionType {
 
 export interface StartCooldownAction {
   type: CooldownActionType.START_COOLDOWN;
+  moodPercent: number;
 }
 
 export interface EndCooldownAction {
@@ -38,9 +44,17 @@ export default function cooldownReducer(
 
   switch (action.type) {
     case CooldownActionType.START_COOLDOWN: {
+      const { moodPercent } = action as StartCooldownAction;
+      const cooldownModifier =
+        moodPercent < REAAAALLLYYY_TIRED_MOOD_PERCENT
+          ? 4
+          : moodPercent < TIRED_MOOD_PERCENT
+          ? 2
+          : 1;
       return {
         ...state,
         onCooldown: true,
+        cooldownSeconds: state.baseCooldownSeconds * cooldownModifier,
         elapsedCooldownSeconds: 0,
       };
     }

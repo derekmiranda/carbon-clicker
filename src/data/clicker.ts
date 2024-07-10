@@ -44,7 +44,7 @@ export const phaseTwoClicker: ClickerInterface = {
   storySeen: {},
   phase: GamePhase.TWO,
   resources: {
-    mood: 200,
+    mood: 0,
     maxMood: MAX_MOOD,
     dollars: 1000,
     co2Saved: 1000,

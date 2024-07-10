@@ -1,6 +1,6 @@
 import { SELF_EDUCATE_THRESHOLDS, LOG_LIMIT } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
-import { clicker } from "../data/clicker";
+import { phaseTwoClicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
 import {
@@ -23,7 +23,7 @@ import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts, processEffects } from "./lib";
 
-export const INITIAL_STATE = clicker;
+export const INITIAL_STATE = phaseTwoClicker;
 
 interface ModalData {
   view: ModalView;
@@ -128,11 +128,7 @@ export default function clickerReducer(
         ...newState.buttons,
         map: {
           ...newState.buttons.map,
-          [buttonId]:
-            buttonState &&
-            buttonReducer(buttonState, {
-              type: SharedActionType.CLICK_BUTTON,
-            }),
+          [buttonId]: buttonState && buttonReducer(buttonState, action),
         },
       };
 
@@ -173,6 +169,7 @@ export default function clickerReducer(
             },
             temporaryCooldown: {
               cooldownSeconds: currCooldown.cooldownSeconds * 3,
+              baseCooldownSeconds: currCooldown.cooldownSeconds * 3,
               elapsedCooldownSeconds: 0,
               onCooldown: true,
               temporary: true,

@@ -5,6 +5,10 @@ import "./Resources.css";
 import { GamePhase } from "../types";
 import useSelectedState from "../hooks/useSelectedState";
 import classNames from "classnames";
+import {
+  REAAAALLLYYY_TIRED_MOOD_PERCENT,
+  TIRED_MOOD_PERCENT,
+} from "../constants";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
@@ -24,6 +28,14 @@ function Resources() {
   const { purchasedIcons, currentTimes } = useSelectedState();
   const { day, month, year } = currentTimes;
   const parsedYear = parseInt(year);
+  const moodPercent = mood / maxMood;
+  const moodClassName = classNames({
+    "great-mood": TIRED_MOOD_PERCENT <= moodPercent,
+    "tired-mood":
+      REAAAALLLYYY_TIRED_MOOD_PERCENT <= moodPercent &&
+      moodPercent < TIRED_MOOD_PERCENT,
+    "real-tired-mood": moodPercent < REAAAALLLYYY_TIRED_MOOD_PERCENT,
+  });
 
   return (
     <div className="resources-container">
@@ -53,8 +65,8 @@ function Resources() {
           </a>
         </p>
 
-        <p>Mood:</p>
-        <p>
+        <p className={moodClassName}>Mood:</p>
+        <p className={moodClassName}>
           {mood}/{maxMood}
         </p>
         <p className="resource"></p>

@@ -5,6 +5,8 @@ export const STARTING_PPM = 425;
 export const STARTING_PPM_RATE = 0.0067;
 export const PHASE_1_KNOWLEDGE_GAIN = 1;
 export const PHASE_2_KNOWLEDGE_GAIN = 3;
+export const TIRED_MOOD_PERCENT = 0.5;
+export const REAAAALLLYYY_TIRED_MOOD_PERCENT = 0.25;
 
 export const DEFAULT_KNOWLEDGE_DROPPING = (num: number) =>
   `you gained +${num} knowledge!`;

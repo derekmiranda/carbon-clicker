@@ -26,7 +26,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Self-Educate",
       icon: "selfeducate.png",
       cooldown: {
-        cooldownSeconds: 3 * SECS_PER_DAY,
+        baseCooldownSeconds: 3 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -47,7 +48,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Turn Off Lights",
       icon: "turnofflights.png",
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        baseCooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -124,7 +126,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        baseCooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -153,7 +156,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        baseCooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -198,7 +202,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        baseCooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -227,7 +232,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       icon: "homegrown.png",
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        baseCooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -276,7 +282,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         mood: 20,
       },
       cooldown: {
-        cooldownSeconds: 2 * SECS_PER_DAY,
+        baseCooldownSeconds: 2 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -304,7 +311,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       icon: "wallow.png",
       cooldown: {
-        cooldownSeconds: 1 * SECS_PER_DAY,
+        baseCooldownSeconds: 1 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -325,7 +333,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       // icon: "directaction.png",
       cooldown: {
-        cooldownSeconds: 4 * SECS_PER_DAY,
+        baseCooldownSeconds: 4 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -357,7 +366,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       // icon: "communitycare.png",
       cooldown: {
-        cooldownSeconds: 4 * SECS_PER_DAY,
+        baseCooldownSeconds: 4 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -395,7 +405,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       // icon: "politicalaction.png",
       cooldown: {
-        cooldownSeconds: 4 * SECS_PER_DAY,
+        baseCooldownSeconds: 4 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -435,7 +446,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cooldown: {
-        cooldownSeconds: 4 * SECS_PER_DAY,
+        baseCooldownSeconds: 4 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
@@ -475,7 +487,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cooldown: {
-        cooldownSeconds: 4 * SECS_PER_DAY,
+        baseCooldownSeconds: 4 * SECS_PER_DAY,
+        cooldownSeconds: 1,
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },

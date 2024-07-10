@@ -88,6 +88,7 @@ export default function buttonReducer(
         Object.assign(newState, {
           cooldown: cooldownReducer(cooldown, {
             type: CooldownActionType.START_COOLDOWN,
+            moodPercent: action.moodPercent,
           }),
         });
       }

@@ -10,10 +10,11 @@ export default function useDispatchers() {
   const { dispatch } = useContext(ClickerContext);
 
   const clickButton = useCallback(
-    (buttonId: string) =>
+    (buttonId: string, moodPercent: number) =>
       dispatch({
         type: SharedActionType.CLICK_BUTTON,
         buttonId,
+        moodPercent,
       }),
     [dispatch]
   );

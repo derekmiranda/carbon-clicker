@@ -37,3 +37,15 @@
   width: 100%;
   image-rendering: auto;
 }
+
+.great-mood {
+  color: var(--green-color);
+}
+
+.tired-mood {
+  color: var(--warn-color);
+}
+
+.real-tired-mood {
+  color: var(--hot-color);
+}
