@@ -86,7 +86,7 @@ export function updateResources(
 
     const newResource = proportionalDiffs?.[key as ResourceTypes]
       ? state.resources[key] * diff
-      : state.resources[key] + diff;
+      : Math.max(state.resources[key] + diff, 0);
     newResources[key] = newResource;
 
     if (key === ResourceTypes.MOOD) {
