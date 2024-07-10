@@ -14,6 +14,7 @@ import {
   GamePhase,
   GenericEffect,
   MapLikeInterface,
+  Pathway,
   UpdateResourcesEffect,
 } from "../types";
 
@@ -805,6 +806,24 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           },
         },
       ],
+    },
+
+    [ButtonKey.blowUpPipeline]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.blowUpPipeline,
+      displayName: "Blow Up a Pipeline",
+      description: "Blow Up a Pipeline",
+      // icon: "blowup.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: false,
+      requirements: {
+        resources: {
+          collectiveDollars: 50000,
+        },
+        phase: GamePhase.TWO,
+        pathway: Pathway.REVOLUTION,
+      },
     },
   },
 
