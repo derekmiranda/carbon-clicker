@@ -448,7 +448,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: false,
       oneTime: true,
       cost: {
-        knowledge: 500,
+        knowledge: 250,
         peoplePower: 1000,
         trust: 100,
         noDeduct: true,
@@ -675,12 +675,17 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: true,
+      cost: {
+        peoplePower: 200,
+        trust: 90,
+        noDeduct: true,
+      },
       requirements: {
         buttonsUnlocked: [ButtonKey.startMutualAidFund],
         phase: GamePhase.TWO,
         resources: {
-          peoplePower: 200,
-          trust: 90,
+          peoplePower: 100,
+          trust: 50,
         },
       },
       effects: [

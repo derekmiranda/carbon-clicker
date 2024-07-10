@@ -131,10 +131,11 @@ export default function Button({
           {displayName}
         </span>
 
-        {cost && !isDestroyFossilFuelsButton && !purchased ? (
+        {cost && !purchased ? (
           <span className="button__detail">
             Cost:{" "}
             {Object.entries(cost)
+              .filter(([key]) => key !== "noDeduct")
               .map(([key, val]) => formatResource(val, key))
               .join("+")}
           </span>
