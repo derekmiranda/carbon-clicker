@@ -45,11 +45,14 @@ export default function Buttons() {
       <h2>Actions</h2>
       <Logs />
       <div className="buttons-box">
-        <Button
-          className="button--destroy-fossil-fuels"
-          {...destroyFossilFuelsBtn}
-          clickButton={clickButton}
-        />
+        {destroyFossilFuelsBtn.unlocked ? (
+          <Button
+            className="button--destroy-fossil-fuels"
+            {...destroyFossilFuelsBtn}
+            clickButton={clickButton}
+          />
+        ) : null}
+
         <ButtonsList buttonOrder={actionButtons} />
         {upgradeButtons.length ? <h2>Upgrades</h2> : null}
         <ButtonsList buttonOrder={upgradeButtons} />
