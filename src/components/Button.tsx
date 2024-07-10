@@ -48,7 +48,7 @@ export default function Button({
     : temporaryCooldown || cooldown;
 
   const handleClick = () => {
-    clickButton(id, mood / maxMood);
+    clickButton(id, id === ButtonKey.takeABreak ? 1 : mood / maxMood);
   };
 
   const isBreakButton = id === ButtonKey.takeABreak;
