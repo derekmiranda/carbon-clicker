@@ -1,10 +1,10 @@
 import { SELF_EDUCATE_THRESHOLDS, LOG_LIMIT } from "../constants";
+import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
 import { clicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
 import {
   ButtonKey,
-  EffectTypes,
   GamePhase,
   MapLikeInterface,
   ModalView,
@@ -182,25 +182,14 @@ export default function clickerReducer(
           // up knowledge by 5 total
           newState.resources.knowledge += 5 - 1;
         } else if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.PHASE_TWO) {
-          const selfEducateButton = newState.buttons.map[
-            ButtonKey.selfEducate
-          ] as ButtonInterface;
-
           newState.modalQueue = newState.modalQueue.concat({
             view: ModalView.END_PHASE_ONE,
           });
 
           // up knowledge rate
           newState.buttons.map[ButtonKey.selfEducate] = {
-            ...selfEducateButton,
-            effects: [
-              {
-                type: EffectTypes.UPDATE_RESOURCES,
-                resourcesDiff: {
-                  knowledge: 3,
-                },
-              },
-            ],
+            ...(newState.buttons.map[ButtonKey.selfEducate] as ButtonInterface),
+            effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
           };
         }
       }

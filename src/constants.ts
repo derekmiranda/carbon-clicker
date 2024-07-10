@@ -1,3 +1,4 @@
+export const SECS_PER_DAY = 2;
 export const GAME_VERSION = "1";
 export const LOG_LIMIT = 50;
 export const STARTING_PPM = 425;
@@ -36,6 +37,10 @@ export const WALLOW = [
 ];
 
 export const WALLOW_DROPPING = [LOG_BOUNDARY, ...WALLOW, LOG_BOUNDARY];
+export const NEIGHBOR_DROPPING =
+  "we've been taught to fear our neighbors, but actually, getting to know your community is climate action.";
+export const VOTE_DROPPING =
+  "electoral power has strong climate consequences, even at the local level.";
 
 export const KNOWLEDGE_DROPPINGS = [
   `you learned that 20% of carbon emissions in the US come from cars. crazy!`,
@@ -52,22 +57,16 @@ export const KNOWLEDGE_DROPPINGS = [
   DEFAULT_KNOWLEDGE_DROPPING(PHASE_1_KNOWLEDGE_GAIN),
   WALLOW_DROPPING,
   `${DEFAULT_KNOWLEDGE_DROPPING(PHASE_1_KNOWLEDGE_GAIN)} but you're still sad.`,
-  END_PHASE_1_KNOWLEDGE_DROPPING,
-  `you learn about all the emotions that people experience with climate change: anxiety, grief, anger, guilt. you've definitely felt all of those. in fact, all this focus on living a "sustainable lifestyle" has enhanced your guilt. you'll never be perfect. the twinge of panic every time you buy a drink in plastic or turn on the AC can't be good for you.\n` +
-    "\n" +
+  [
+    `you learn about all the emotions that people experience with climate change: anxiety, grief, anger, guilt. you've definitely felt all of those. in fact, all this focus on living a "sustainable lifestyle" has enhanced your guilt. you'll never be perfect. the twinge of panic every time you buy a drink in plastic or turn on the AC can't be good for you.`,
     "there must be another way to help. but what?",
+  ],
   DEFAULT_KNOWLEDGE_DROPPING(PHASE_1_KNOWLEDGE_GAIN),
-  "you look into this question more: “what can individuals do to stop the climate crisis?”\n" +
-    "\n" +
-    "after some research, you learn that the most effective thing you can do is to take part in collective action.\n" +
-    "\n" +
-    "you don’t really know what that means. you’ve never organized before! or marched in a rally! will it even make a difference?\n" +
-    "\n" +
-    "you’re not sure, but the time for climate doom ‘n gloom is over. let’s try this out!!!",
+  END_PHASE_1_KNOWLEDGE_DROPPING,
   "you're gaining knowledge at a faster rate now that you're in a collective!",
-  "we've been taught to fear our neighbors, but actually, getting to know your community is climate action.",
+  NEIGHBOR_DROPPING,
   DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
-  "electoral power has strong climate consequences, even at the local level.",
+  VOTE_DROPPING,
 ];
 
 export const END_GAME_KNOWLEDGE_DROPPINGS = [
@@ -92,19 +91,21 @@ export const COOPERATION_KNOWLEDGE_DROPPINGS = [
 ];
 
 const getSelfEducateThreshold = (targetDrop: string | string[]) =>
-  KNOWLEDGE_DROPPINGS.findIndex((drop) => drop === targetDrop);
+  KNOWLEDGE_DROPPINGS.findIndex((drop) => drop === targetDrop) + 1;
 
 export const SELF_EDUCATE_THRESHOLDS = {
   WALLOW: getSelfEducateThreshold(WALLOW_DROPPING),
   PHASE_TWO: getSelfEducateThreshold(END_PHASE_1_KNOWLEDGE_DROPPING),
+  NEIGHBOR: getSelfEducateThreshold(NEIGHBOR_DROPPING),
+  VOTE: getSelfEducateThreshold(VOTE_DROPPING),
 };
 
-export const SECS_PER_DAY = 2;
 export const MAX_MOOD = 200;
 export const DISPLAY_NAMES: Record<string, string> = {
   knowledge: "Knowledge",
   mood: "Mood",
   dollars: "$",
+  collective: "$ (collective)",
   co2Saved: "CO2 Saved",
   peoplePower: "People Power",
   trust: "Trust",
