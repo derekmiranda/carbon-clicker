@@ -48,6 +48,10 @@
   background-position: 0% 50%;
 }
 
+.button--take-break {
+  border-color: var(--warn-color);
+}
+
 @keyframes enter {
   from {
     opacity: 0%;

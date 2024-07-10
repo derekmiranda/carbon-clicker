@@ -12,7 +12,7 @@ import { useContext, useEffect, useRef } from "react";
 import { formatResource, getImgUrl } from "../utils";
 
 interface ButtonProps extends ButtonInterface {
-  clickButton: (buttonId: string) => void;
+  clickButton: (buttonId: string, moodPercent: number) => void;
 }
 
 function Icon({ url }: { url: string }) {
@@ -34,6 +34,7 @@ export default function Button({
 }: ButtonProps) {
   const {
     state: {
+      resources: { mood, maxMood },
       buttons: { map },
     },
   } = useContext(ClickerContext);
@@ -47,8 +48,10 @@ export default function Button({
     : temporaryCooldown || cooldown;
 
   const handleClick = () => {
-    clickButton(id);
+    clickButton(id, mood / maxMood);
   };
+
+  const isBreakButton = id === ButtonKey.takeABreak;
 
   useEffect(() => {
     if (
@@ -81,8 +84,8 @@ export default function Button({
     })
     .join(", ");
 
-  if (id === ButtonKey.takeABreak) {
-    effectDetails += ", pause all actions";
+  if (isBreakButton) {
+    effectDetails = "completely refill mood BUT pause all actions";
   }
 
   return (
@@ -90,6 +93,7 @@ export default function Button({
       <button
         className={classNames("button", {
           "button--cooling-down": mainCooldown?.onCooldown,
+          "button--take-break": isBreakButton,
         })}
         disabled={!enabled || mainCooldown?.onCooldown}
         onClick={handleClick}
