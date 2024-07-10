@@ -808,6 +808,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       ],
     },
 
+    // revolution
     [ButtonKey.blowUpPipeline]: {
       ...INITIAL_BUTTON_STATE,
       id: ButtonKey.blowUpPipeline,
@@ -864,6 +865,54 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         pathway: Pathway.REVOLUTION,
       },
     },
+
+    // cooperation
+    [ButtonKey.fillCityCouncil]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.fillCityCouncil,
+      displayName: "Fill City Council with Climate Justice Champions",
+      description: "Fill City Council with Climate Justice Champions",
+      // icon: "citycouncil.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: false,
+      requirements: {
+        phase: GamePhase.TWO,
+        pathway: Pathway.COOPERATION,
+      },
+    },
+
+    [ButtonKey.passBills]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.passBills,
+      displayName: "Pass a Package of Climate Action Bills",
+      description: "Pass a Package of Climate Action Bills",
+      // icon: "passbills.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: false,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.fillCityCouncil],
+        phase: GamePhase.TWO,
+        pathway: Pathway.COOPERATION,
+      },
+    },
+
+    [ButtonKey.speakAtCOP]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.speakAtCOP,
+      displayName: "Speak at Conference of Parties (COP)",
+      description: "Speak at Conference of Parties (COP)",
+      // icon: "speakatcop.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: false,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.passBills],
+        phase: GamePhase.TWO,
+        pathway: Pathway.COOPERATION,
+      },
+    },
   },
 
   order: [
@@ -890,10 +939,15 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
 
     // one time
 
-    // pathways
+    // revolution
     ButtonKey.blowUpPipeline,
     ButtonKey.intimidateBank,
     ButtonKey.takeOver,
+
+    // cooperation
+    ButtonKey.fillCityCouncil,
+    ButtonKey.passBills,
+    ButtonKey.speakAtCOP,
 
     // phase 2
     ButtonKey.attendRally,
