@@ -825,6 +825,45 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         pathway: Pathway.REVOLUTION,
       },
     },
+
+    [ButtonKey.intimidateBank]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.intimidateBank,
+      displayName: "Intimidate a bank to divest from fossil fuels",
+      description: "Intimidate a bank to divest from fossil fuels",
+      // icon: "intimidate.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: false,
+      requirements: {
+        resources: {
+          collectiveDollars: 100000,
+          peoplePower: 100000,
+          trust: 75,
+        },
+        phase: GamePhase.TWO,
+        pathway: Pathway.REVOLUTION,
+      },
+    },
+
+    [ButtonKey.takeOver]: {
+      ...INITIAL_BUTTON_STATE,
+      id: ButtonKey.takeOver,
+      displayName: "Take Over a City Government",
+      description: "Take Over a City Government",
+      // icon: "takeover.png",
+      oneTime: true,
+      unlocked: false,
+      enabled: false,
+      requirements: {
+        buttonsUnlocked: [ButtonKey.blowUpPipeline],
+        resources: {
+          collectiveDollars: 500000,
+        },
+        phase: GamePhase.TWO,
+        pathway: Pathway.REVOLUTION,
+      },
+    },
   },
 
   order: [
@@ -851,8 +890,12 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
 
     // one time
 
-    // phase 2
+    // pathways
+    ButtonKey.blowUpPipeline,
+    ButtonKey.intimidateBank,
+    ButtonKey.takeOver,
 
+    // phase 2
     ButtonKey.attendRally,
     ButtonKey.joinClimateOrg,
     ButtonKey.formClimateCoalition,
