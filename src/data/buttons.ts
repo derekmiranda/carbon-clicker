@@ -8,7 +8,14 @@ import {
   ButtonInterface,
   INITIAL_STATE as INITIAL_BUTTON_STATE,
 } from "../reducers/buttonReducer";
-import { ButtonKey, EffectTypes, GamePhase, MapLikeInterface } from "../types";
+import {
+  ButtonKey,
+  EffectTypes,
+  GamePhase,
+  GenericEffect,
+  MapLikeInterface,
+  UpdateResourcesEffect,
+} from "../types";
 
 export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
   map: {
@@ -301,19 +308,12 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         elapsedCooldownSeconds: 0,
         onCooldown: false,
       },
+      cost: { mood: 1 },
       requirements: {
         timesButtonsPressed: {
           [ButtonKey.selfEducate]: SELF_EDUCATE_THRESHOLDS.WALLOW,
         },
       },
-      effects: [
-        {
-          type: EffectTypes.UPDATE_RESOURCES,
-          resourcesDiff: {
-            mood: -1,
-          },
-        },
-      ],
     },
 
     [ButtonKey.directAction]: {
@@ -331,6 +331,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       cost: {
         collectiveDollars: 100,
+        mood: 10,
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.attendRally],
@@ -340,7 +341,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            mood: -10,
             peoplePower: 10,
             trust: 5,
           },
@@ -363,6 +363,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       cost: {
         collectiveDollars: 100,
+        mood: 5,
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.talkToNeighbor],
@@ -372,7 +373,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            mood: -5,
             collectiveDollars: 200, // TODO: scale up amount
             peoplePower: 5,
           },
@@ -401,6 +401,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       },
       cost: {
         collectiveDollars: 200,
+        mood: 10,
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.vote],
@@ -410,7 +411,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            mood: -10,
             peoplePower: 5,
             knowledge: 5,
             trust: -5,
@@ -562,6 +562,10 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       requirements: {
         buttonsUnlocked: [ButtonKey.joinClimateOrg],
+        resources: {
+          peoplePower: 100,
+          trust: 50,
+        },
         phase: GamePhase.TWO,
       },
       effects: [
@@ -592,7 +596,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       requirements: {
         timesButtonsPressed: {
-          [ButtonKey.selfEducate]: 21,
+          [ButtonKey.selfEducate]: SELF_EDUCATE_THRESHOLDS.NEIGHBOR,
         },
         phase: GamePhase.TWO,
       },
@@ -697,7 +701,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: true,
       requirements: {
         timesButtonsPressed: {
-          [ButtonKey.selfEducate]: 23,
+          [ButtonKey.selfEducate]: SELF_EDUCATE_THRESHOLDS.VOTE,
         },
         phase: GamePhase.TWO,
       },
@@ -796,7 +800,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
 
     // phase 2-specific
     ButtonKey.selfEducate,
-    ButtonKey.takeABreak,
     ButtonKey.directAction,
     ButtonKey.communityCare,
     ButtonKey.politicalAction,
@@ -811,6 +814,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.homegrownMeal,
 
     ButtonKey.job,
+    ButtonKey.takeABreak,
     ButtonKey.wallowInMisery, // last action button
 
     // one time
@@ -836,3 +840,12 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
     ButtonKey.buyEV,
   ],
 };
+
+export const PHASE_TWO_SELF_EDUCATE_EFFECTS: GenericEffect[] = [
+  {
+    type: EffectTypes.UPDATE_RESOURCES,
+    resourcesDiff: {
+      knowledge: 3,
+    },
+  } as UpdateResourcesEffect,
+];

@@ -306,7 +306,6 @@ const ppmEvents: PpmEvent[] = [
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
-
         resourcesDiff: {
           mood: -20,
           trust: -10,

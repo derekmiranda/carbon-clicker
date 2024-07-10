@@ -64,27 +64,25 @@ export default function Button({
     }
   }, [mainCooldown?.onCooldown, mainCooldown?.cooldownSeconds]);
 
-  const effectDetails = effects.map((effect) => {
-    if (effect.type === EffectTypes.UPDATE_RESOURCES) {
-      const { resourcesDiff } = effect as UpdateResourcesEffect;
-      return Object.entries(resourcesDiff)
-        .map(([resourceKey, resourceVal]) =>
+  let effectDetails = effects
+    .flatMap((effect) => {
+      if (effect.type === EffectTypes.UPDATE_RESOURCES) {
+        const { resourcesDiff } = effect as UpdateResourcesEffect;
+        return Object.entries(resourcesDiff).map(([resourceKey, resourceVal]) =>
           formatResource(resourceVal, resourceKey, true)
-        )
-        .join(", ");
-    } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
-      const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
-      return Object.entries(resourcesRateDiff)
-        .map(
+        );
+      } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
+        const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
+        return Object.entries(resourcesRateDiff).map(
           ([resourceKey, resourceVal]) =>
             `${formatResource(resourceVal, resourceKey, true)}/day`
-        )
-        .join(", ");
-    }
-  });
+        );
+      }
+    })
+    .join(", ");
 
   if (id === ButtonKey.takeABreak) {
-    effectDetails.push(", pause all actions");
+    effectDetails += ", pause all actions";
   }
 
   return (
@@ -110,7 +108,7 @@ export default function Button({
             Cost:{" "}
             {Object.entries(cost)
               .map(([key, val]) => formatResource(val, key))
-              .join(", ")}
+              .join("+")}
           </span>
         ) : null}
         {effects.length ? (

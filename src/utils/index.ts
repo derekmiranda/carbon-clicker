@@ -53,6 +53,8 @@ export function formatResource(
   const sign = val > 0 && showPlus ? "+" : "";
   if (resourceKey === "dollars") {
     return `${sign}$${val}`;
+  } else if (resourceKey === "collectiveDollars") {
+    return `${sign}$${val} (collective)`;
   }
   return `${sign}${val} ${DISPLAY_NAMES[resourceKey] || resourceKey}`;
 }
