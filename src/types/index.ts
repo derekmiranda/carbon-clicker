@@ -82,6 +82,7 @@ export interface Requirements {
   // required button presses
   timesButtonsPressed?: ButtonKeyMap<number>;
   phase?: GamePhase;
+  pathway?: Pathway;
 }
 
 export enum EffectTypes {
