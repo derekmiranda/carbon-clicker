@@ -820,10 +820,10 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: false,
+      cost: {
+        collectiveDollars: 50000,
+      },
       requirements: {
-        resources: {
-          collectiveDollars: 50000,
-        },
         phase: GamePhase.TWO,
         pathway: Pathway.REVOLUTION,
       },
@@ -838,9 +838,11 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: false,
+      cost: {
+        collectiveDollars: 100000,
+      },
       requirements: {
         resources: {
-          collectiveDollars: 100000,
           peoplePower: 100000,
           trust: 75,
         },
@@ -858,11 +860,11 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: false,
+      cost: {
+        collectiveDollars: 500000,
+      },
       requirements: {
         buttonsUnlocked: [ButtonKey.blowUpPipeline],
-        resources: {
-          collectiveDollars: 500000,
-        },
         phase: GamePhase.TWO,
         pathway: Pathway.REVOLUTION,
       },
@@ -877,7 +879,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       // icon: "citycouncil.png",
       oneTime: true,
       unlocked: false,
-      enabled: false,
+      // enabled: false,
+      enabled: true,
       requirements: {
         phase: GamePhase.TWO,
         pathway: Pathway.COOPERATION,
@@ -892,7 +895,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       // icon: "passbills.png",
       oneTime: true,
       unlocked: false,
-      enabled: false,
+      // enabled: false,
+      enabled: true,
       requirements: {
         buttonsUnlocked: [ButtonKey.fillCityCouncil],
         phase: GamePhase.TWO,
@@ -908,7 +912,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       // icon: "speakatcop.png",
       oneTime: true,
       unlocked: false,
-      enabled: false,
+      // enabled: false,
+      enabled: true,
       requirements: {
         buttonsUnlocked: [ButtonKey.passBills],
         phase: GamePhase.TWO,
