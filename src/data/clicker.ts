@@ -16,7 +16,7 @@ export const clicker: ClickerInterface = {
   storySeen: {},
   phase: GamePhase.ONE,
   resources: {
-    mood: 200,
+    mood: MAX_MOOD,
     maxMood: MAX_MOOD,
     dollars: 0,
     co2Saved: 0,
@@ -40,11 +40,11 @@ export const clicker: ClickerInterface = {
 export const phaseTwoClicker: ClickerInterface = {
   modalQueue: [{ view: ModalView.END_PHASE_ONE }],
   logs: [],
-  ppmEventIndex: 3,
+  ppmEventIndex: -1,
   storySeen: {},
   phase: GamePhase.TWO,
   resources: {
-    mood: 0,
+    mood: MAX_MOOD,
     maxMood: MAX_MOOD,
     dollars: 1000,
     co2Saved: 1000,
