@@ -74,7 +74,7 @@ export function getButtonPresses(buttons: MapLikeInterface<ButtonInterface>) {
   return updatedButtonPresses;
 }
 
-export function updateResources(
+export function getUpdatedResources(
   state: ClickerInterface,
   effect: UpdateResourcesEffect
 ) {
@@ -85,7 +85,7 @@ export function updateResources(
     const [key, diff] = item as [keyof Resources, number];
 
     const newResource = proportionalDiffs?.[key as ResourceTypes]
-      ? state.resources[key] * diff
+      ? state.resources[key] * (1 + diff)
       : Math.max(state.resources[key] + diff, 0);
     newResources[key] = newResource;
 
@@ -106,7 +106,7 @@ export function processEffects(
   for (const effect of effects) {
     switch (effect.type) {
       case EffectTypes.UPDATE_RESOURCES: {
-        const newResources = updateResources(
+        const newResources = getUpdatedResources(
           newState,
           effect as UpdateResourcesEffect
         );
