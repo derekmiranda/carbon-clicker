@@ -17,6 +17,7 @@ import {
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
+  className?: string;
 }
 
 function Icon({ url }: { url: string }) {
@@ -35,6 +36,7 @@ export default function Button({
   purchased,
   cost,
   icon,
+  className = "",
 }: ButtonProps) {
   const {
     state: {
@@ -52,6 +54,7 @@ export default function Button({
     : temporaryCooldown || cooldown;
 
   const moodPercent = mood / maxMood;
+  const isDestroyFossilFuelsButton = id === ButtonKey.destroyFossilFuelIndustry;
   const isBreakButton = id === ButtonKey.takeABreak;
 
   const handleClick = () => {
@@ -89,26 +92,32 @@ export default function Button({
     })
     .join(", ");
 
-  if (isBreakButton) {
+  if (isDestroyFossilFuelsButton) {
+    effectDetails = "";
+  } else if (isBreakButton) {
     effectDetails = "completely refill mood BUT pause all actions";
   }
 
   return (
     <>
       <button
-        className={classNames("button", {
-          "button--cooling-down": mainCooldown?.onCooldown,
-          "button--tired":
-            !isBreakButton &&
-            !oneTime &&
-            REAAAALLLYYY_TIRED_MOOD_PERCENT < moodPercent &&
-            moodPercent <= TIRED_MOOD_PERCENT,
-          "button--real-tired":
-            !isBreakButton &&
-            !oneTime &&
-            moodPercent <= REAAAALLLYYY_TIRED_MOOD_PERCENT,
-          "button--take-break": isBreakButton,
-        })}
+        className={classNames(
+          "button",
+          {
+            "button--cooling-down": mainCooldown?.onCooldown,
+            "button--tired":
+              !isBreakButton &&
+              !oneTime &&
+              REAAAALLLYYY_TIRED_MOOD_PERCENT < moodPercent &&
+              moodPercent <= TIRED_MOOD_PERCENT,
+            "button--real-tired":
+              !isBreakButton &&
+              !oneTime &&
+              moodPercent <= REAAAALLLYYY_TIRED_MOOD_PERCENT,
+            "button--take-break": isBreakButton,
+          },
+          className
+        )}
         disabled={!enabled || mainCooldown?.onCooldown}
         onClick={handleClick}
         ref={buttonRef}
@@ -121,7 +130,8 @@ export default function Button({
           {icon ? <Icon url={icon} /> : null}
           {displayName}
         </span>
-        {cost && !purchased ? (
+
+        {cost && !isDestroyFossilFuelsButton && !purchased ? (
           <span className="button__detail">
             Cost:{" "}
             {Object.entries(cost)
@@ -129,10 +139,12 @@ export default function Button({
               .join("+")}
           </span>
         ) : null}
-        {effects.length ? (
+
+        {effects.length && !isDestroyFossilFuelsButton ? (
           <span className="button__detail">Effect: {effectDetails}</span>
         ) : null}
-        {oneTime ? (
+
+        {oneTime && !isDestroyFossilFuelsButton ? (
           <span className="button__detail">
             {purchased ? "Purchased!" : "One Time Purchase"}
           </span>

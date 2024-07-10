@@ -57,6 +57,12 @@
   border-color: var(--hot-color);
 }
 
+.button--destroy-fossil-fuels {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  grid-column: span 2;
+}
+
 .button--take-break {
   border-color: var(--warn-color);
 }

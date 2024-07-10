@@ -30,12 +30,26 @@ function ButtonsList({ buttonOrder }: ButtonsListProps) {
 
 export default function Buttons() {
   const { actionButtons, upgradeButtons } = useSelectedState();
+  const {
+    state: {
+      buttons: { map },
+    },
+  } = useContext(ClickerContext);
+  const { clickButton } = useDispatchers();
+  const destroyFossilFuelsBtn = map[
+    ButtonKey.destroyFossilFuelIndustry
+  ] as ButtonInterface;
 
   return (
     <div className="buttons-container">
       <h2>Actions</h2>
       <Logs />
       <div className="buttons-box">
+        <Button
+          className="button--destroy-fossil-fuels"
+          {...destroyFossilFuelsBtn}
+          clickButton={clickButton}
+        />
         <ButtonsList buttonOrder={actionButtons} />
         {upgradeButtons.length ? <h2>Upgrades</h2> : null}
         <ButtonsList buttonOrder={upgradeButtons} />

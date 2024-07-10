@@ -9,27 +9,35 @@ export function formatNum(num: number, decimals: number = 1) {
 export function getActionButtons(
   buttons: MapLikeInterface<ButtonInterface, ButtonKey>
 ) {
-  return buttons.order
-    .filter((buttonKey) => !buttons.map[buttonKey as ButtonKey]?.oneTime)
-    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.unlocked);
+  return buttons.order.filter(
+    (buttonKey) =>
+      !buttons.map[buttonKey as ButtonKey]?.oneTime &&
+      buttons.map[buttonKey as ButtonKey]?.unlocked
+  );
 }
 
 export function getUpgradeButtons(
   buttons: MapLikeInterface<ButtonInterface, ButtonKey>
 ) {
-  return buttons.order
-    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.oneTime)
-    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.unlocked)
-    .filter((buttonKey) => !buttons.map[buttonKey as ButtonKey]?.purchased);
+  return buttons.order.filter(
+    (buttonKey) =>
+      buttonKey !== ButtonKey.destroyFossilFuelIndustry &&
+      buttons.map[buttonKey as ButtonKey]?.oneTime &&
+      buttons.map[buttonKey as ButtonKey]?.unlocked &&
+      !buttons.map[buttonKey as ButtonKey]?.purchased
+  );
 }
 
 export function getPurchasedButtons(
   buttons: MapLikeInterface<ButtonInterface, ButtonKey>
 ) {
-  return buttons.order
-    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.oneTime)
-    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.unlocked)
-    .filter((buttonKey) => buttons.map[buttonKey as ButtonKey]?.purchased);
+  return buttons.order.filter(
+    (buttonKey) =>
+      buttonKey !== ButtonKey.destroyFossilFuelIndustry &&
+      buttons.map[buttonKey as ButtonKey]?.oneTime &&
+      buttons.map[buttonKey as ButtonKey]?.unlocked &&
+      !buttons.map[buttonKey as ButtonKey]?.purchased
+  );
 }
 
 export function getCurrentDay(elapsedTime: number) {
