@@ -1,5 +1,3 @@
-import useTicker, { useTickThrottle } from "../hooks/useTicker";
-
 import "./Clicker.css";
 import { saveGameData } from "../storage";
 import { ClickerContext } from "../reducers/context";
@@ -8,21 +6,15 @@ import { useContext, useEffect } from "react";
 import Buttons from "./Buttons";
 import Resources from "./Resources";
 import { getImgUrl } from "../utils";
+import { ModalView, TickerType } from "../types";
 
 function Clicker() {
-  const { state } = useContext(ClickerContext);
-  const { tickCooldown, tickResources, clearGameData } = useDispatchers();
+  const { state, ticker } = useContext(ClickerContext);
+  const { paused, setPaused } = ticker as TickerType;
+  const { clearGameData, openModal } = useDispatchers();
   const {
     resources: { peoplePower },
   } = state;
-
-  const throttleTickCooldown = useTickThrottle(tickCooldown, 60);
-  const throttleTickResources = useTickThrottle(tickResources, 1);
-
-  useTicker((timeDelta) => {
-    throttleTickCooldown(timeDelta);
-    throttleTickResources(timeDelta);
-  }, 120);
 
   useEffect(() => {
     const imgUrl =
@@ -42,6 +34,14 @@ function Clicker() {
       <Resources />
       <Buttons />
       <div className="game-data-container">
+        <button
+          onClick={() => {
+            openModal(ModalView.PAUSE);
+            setPaused(true);
+          }}
+        >
+          {paused ? "PAUSED" : "Pause"}
+        </button>
         <button
           onClick={() => {
             saveGameData(state);

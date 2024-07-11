@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { GamePhase, ModalView, Pathway } from "../types";
+import { GamePhase, ModalView, Pathway, TickerType } from "../types";
 import "./Modal.css";
 import { END_PHASE_1, INTRO, LOG_BOUNDARY, WALLOW } from "../constants";
 import { useCallback, useContext, useMemo } from "react";
@@ -12,9 +12,11 @@ export interface ModalProps extends Partial<ReactModal.Props> {}
 export default function Modal(rest: ModalProps) {
   const {
     state: { modalQueue },
+    ticker,
   } = useContext(ClickerContext);
   const { closeModal, setStorySeen, addLogs, setPhase, setPathway } =
     useDispatchers();
+  const { setPaused } = ticker as TickerType;
   const modal = modalQueue[0];
   const { view } = modal || {};
 
@@ -28,9 +30,12 @@ export default function Modal(rest: ModalProps) {
         setPhase(GamePhase.TWO);
         setStorySeen(StoryId.EPIPHANY);
         break;
+      case ModalView.PAUSE:
+        setPaused(false);
+        break;
     }
     closeModal();
-  }, [view, addLogs, setStorySeen, setPhase, closeModal]);
+  }, [view, addLogs, setStorySeen, setPhase, closeModal, setPaused]);
 
   const closeText = useMemo(() => {
     switch (view) {
@@ -38,6 +43,8 @@ export default function Modal(rest: ModalProps) {
         return "Fight CO2!!";
       case ModalView.END_PHASE_ONE:
         return "Let's GOOOO";
+      case ModalView.PAUSE:
+        return "Resume";
     }
     return "Close";
   }, [view]);
@@ -125,6 +132,13 @@ export default function Modal(rest: ModalProps) {
 
           {view === ModalView.CHOOSE_PATHWAY && modal.props?.content ? (
             <p>{modal.props.content}</p>
+          ) : null}
+
+          {view === ModalView.PAUSE ? (
+            <>
+              <p>paused</p>
+              <p>don't forget to take breaks and move around if you need!</p>
+            </>
           ) : null}
         </>
         {closeSection}

@@ -5,7 +5,7 @@ export default function useTicker(
   fps: number = 60
 ) {
   const [initialTime] = useState(performance.now());
-  const pausedRef = useRef<boolean>(false);
+  const [paused, setPaused] = useState(false);
   const rafRef = useRef<number>(-1);
   const lastTimeRef = useRef<number>(performance.now());
   const frameSecs = 1000 / fps;
@@ -25,6 +25,8 @@ export default function useTicker(
 
   const animate = useCallback(
     (timestamp: DOMHighResTimeStamp) => {
+      if (paused) return;
+
       if (timestamp - lastTimeRef.current > frameSecs) {
         const delta = (timestamp - lastTimeRef.current) / 1000;
         onTick(delta);
@@ -32,22 +34,24 @@ export default function useTicker(
       }
       rafRef.current = requestAnimationFrame(animate);
     },
-    [onTick, frameSecs]
+    [onTick, frameSecs, paused]
   );
 
   useEffect(() => {
+    lastTimeRef.current = performance.now();
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
   }, [animate]); // Make sure the effect runs only once
 
   const togglePause = () => {
-    pausedRef.current = !pausedRef.current;
+    setPaused((val) => !val);
   };
 
   return {
     initialTime,
     lastTime: lastTimeRef.current,
-    paused: pausedRef.current,
+    paused,
+    setPaused,
     togglePause,
   };
 }

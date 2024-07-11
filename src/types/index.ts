@@ -1,3 +1,5 @@
+import useTicker from "../hooks/useTicker";
+
 // values correspond to reducer keys
 export enum ResourceTypes {
   GLOBAL_PPM = "globalPpm",
@@ -126,6 +128,7 @@ export enum ModalView {
   END_PHASE_ONE = "END_PHASE_ONE",
   CHOOSE_PATHWAY = "CHOOSE_PATHWAY",
   PPM_EVENT = "PPM_EVENT",
+  PAUSE = "PAUSE",
 }
 
 export interface ModalViewProps {
@@ -141,3 +144,5 @@ export enum Pathway {
   COOPERATION = "cooperation",
   REVOLUTION = "revolution",
 }
+
+export type TickerType = ReturnType<typeof useTicker>;
