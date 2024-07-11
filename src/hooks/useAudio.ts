@@ -14,6 +14,7 @@ export enum AudioSprite {
   CLICK_7 = "CLICK_7",
   GET_UPGRADE = "GET_UPGRADE",
   EVENT = "EVENT",
+  WALLOW = "WALLOW",
 }
 
 export default function useAudio() {
@@ -35,8 +36,9 @@ export default function useAudio() {
           [AudioSprite.CLICK_5]: [10000, 2000],
           [AudioSprite.CLICK_6]: [12000, 2000],
           [AudioSprite.CLICK_7]: [14000, 2000],
-          [AudioSprite.GET_UPGRADE]: [16000, 1000],
-          [AudioSprite.EVENT]: [18000, 1000],
+          [AudioSprite.GET_UPGRADE]: [16000, 2000],
+          [AudioSprite.EVENT]: [18000, 2000],
+          [AudioSprite.WALLOW]: [20000, 4000],
         },
       }),
     []
@@ -63,10 +65,16 @@ export default function useAudio() {
     [playSFX]
   );
 
+  const playWallowSFX = useCallback(
+    () => playSFX(AudioSprite.WALLOW),
+    [playSFX]
+  );
+
   return {
     playSFX,
     playClickSFX,
     playEventSFX,
     playUpgradeSFX,
+    playWallowSFX,
   };
 }

@@ -280,7 +280,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cost: {
-        mood: 30,
+        mood: 20,
       },
       cooldown: {
         baseCooldownSeconds: 2 * SECS_PER_DAY,

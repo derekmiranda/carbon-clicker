@@ -7,6 +7,7 @@ import useSelectedState from "../hooks/useSelectedState";
 import classNames from "classnames";
 import {
   REAAAALLLYYY_TIRED_MOOD_PERCENT,
+  SECS_PER_DAY,
   TIRED_MOOD_PERCENT,
 } from "../constants";
 
@@ -67,9 +68,13 @@ function Resources() {
 
         <p className={moodClassName}>Mood:</p>
         <p className={moodClassName}>
-          {mood}/{maxMood}
+          {formatNum(mood, 0)}/{maxMood}
         </p>
-        <p className="resource"></p>
+        <p className={moodClassName}>
+          {resourceGrowthRates.mood
+            ? `+${formatNum(resourceGrowthRates.mood * SECS_PER_DAY, 0)}/day`
+            : ""}{" "}
+        </p>
 
         <p>Knowledge:</p>
         <p> {knowledge}</p>

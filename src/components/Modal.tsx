@@ -24,7 +24,7 @@ export default function Modal(rest: ModalProps) {
   const { closeModal, setStorySeen, addLogs, setPhase, setPathway } =
     useDispatchers();
   const { setPaused } = ticker!;
-  const { playClickSFX, playEventSFX, playUpgradeSFX } = audio!;
+  const { playClickSFX, playEventSFX, playUpgradeSFX, playWallowSFX } = audio!;
   const modal = modalQueue[0];
   const { view } = modal || {};
 
@@ -34,9 +34,14 @@ export default function Modal(rest: ModalProps) {
     }
 
     switch (view) {
-      case ModalView.WALLOW:
       case ModalView.PPM_EVENT: {
         playEventSFX();
+        return;
+      }
+
+      case ModalView.LEARNING:
+      case ModalView.WALLOW: {
+        playWallowSFX();
         return;
       }
 
@@ -47,7 +52,7 @@ export default function Modal(rest: ModalProps) {
         return;
       }
     }
-  }, [view, setPaused, playEventSFX, playUpgradeSFX]);
+  }, [view, setPaused, playEventSFX, playUpgradeSFX, playWallowSFX]);
 
   const handleModalClose = useCallback(() => {
     switch (view) {

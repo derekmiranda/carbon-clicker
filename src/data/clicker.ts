@@ -1,5 +1,6 @@
 import {
   MAX_MOOD,
+  SECS_PER_DAY,
   SELF_EDUCATE_THRESHOLDS,
   STARTING_PPM,
   STARTING_PPM_RATE,
@@ -31,7 +32,7 @@ export const clicker: ClickerInterface = {
   }, // diff per second
   resourceGrowthRates: {
     globalPpm: STARTING_PPM_RATE,
-    mood: 1,
+    mood: 1 / SECS_PER_DAY,
   },
   buttons,
   elapsedTime: 0,
@@ -62,7 +63,7 @@ export const phaseTwoClicker: ClickerInterface = {
   // diff per second
   resourceGrowthRates: {
     globalPpm: STARTING_PPM_RATE,
-    mood: 1,
+    mood: 1 / SECS_PER_DAY,
   },
   buttons: {
     ...clicker.buttons,
@@ -103,7 +104,7 @@ export const endgameClicker: ClickerInterface = {
   // diff per second
   resourceGrowthRates: {
     globalPpm: STARTING_PPM_RATE,
-    mood: 1,
+    mood: 1 / SECS_PER_DAY,
   },
   buttons: {
     ...clicker.buttons,
