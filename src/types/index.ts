@@ -126,6 +126,7 @@ export interface MapLikeInterface<T, K extends string = string> {
 export enum ModalView {
   INTRO = "INTRO",
   WALLOW = "WALLOW",
+  LEARNING = "LEARNING",
   END_PHASE_ONE = "END_PHASE_ONE",
   CHOOSE_PATHWAY = "CHOOSE_PATHWAY",
   PPM_EVENT = "PPM_EVENT",

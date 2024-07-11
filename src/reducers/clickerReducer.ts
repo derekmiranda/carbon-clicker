@@ -209,6 +209,10 @@ export default function clickerReducer(
             ...(newState.buttons.map[ButtonKey.selfEducate] as ButtonInterface),
             effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
           };
+        } else if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.LEARNING) {
+          newState.modalQueue = newState.modalQueue.concat({
+            view: ModalView.LEARNING,
+          });
         }
       }
 

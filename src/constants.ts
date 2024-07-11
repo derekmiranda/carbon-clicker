@@ -43,6 +43,10 @@ export const NEIGHBOR_DROPPING =
   "we've been taught to fear our neighbors, but actually, getting to know your community is climate action.";
 export const VOTE_DROPPING =
   "electoral power has strong climate consequences, even at the local level.";
+export const LEARNING_DROPPING = [
+  `you learn about all the emotions that people experience with climate change: anxiety, grief, anger, guilt. you've definitely felt all of those. in fact, all this focus on living a "sustainable lifestyle" has enhanced your guilt. you'll never be perfect. the twinge of panic every time you buy a drink in plastic or turn on the AC can't be good for you.`,
+  "there must be another way to help. but what?",
+];
 
 export const CHOOSE_PATHWAY = [
   `wowie, should i blow up fossil fuels nicely or meanly?????`,
@@ -63,10 +67,7 @@ export const KNOWLEDGE_DROPPINGS = [
   DEFAULT_KNOWLEDGE_DROPPING(PHASE_1_KNOWLEDGE_GAIN),
   WALLOW_DROPPING,
   `${DEFAULT_KNOWLEDGE_DROPPING(PHASE_1_KNOWLEDGE_GAIN)} but you're still sad.`,
-  [
-    `you learn about all the emotions that people experience with climate change: anxiety, grief, anger, guilt. you've definitely felt all of those. in fact, all this focus on living a "sustainable lifestyle" has enhanced your guilt. you'll never be perfect. the twinge of panic every time you buy a drink in plastic or turn on the AC can't be good for you.`,
-    "there must be another way to help. but what?",
-  ],
+  LEARNING_DROPPING,
   DEFAULT_KNOWLEDGE_DROPPING(PHASE_1_KNOWLEDGE_GAIN),
   END_PHASE_1_KNOWLEDGE_DROPPING,
   "you're gaining knowledge at a faster rate now that you're in a collective!",
@@ -103,6 +104,7 @@ export const SELF_EDUCATE_THRESHOLDS = {
   WALLOW: getSelfEducateThreshold(WALLOW_DROPPING),
   PHASE_TWO: getSelfEducateThreshold(END_PHASE_1_KNOWLEDGE_DROPPING),
   NEIGHBOR: getSelfEducateThreshold(NEIGHBOR_DROPPING),
+  LEARNING: getSelfEducateThreshold(LEARNING_DROPPING),
   VOTE: getSelfEducateThreshold(VOTE_DROPPING),
 };
 

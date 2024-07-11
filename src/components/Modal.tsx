@@ -1,7 +1,13 @@
 import ReactModal from "react-modal";
 import { GamePhase, ModalView, Pathway } from "../types";
 import "./Modal.css";
-import { END_PHASE_1, INTRO, LOG_BOUNDARY, WALLOW } from "../constants";
+import {
+  END_PHASE_1,
+  INTRO,
+  LEARNING_DROPPING,
+  LOG_BOUNDARY,
+  WALLOW,
+} from "../constants";
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
@@ -154,6 +160,10 @@ export default function Modal(rest: ModalProps) {
 
           {view === ModalView.END_PHASE_ONE
             ? END_PHASE_1.map((p, i) => <p key={i}>{p}</p>)
+            : null}
+
+          {view === ModalView.LEARNING
+            ? LEARNING_DROPPING.map((p, i) => <p key={i}>{p}</p>)
             : null}
 
           {view === ModalView.PPM_EVENT && modal.props?.content ? (
