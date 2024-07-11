@@ -15,6 +15,7 @@ export const clicker: ClickerInterface = {
   ppmEventIndex: -1,
   storySeen: {},
   phase: GamePhase.ONE,
+  muted: false,
   resources: {
     mood: MAX_MOOD,
     maxMood: MAX_MOOD,
@@ -43,6 +44,7 @@ export const phaseTwoClicker: ClickerInterface = {
   ppmEventIndex: 3,
   storySeen: {},
   phase: GamePhase.TWO,
+  muted: false,
   resources: {
     mood: MAX_MOOD,
     maxMood: MAX_MOOD,
@@ -82,6 +84,7 @@ export const endgameClicker: ClickerInterface = {
   ppmEventIndex: 5,
   storySeen: {},
   phase: GamePhase.TWO,
+  muted: false,
   resources: {
     mood: MAX_MOOD,
     maxMood: MAX_MOOD,

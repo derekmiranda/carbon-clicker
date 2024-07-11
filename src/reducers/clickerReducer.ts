@@ -49,6 +49,7 @@ export interface ClickerInterface {
   elapsedTime: number;
   storySeen: Record<string, boolean>;
   modalQueue: ModalData[];
+  muted: boolean;
   pathway?: Pathway;
 }
 
