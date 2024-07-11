@@ -104,10 +104,10 @@ export default function Modal(rest: ModalProps) {
         return (
           <>
             <button className="close-button" onClick={chooseCooperation}>
-              nicely???
+              Cooperate
             </button>
             <button className="close-button" onClick={chooseRevolution}>
-              meanly???
+              Revolt
             </button>
           </>
         );

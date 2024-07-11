@@ -49,7 +49,8 @@ export const LEARNING_DROPPING = [
 ];
 
 export const CHOOSE_PATHWAY = [
-  `wowie, should i blow up fossil fuels nicely or meanly?????`,
+  `you've learned a lot in your climate efforts and want to double down on changing the system.`,
+  `you can try to work within the system or overhaul it. which do you choose?`,
 ];
 
 export const KNOWLEDGE_DROPPINGS = [
