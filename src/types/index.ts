@@ -1,3 +1,4 @@
+import useAudio from "../hooks/useAudio";
 import useTicker from "../hooks/useTicker";
 
 // values correspond to reducer keys
@@ -146,3 +147,4 @@ export enum Pathway {
 }
 
 export type TickerType = ReturnType<typeof useTicker>;
+export type AudioType = ReturnType<typeof useAudio>;

@@ -43,11 +43,13 @@ export default function Button({
       resources: { mood, maxMood },
       buttons: { map },
     },
+    audio,
   } = useContext(ClickerContext);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { cooldown: breakCooldown } = map[
     ButtonKey.takeABreak
   ] as ButtonInterface;
+  const { playClickSFX, playUpgradeSFX } = audio!;
 
   const mainCooldown = breakCooldown?.onCooldown
     ? breakCooldown
@@ -59,6 +61,12 @@ export default function Button({
 
   const handleClick = () => {
     clickButton(id, id === ButtonKey.takeABreak ? 1 : moodPercent);
+
+    if (oneTime) {
+      playUpgradeSFX();
+    } else {
+      playClickSFX();
+    }
   };
 
   useEffect(() => {

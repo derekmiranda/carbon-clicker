@@ -6,6 +6,7 @@ import { ClickerContext } from "./reducers/context";
 import Modal from "./components/Modal";
 import useTicker, { useTickThrottle } from "./hooks/useTicker";
 import { SharedActionType } from "./types/actions";
+import useAudio from "./hooks/useAudio";
 
 import "./App.css";
 
@@ -40,8 +41,10 @@ function App() {
     throttleTickResources(timeDelta);
   }, 120);
 
+  const audio = useAudio();
+
   return (
-    <ClickerContext.Provider value={{ state, dispatch, ticker }}>
+    <ClickerContext.Provider value={{ state, dispatch, ticker, audio }}>
       <Clicker />
       <Modal appElement={appRef.current!} />
     </ClickerContext.Provider>
