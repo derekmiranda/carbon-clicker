@@ -16,7 +16,7 @@ const ppmEvents: PpmEvent[] = [
   {
     eventType: "Heat wave",
     ppm: 426,
-    text: "a record-breaking heat wave occurrs, and many people die. extreme heat is the #1 weather-related threat to public health. your mood plummets.",
+    text: "a record-breaking heat wave occurs, and many people die. extreme heat is the #1 weather-related threat to public health. your mood plummets.",
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -203,7 +203,7 @@ const ppmEvents: PpmEvent[] = [
   {
     eventType: "Heat wave",
     ppm: 436,
-    text: "an even bigger heat wave occurrs, and many people die. your mood plummets.",
+    text: "an even bigger heat wave occurs, and many people die. your mood plummets.",
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
