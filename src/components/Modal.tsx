@@ -1,8 +1,8 @@
 import ReactModal from "react-modal";
-import { GamePhase, ModalView, Pathway, TickerType } from "../types";
+import { GamePhase, ModalView, Pathway } from "../types";
 import "./Modal.css";
 import { END_PHASE_1, INTRO, LOG_BOUNDARY, WALLOW } from "../constants";
-import { useCallback, useContext, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo } from "react";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { StoryId } from "../types/storyId";
@@ -13,12 +13,35 @@ export default function Modal(rest: ModalProps) {
   const {
     state: { modalQueue },
     ticker,
+    audio,
   } = useContext(ClickerContext);
   const { closeModal, setStorySeen, addLogs, setPhase, setPathway } =
     useDispatchers();
-  const { setPaused } = ticker as TickerType;
+  const { setPaused } = ticker!;
+  const { playClickSFX, playEventSFX, playUpgradeSFX } = audio!;
   const modal = modalQueue[0];
   const { view } = modal || {};
+
+  useEffect(() => {
+    if (view) {
+      setPaused(true);
+    }
+
+    switch (view) {
+      case ModalView.WALLOW:
+      case ModalView.PPM_EVENT: {
+        playEventSFX();
+        return;
+      }
+
+      case ModalView.INTRO:
+      case ModalView.CHOOSE_PATHWAY:
+      case ModalView.END_PHASE_ONE: {
+        playUpgradeSFX();
+        return;
+      }
+    }
+  }, [view, setPaused, playEventSFX, playUpgradeSFX]);
 
   const handleModalClose = useCallback(() => {
     switch (view) {
@@ -30,12 +53,19 @@ export default function Modal(rest: ModalProps) {
         setPhase(GamePhase.TWO);
         setStorySeen(StoryId.EPIPHANY);
         break;
-      case ModalView.PAUSE:
-        setPaused(false);
-        break;
     }
+    setPaused(false);
+    playClickSFX();
     closeModal();
-  }, [view, addLogs, setStorySeen, setPhase, closeModal, setPaused]);
+  }, [
+    view,
+    addLogs,
+    setStorySeen,
+    setPhase,
+    closeModal,
+    setPaused,
+    playClickSFX,
+  ]);
 
   const closeText = useMemo(() => {
     switch (view) {
