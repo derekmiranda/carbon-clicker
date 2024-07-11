@@ -31,6 +31,7 @@ export const clicker: ClickerInterface = {
   }, // diff per second
   resourceGrowthRates: {
     globalPpm: STARTING_PPM_RATE,
+    mood: 1,
   },
   buttons,
   elapsedTime: 0,
@@ -61,6 +62,7 @@ export const phaseTwoClicker: ClickerInterface = {
   // diff per second
   resourceGrowthRates: {
     globalPpm: STARTING_PPM_RATE,
+    mood: 1,
   },
   buttons: {
     ...clicker.buttons,
@@ -101,6 +103,7 @@ export const endgameClicker: ClickerInterface = {
   // diff per second
   resourceGrowthRates: {
     globalPpm: STARTING_PPM_RATE,
+    mood: 1,
   },
   buttons: {
     ...clicker.buttons,

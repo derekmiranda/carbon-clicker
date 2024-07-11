@@ -2,6 +2,7 @@ import {
   SELF_EDUCATE_THRESHOLDS,
   LOG_LIMIT,
   CHOOSE_PATHWAY,
+  MAX_MOOD,
 } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
 import { clicker } from "../data/clicker";
@@ -15,6 +16,7 @@ import {
   ModalViewProps,
   Pathway,
   Resources,
+  ResourceTypes,
 } from "../types";
 import {
   ClickButtonAction,
@@ -240,6 +242,20 @@ export default function clickerReducer(
       const { timeDelta } = action as TickResourcesAction;
       const newResources = { ...state.resources };
       Object.entries(state.resourceGrowthRates).forEach(([key, diff]) => {
+        if (key === ResourceTypes.MOOD) {
+          newResources.mood = Math.min(
+            newResources.mood + diff * timeDelta,
+            MAX_MOOD
+          );
+          return;
+        } else if (key === ResourceTypes.TRUST) {
+          newResources.trust = Math.min(
+            newResources.trust + diff * timeDelta,
+            100
+          );
+          return;
+        }
+
         newResources[key as keyof Resources] += diff * timeDelta;
       });
 
