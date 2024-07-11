@@ -7,13 +7,15 @@ import Buttons from "./Buttons";
 import Resources from "./Resources";
 import { getImgUrl } from "../utils";
 import { ModalView, TickerType } from "../types";
+import useAudio from "../hooks/useAudio";
 
 function Clicker() {
   const { state, ticker } = useContext(ClickerContext);
   const { paused, setPaused } = ticker as TickerType;
-  const { clearGameData, openModal } = useDispatchers();
+  const { clearGameData, openModal, setMuted } = useDispatchers();
   const {
     resources: { peoplePower },
+    muted,
   } = state;
 
   useEffect(() => {
@@ -29,6 +31,8 @@ function Clicker() {
     document.body.style.imageRendering = "pixelated";
   }, [peoplePower]);
 
+  useAudio();
+
   return (
     <main className="game">
       <Resources />
@@ -42,6 +46,14 @@ function Clicker() {
         >
           {paused ? "PAUSED" : "Pause"}
         </button>
+        <button
+          onClick={() => {
+            setMuted(!muted);
+          }}
+        >
+          {muted ? "Unmute" : "Mute"}
+        </button>
+        {"|"}
         <button
           onClick={() => {
             saveGameData(state);

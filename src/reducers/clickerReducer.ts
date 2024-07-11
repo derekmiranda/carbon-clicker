@@ -62,6 +62,7 @@ export enum ClickerActionType {
   CLEAR_GAME_DATA = "CLEAR_GAME_DATA",
   SET_PHASE = "SET_PHASE",
   SET_PATHWAY = "SET_PATHWAY",
+  SET_MUTED = "SET_MUTED",
 }
 
 export interface AddLogsAction {
@@ -99,9 +100,15 @@ export interface SetPathwayAction {
   pathway: Pathway;
 }
 
+export interface SetMutedAction {
+  type: ClickerActionType.SET_MUTED;
+  muted: boolean;
+}
+
 export type ClickerAction =
   | AddLogsAction
   | SetModalAction
+  | SetMutedAction
   | SetStorySeenAction
   | SetPhaseAction
   | SetPathwayAction
@@ -329,6 +336,13 @@ export default function clickerReducer(
       return {
         ...state,
         logs: newLogs,
+      };
+    }
+
+    case ClickerActionType.SET_MUTED: {
+      return {
+        ...state,
+        muted: action.muted as boolean,
       };
     }
 

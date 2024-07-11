@@ -60,6 +60,11 @@ export default function useDispatchers() {
     dispatch({ type: ClickerActionType.CLEAR_GAME_DATA });
   }, [dispatch]);
 
+  const setMuted = useCallback(
+    (muted: boolean) => dispatch({ type: ClickerActionType.SET_MUTED, muted }),
+    [dispatch]
+  );
+
   const setStorySeen = useCallback(
     (storyId: StoryId) =>
       dispatch({ type: ClickerActionType.SET_STORY_SEEN, storyId }),
@@ -90,6 +95,7 @@ export default function useDispatchers() {
     openModal,
     closeModal,
     clearGameData: clearGameDataCB,
+    setMuted,
     setStorySeen,
     setPhase,
     setPathway,

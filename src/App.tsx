@@ -8,7 +8,6 @@ import useTicker, { useTickThrottle } from "./hooks/useTicker";
 import { SharedActionType } from "./types/actions";
 
 import "./App.css";
-import useAudio from "./hooks/useAudio";
 
 function App() {
   const clicker = useClicker();
@@ -40,8 +39,6 @@ function App() {
     throttleTickCooldown(timeDelta);
     throttleTickResources(timeDelta);
   }, 120);
-
-  useAudio();
 
   return (
     <ClickerContext.Provider value={{ state, dispatch, ticker }}>
