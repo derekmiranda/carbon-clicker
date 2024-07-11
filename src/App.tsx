@@ -1,12 +1,14 @@
-import Clicker from "./components/Clicker";
+import { useCallback, useRef } from "react";
 
-import "./App.css";
+import Clicker from "./components/Clicker";
 import { useClicker } from "./reducers";
 import { ClickerContext } from "./reducers/context";
-import { useCallback, useRef } from "react";
 import Modal from "./components/Modal";
 import useTicker, { useTickThrottle } from "./hooks/useTicker";
 import { SharedActionType } from "./types/actions";
+
+import "./App.css";
+import useAudio from "./hooks/useAudio";
 
 function App() {
   const clicker = useClicker();
@@ -38,6 +40,8 @@ function App() {
     throttleTickCooldown(timeDelta);
     throttleTickResources(timeDelta);
   }, 120);
+
+  useAudio();
 
   return (
     <ClickerContext.Provider value={{ state, dispatch, ticker }}>
