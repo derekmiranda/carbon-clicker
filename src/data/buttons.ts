@@ -280,7 +280,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cost: {
-        mood: 20,
+        mood: 30,
       },
       cooldown: {
         baseCooldownSeconds: 2 * SECS_PER_DAY,
@@ -538,7 +538,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.joinClimateOrg,
       displayName: "Join a Climate Organization",
       description: "Join a Climate Organization",
-      // icon: "org.png",
+      icon: "org.png",
       oneTime: true,
       unlocked: false,
       enabled: true,
