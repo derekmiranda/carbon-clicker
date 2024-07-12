@@ -135,6 +135,7 @@ export enum ModalView {
 
 export interface ModalViewProps {
   content?: string | string[];
+  effects?: GenericEffect[];
 }
 
 export enum GamePhase {

@@ -1,22 +1,13 @@
 import classNames from "classnames";
 import { ButtonInterface } from "../reducers/buttonReducer";
-import {
-  ButtonKey,
-  EffectTypes,
-  Resources,
-  UpdateResourcesEffect,
-  UpdateResourcesRateEffect,
-} from "../types";
+import { ButtonKey, Resources } from "../types";
 import "./Button.css";
 import { ClickerContext } from "../reducers/context";
 import { useContext, useEffect, useRef } from "react";
-import { formatResource, getImgUrl } from "../utils";
-import {
-  REAAAALLLYYY_TIRED_MOOD_PERCENT,
-  TIRED_MOOD_PERCENT,
-} from "../constants";
+import { describeEffects, formatResource, getImgUrl } from "../utils";
 import { AudioSprite } from "../hooks/useAudio";
 import { isResourceMet } from "../reducers/lib";
+import useSelectedState from "../hooks/useSelectedState";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
@@ -48,7 +39,7 @@ export default function Button({
     },
     audio,
   } = useContext(ClickerContext);
-  const { mood, maxMood } = resources;
+  const { moodPercent, isTired, isRealTired } = useSelectedState();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { cooldown: breakCooldown } = map[
     ButtonKey.takeABreak
@@ -65,7 +56,6 @@ export default function Button({
     ? breakCooldown
     : temporaryCooldown || cooldown;
 
-  const moodPercent = mood / maxMood;
   const isDestroyFossilFuelsButton = id === ButtonKey.destroyFossilFuelIndustry;
   const isBreakButton = id === ButtonKey.takeABreak;
 
@@ -104,27 +94,13 @@ export default function Button({
     mainCooldown?.elapsedCooldownSeconds,
   ]);
 
-  let effectDetails = effects
-    .flatMap((effect) => {
-      if (effect.type === EffectTypes.UPDATE_RESOURCES) {
-        const { resourcesDiff } = effect as UpdateResourcesEffect;
-        return Object.entries(resourcesDiff).map(([resourceKey, resourceVal]) =>
-          formatResource(resourceVal, resourceKey, true)
-        );
-      } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
-        const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
-        return Object.entries(resourcesRateDiff).map(
-          ([resourceKey, resourceVal]) =>
-            `${formatResource(resourceVal, resourceKey, true)}/day`
-        );
-      }
-    })
-    .join(", ");
-
+  let effectDetails;
   if (isDestroyFossilFuelsButton) {
     effectDetails = "";
   } else if (isBreakButton) {
     effectDetails = "completely refill mood BUT pause all actions";
+  } else {
+    effectDetails = describeEffects(effects);
   }
 
   return (
@@ -134,15 +110,8 @@ export default function Button({
           "button",
           {
             "button--cooling-down": mainCooldown?.onCooldown,
-            "button--tired":
-              !isBreakButton &&
-              !oneTime &&
-              REAAAALLLYYY_TIRED_MOOD_PERCENT < moodPercent &&
-              moodPercent <= TIRED_MOOD_PERCENT,
-            "button--real-tired":
-              !isBreakButton &&
-              !oneTime &&
-              moodPercent <= REAAAALLLYYY_TIRED_MOOD_PERCENT,
+            "button--tired": !isBreakButton && !oneTime && isTired,
+            "button--real-tired": !isBreakButton && !oneTime && isRealTired,
             "button--take-break": isBreakButton,
           },
           className

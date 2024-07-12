@@ -12,6 +12,7 @@ import { useCallback, useContext, useEffect, useMemo } from "react";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { StoryId } from "../types/storyId";
+import { describeEffects } from "../utils";
 
 export interface ModalProps extends Partial<ReactModal.Props> {}
 
@@ -205,7 +206,14 @@ export default function Modal(rest: ModalProps) {
             : null}
 
           {view === ModalView.PPM_EVENT && modal.props?.content ? (
-            <p>{modal.props.content}</p>
+            <>
+              <p>{modal.props.content}</p>
+              {modal.props.effects ? (
+                <p className="event-effect">
+                  {describeEffects(modal.props.effects)}
+                </p>
+              ) : null}
+            </>
           ) : null}
 
           {view === ModalView.CHOOSE_PATHWAY && modal.props?.content ? (

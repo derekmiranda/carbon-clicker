@@ -1,6 +1,14 @@
 import { DISPLAY_NAMES, SECS_PER_DAY } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
-import { ButtonKey, MapLikeInterface } from "../types";
+import {
+  ButtonKey,
+  EffectTypes,
+  GenericEffect,
+  MapLikeInterface,
+  ResourceTypes,
+  UpdateResourcesEffect,
+  UpdateResourcesRateEffect,
+} from "../types";
 
 export function formatNum(num: number, decimals: number = 1) {
   return num.toFixed(decimals);
@@ -83,4 +91,28 @@ export function getCurrentTimes(elapsedTime: number) {
     month,
     year,
   };
+}
+
+export function describeEffects(effects: GenericEffect[]) {
+  return effects
+    .flatMap((effect) => {
+      if (effect.type === EffectTypes.UPDATE_RESOURCES) {
+        const { resourcesDiff, proportionalDiffs } =
+          effect as UpdateResourcesEffect;
+        return Object.entries(resourcesDiff).map(([resourceKey, resourceVal]) =>
+          proportionalDiffs?.[resourceKey as ResourceTypes]
+            ? `${resourceVal >= 0 ? "+" : ""}${resourceVal * 100}% ${
+                DISPLAY_NAMES[resourceKey] || resourceKey
+              }`
+            : formatResource(resourceVal, resourceKey, true)
+        );
+      } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
+        const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
+        return Object.entries(resourcesRateDiff).map(
+          ([resourceKey, resourceVal]) =>
+            `${formatResource(resourceVal, resourceKey, true)}/day`
+        );
+      }
+    })
+    .join(", ");
 }
