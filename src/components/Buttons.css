@@ -2,6 +2,7 @@
   width: var(--default-container-width);
   margin-left: 0;
   margin-right: auto;
+  margin-top: 48px;
 }
 .buttons-container--actions {
   grid-area: actions;
