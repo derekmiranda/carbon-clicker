@@ -633,14 +633,15 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: true,
+      cost: {
+        noDeduct: true,
+        collectiveDollars: 1000,
+        peoplePower: 50,
+        trust: 75,
+      },
       requirements: {
         buttonsUnlocked: [ButtonKey.talkToNeighbor],
         phase: GamePhase.TWO,
-        resources: {
-          collectiveDollars: 1000,
-          peoplePower: 50,
-          trust: 75,
-        },
       },
       effects: [
         {
@@ -781,12 +782,13 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: true,
+      cost: {
+        noDeduct: true,
+        collectiveDollars: 2000,
+        knowledge: 100,
+      },
       requirements: {
         buttonsUnlocked: [ButtonKey.cityCouncilMeeting],
-        resources: {
-          collectiveDollars: 2000,
-          knowledge: 100,
-        },
         phase: GamePhase.TWO,
       },
       effects: [
