@@ -180,10 +180,10 @@ export default function Modal(rest: ModalProps) {
           ) : null}
 
           {view === ModalView.PAUSE ? (
-            <>
-              <p>paused</p>
+            <div className="modal--centered">
+              <h3>paused</h3>
               <p>don't forget to take breaks and move around if you need!</p>
-            </>
+            </div>
           ) : null}
         </>
         {closeSection}
