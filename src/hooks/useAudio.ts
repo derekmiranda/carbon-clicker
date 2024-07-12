@@ -16,6 +16,7 @@ export enum AudioSprite {
   EVENT = "EVENT",
   WALLOW = "WALLOW",
   SELF_EDUCATE = "SELF_EDUCATE",
+  REST = "REST",
 }
 
 export default function useAudio() {
@@ -40,7 +41,8 @@ export default function useAudio() {
           [AudioSprite.GET_UPGRADE]: [16000, 2000],
           [AudioSprite.EVENT]: [18000, 2000],
           [AudioSprite.WALLOW]: [20000, 4000],
-          [AudioSprite.SELF_EDUCATE]: [24000, 2000],
+          [AudioSprite.REST]: [24000, 4000],
+          [AudioSprite.SELF_EDUCATE]: [28000, 2000],
         },
       }),
     []
@@ -51,8 +53,8 @@ export default function useAudio() {
   }, [muted]);
 
   const playSFX = useCallback(
-    (sprite: AudioSprite | string) => sound.play(sprite),
-    [sound]
+    (sprite: AudioSprite | string) => !muted && sound.play(sprite),
+    [muted, sound]
   );
 
   const playClickSFX = useCallback(() => {

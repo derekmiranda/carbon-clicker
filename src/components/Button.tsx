@@ -14,6 +14,7 @@ import {
   REAAAALLLYYY_TIRED_MOOD_PERCENT,
   TIRED_MOOD_PERCENT,
 } from "../constants";
+import { AudioSprite } from "../hooks/useAudio";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
@@ -49,8 +50,13 @@ export default function Button({
   const { cooldown: breakCooldown } = map[
     ButtonKey.takeABreak
   ] as ButtonInterface;
-  const { playClickSFX, playUpgradeSFX, playWallowSFX, playSelfEducateSFX } =
-    audio!;
+  const {
+    playClickSFX,
+    playUpgradeSFX,
+    playWallowSFX,
+    playSelfEducateSFX,
+    playSFX,
+  } = audio!;
 
   const mainCooldown = breakCooldown?.onCooldown
     ? breakCooldown
@@ -67,6 +73,8 @@ export default function Button({
       playWallowSFX();
     } else if (id === ButtonKey.selfEducate) {
       playSelfEducateSFX();
+    } else if (id === ButtonKey.takeABreak) {
+      playSFX(AudioSprite.REST);
     } else if (oneTime) {
       playUpgradeSFX();
     } else {
