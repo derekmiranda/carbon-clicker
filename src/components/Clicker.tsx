@@ -7,7 +7,6 @@ import Buttons from "./Buttons";
 import Resources from "./Resources";
 import { getImgUrl } from "../utils";
 import { ModalView, TickerType } from "../types";
-import useAudio from "../hooks/useAudio";
 
 function Clicker() {
   const { state, ticker } = useContext(ClickerContext);
@@ -30,8 +29,6 @@ function Clicker() {
     )}) fixed, linear-gradient(#181425 0 50%, #262b44 50% 100%) fixed`;
     document.body.style.imageRendering = "pixelated";
   }, [peoplePower]);
-
-  useAudio();
 
   return (
     <main className="game">

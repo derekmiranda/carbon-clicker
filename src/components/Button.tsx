@@ -81,12 +81,17 @@ export default function Button({
       mainCooldown?.cooldownSeconds
     ) {
       const button = buttonRef.current;
-      button.style.animation = "";
-      setTimeout(() => {
-        button.style.animation = `wipe ${mainCooldown?.cooldownSeconds}s linear`;
-      }, 0);
+      button.style.backgroundPosition = `${
+        80 -
+        60 *
+          (mainCooldown.elapsedCooldownSeconds / mainCooldown.cooldownSeconds)
+      }%`;
     }
-  }, [mainCooldown?.onCooldown, mainCooldown?.cooldownSeconds]);
+  }, [
+    mainCooldown?.onCooldown,
+    mainCooldown?.cooldownSeconds,
+    mainCooldown?.elapsedCooldownSeconds,
+  ]);
 
   let effectDetails = effects
     .flatMap((effect) => {

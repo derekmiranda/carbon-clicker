@@ -33,7 +33,7 @@ function App() {
     [dispatch]
   );
 
-  const throttleTickCooldown = useTickThrottle(tickCooldown, 60);
+  const throttleTickCooldown = useTickThrottle(tickCooldown, 200);
   const throttleTickResources = useTickThrottle(tickResources, 1);
 
   const ticker = useTicker((timeDelta) => {
