@@ -49,7 +49,8 @@ export default function Button({
   const { cooldown: breakCooldown } = map[
     ButtonKey.takeABreak
   ] as ButtonInterface;
-  const { playClickSFX, playUpgradeSFX, playWallowSFX } = audio!;
+  const { playClickSFX, playUpgradeSFX, playWallowSFX, playSelfEducateSFX } =
+    audio!;
 
   const mainCooldown = breakCooldown?.onCooldown
     ? breakCooldown
@@ -64,6 +65,8 @@ export default function Button({
 
     if (id === ButtonKey.wallowInMisery) {
       playWallowSFX();
+    } else if (id === ButtonKey.selfEducate) {
+      playSelfEducateSFX();
     } else if (oneTime) {
       playUpgradeSFX();
     } else {

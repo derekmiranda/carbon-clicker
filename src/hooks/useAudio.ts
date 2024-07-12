@@ -15,6 +15,7 @@ export enum AudioSprite {
   GET_UPGRADE = "GET_UPGRADE",
   EVENT = "EVENT",
   WALLOW = "WALLOW",
+  SELF_EDUCATE = "SELF_EDUCATE",
 }
 
 export default function useAudio() {
@@ -39,6 +40,7 @@ export default function useAudio() {
           [AudioSprite.GET_UPGRADE]: [16000, 2000],
           [AudioSprite.EVENT]: [18000, 2000],
           [AudioSprite.WALLOW]: [20000, 4000],
+          [AudioSprite.SELF_EDUCATE]: [24000, 2000],
         },
       }),
     []
@@ -70,11 +72,17 @@ export default function useAudio() {
     [playSFX]
   );
 
+  const playSelfEducateSFX = useCallback(
+    () => playSFX(AudioSprite.SELF_EDUCATE),
+    [playSFX]
+  );
+
   return {
     playSFX,
     playClickSFX,
     playEventSFX,
     playUpgradeSFX,
     playWallowSFX,
+    playSelfEducateSFX,
   };
 }
