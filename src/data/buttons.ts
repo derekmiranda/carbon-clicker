@@ -742,7 +742,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.cityCouncilMeeting,
       displayName: "Go to a City Council Meeting",
       description: "Go to a City Council Meeting",
-      // icon: "citycouncil.png",
+      icon: "city-council-meeting.png",
       oneTime: true,
       unlocked: false,
       enabled: true,
