@@ -5,7 +5,7 @@ import {
   MAX_MOOD,
 } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
-import { defaultClicker } from "../data/clicker";
+import { phaseTwoClicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
 import {
@@ -29,7 +29,7 @@ import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts, processEffects } from "./lib";
 
-export const INITIAL_STATE = defaultClicker;
+export const INITIAL_STATE = phaseTwoClicker;
 
 interface ModalData {
   view: ModalView;
@@ -140,6 +140,21 @@ export default function clickerReducer(
           if (resourceKey === "noDeduct") return;
 
           const key = resourceKey as keyof Resources;
+          if (resourceKey === ResourceTypes.COLLECTIVE_DOLLARS) {
+            const collectiveDollarDiff =
+              newResources[ResourceTypes.COLLECTIVE_DOLLARS] - resourceCost;
+            // deduct from collective first
+            newResources[ResourceTypes.COLLECTIVE_DOLLARS] = Math.max(
+              collectiveDollarDiff,
+              0
+            );
+            // then individual
+            if (collectiveDollarDiff < 0) {
+              newResources[ResourceTypes.DOLLARS] += collectiveDollarDiff;
+            }
+            return;
+          }
+
           newResources[key] -= resourceCost;
         });
         newState.resources = newResources;
@@ -214,13 +229,6 @@ export default function clickerReducer(
         } else if (timesSelfEducated === SELF_EDUCATE_THRESHOLDS.LEARNING) {
           newState.modalQueue = newState.modalQueue.concat({
             view: ModalView.LEARNING,
-          });
-        } else if (
-          timesSelfEducated === SELF_EDUCATE_THRESHOLDS.CHOOSE_PATHWAY
-        ) {
-          newState.modalQueue = newState.modalQueue.concat({
-            view: ModalView.CHOOSE_PATHWAY,
-            props: { content: CHOOSE_PATHWAY },
           });
         }
       }

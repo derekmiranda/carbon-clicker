@@ -16,6 +16,7 @@ import {
   TIRED_MOOD_PERCENT,
 } from "../constants";
 import { AudioSprite } from "../hooks/useAudio";
+import { isResourceMet } from "../reducers/lib";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
@@ -170,8 +171,7 @@ export default function Button({
                     "detail-part": true,
                     "detail-part--unmet":
                       typeof cost[key as keyof Resources] === "number" &&
-                      cost[key as keyof Resources]! >=
-                        resources[key as keyof Resources]!,
+                      !isResourceMet(key, cost, resources),
                   })}
                   key={idx}
                 >{`${idx > 0 ? "+" : ""}${formatResource(val, key)}`}</span>

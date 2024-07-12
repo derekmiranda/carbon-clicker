@@ -13,6 +13,7 @@ import cooldownReducer, {
   CooldownActionType,
   CooldownInterface,
 } from "./cooldownReducer";
+import { checkResourcesMet } from "./lib";
 
 export enum ButtonActionType {
   ENABLE_BUTTON = "ENABLE_BUTTON",
@@ -142,20 +143,6 @@ export default function buttonReducer(
     }
   }
   return state;
-}
-
-function checkResourcesMet(
-  neededResources: Partial<Resources>,
-  currResources: Resources
-) {
-  return Object.keys(neededResources).every((resourceKey) => {
-    if (resourceKey === "noDeduct") return true;
-
-    const reqResource =
-      neededResources[resourceKey as keyof Partial<Resources>];
-    const currResource = currResources[resourceKey as keyof Resources];
-    return !reqResource || reqResource <= currResource;
-  });
 }
 
 function checkRequirements(

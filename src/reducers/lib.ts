@@ -139,3 +139,28 @@ export function processEffects(
     }
   }
 }
+
+export function isResourceMet(
+  resourceKey: string,
+  neededResources: Partial<Resources>,
+  currResources: Resources
+) {
+  if (resourceKey === "noDeduct") return true;
+
+  const reqResource = neededResources[resourceKey as ResourceTypes];
+  const currResource =
+    resourceKey === ResourceTypes.COLLECTIVE_DOLLARS
+      ? currResources[ResourceTypes.COLLECTIVE_DOLLARS] +
+        currResources[ResourceTypes.DOLLARS]
+      : currResources[resourceKey as ResourceTypes];
+  return !reqResource || reqResource <= currResource;
+}
+
+export function checkResourcesMet(
+  neededResources: Partial<Resources>,
+  currResources: Resources
+) {
+  return Object.keys(neededResources).every((resourceKey) =>
+    isResourceMet(resourceKey, neededResources, currResources)
+  );
+}
