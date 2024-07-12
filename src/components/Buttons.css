@@ -1,8 +1,13 @@
 .buttons-container {
   width: var(--default-container-width);
-  grid-area: buttons;
   margin-left: 0;
   margin-right: auto;
+}
+.buttons-container--actions {
+  grid-area: actions;
+}
+.buttons-container--upgrades {
+  grid-area: upgrades;
 }
 
 .buttons-box {

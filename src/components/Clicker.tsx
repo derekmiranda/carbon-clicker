@@ -3,10 +3,11 @@ import { saveGameData } from "../storage";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { useContext, useEffect } from "react";
-import Buttons from "./Buttons";
+import Actions from "./Actions";
 import Resources from "./Resources";
 import { getImgUrl } from "../utils";
 import { ModalView, TickerType } from "../types";
+import Upgrades from "./Upgrades";
 
 function Clicker() {
   const { state, ticker } = useContext(ClickerContext);
@@ -33,7 +34,8 @@ function Clicker() {
   return (
     <main className="game">
       <Resources />
-      <Buttons />
+      <Actions />
+      <Upgrades />
       <div className="game-data-container">
         <button
           onClick={() => {

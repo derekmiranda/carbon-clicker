@@ -7,29 +7,10 @@ import "./Buttons.css";
 import { ButtonKey } from "../types";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import useSelectedState from "../hooks/useSelectedState";
+import ButtonsList from "./ButtonsList";
 
-export interface ButtonsListProps {
-  buttonOrder: string[];
-}
-
-function ButtonsList({ buttonOrder }: ButtonsListProps) {
-  const { state } = useContext(ClickerContext);
-  const { clickButton } = useDispatchers();
-  const { buttons } = state;
-
-  return (buttonOrder ?? buttons.order)
-    .filter(Boolean)
-    .map((buttonKey) => (
-      <Button
-        key={buttonKey}
-        {...(buttons.map[buttonKey as ButtonKey] as ButtonInterface)}
-        clickButton={clickButton}
-      />
-    ));
-}
-
-export default function Buttons() {
-  const { actionButtons, upgradeButtons } = useSelectedState();
+export default function Actions() {
+  const { actionButtons } = useSelectedState();
   const {
     state: {
       buttons: { map },
@@ -42,7 +23,7 @@ export default function Buttons() {
   ] as ButtonInterface;
 
   return (
-    <div className="buttons-container">
+    <div className="buttons-container buttons-container--actions">
       <h2>Actions</h2>
       <Logs />
 
@@ -56,8 +37,6 @@ export default function Buttons() {
         ) : null}
 
         <ButtonsList buttonOrder={actionButtons} />
-        {upgradeButtons.length ? <h2>Upgrades</h2> : null}
-        <ButtonsList buttonOrder={upgradeButtons} />
       </div>
     </div>
   );

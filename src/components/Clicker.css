@@ -4,14 +4,22 @@
   grid-gap: var(--gap);
   grid-template-areas:
     "resources"
-    "buttons";
+    "actions"
+    "upgrades";
   align-items: start;
 }
 
 @media only screen and (min-width: 768px) {
   .game {
-    grid-template-areas: "resources buttons";
     grid-template-columns: repeat(2, min-content);
+    grid-template-areas: "resources actions" "upgrades actions";
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .game {
+    grid-template-columns: repeat(3, min-content);
+    grid-template-areas: "resources actions upgrades";
   }
 }
 
