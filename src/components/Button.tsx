@@ -78,7 +78,8 @@ export default function Button({
     if (
       buttonRef.current &&
       mainCooldown?.onCooldown &&
-      mainCooldown?.cooldownSeconds
+      mainCooldown?.cooldownSeconds &&
+      !oneTime
     ) {
       const button = buttonRef.current;
       button.style.backgroundPosition = `${
@@ -91,6 +92,7 @@ export default function Button({
     mainCooldown?.onCooldown,
     mainCooldown?.cooldownSeconds,
     mainCooldown?.elapsedCooldownSeconds,
+    oneTime,
   ]);
 
   let effectDetails = effects
