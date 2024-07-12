@@ -572,12 +572,13 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: true,
+      cost: {
+        peoplePower: 100,
+        trust: 50,
+        noDeduct: true,
+      },
       requirements: {
         buttonsUnlocked: [ButtonKey.joinClimateOrg],
-        resources: {
-          peoplePower: 100,
-          trust: 50,
-        },
         phase: GamePhase.TWO,
       },
       effects: [
@@ -616,14 +617,8 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            trust: 30,
-            peoplePower: 100,
-          },
-        },
-        {
-          type: EffectTypes.UPDATE_RESOURCES_RATE,
-          resourcesRateDiff: {
-            globalPpm: -0.05,
+            mood: 10,
+            peoplePower: 5,
           },
         },
       ],
