@@ -20,9 +20,9 @@ function Clicker() {
 
   useEffect(() => {
     const imgUrl =
-      peoplePower >= 100
+      peoplePower >= 500
         ? "bg-3.png"
-        : peoplePower >= 10
+        : peoplePower >= 50
         ? "bg-2.png"
         : "bg-1.png";
     document.body.style.background = `center / contain no-repeat url(${getImgUrl(
