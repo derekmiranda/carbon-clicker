@@ -154,12 +154,6 @@ export default function Button({
         {effects.length && !isDestroyFossilFuelsButton ? (
           <span className="button__detail">Effect: {effectDetails}</span>
         ) : null}
-
-        {oneTime && !isDestroyFossilFuelsButton ? (
-          <span className="button__detail">
-            {purchased ? "Purchased!" : "One Time Purchase"}
-          </span>
-        ) : null}
       </button>
     </>
   );
