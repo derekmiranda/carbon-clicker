@@ -27,7 +27,7 @@ function Clicker() {
         : "bg-1.png";
     document.body.style.background = `center / contain no-repeat url(${getImgUrl(
       imgUrl
-    )}) fixed, linear-gradient(#181425 0 50%, #262b44 50% 100%) fixed`;
+    )}) fixed, linear-gradient(var(--bg-color) 0 50%, var(--bg-color-2) 50% 100%) fixed`;
     document.body.style.imageRendering = "pixelated";
   }, [peoplePower]);
 

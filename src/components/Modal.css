@@ -39,12 +39,25 @@ span.eco {
   transition: background-color 0.5s, color 0.5s, border-color 0.5s;
 }
 .close-button--multiple {
-  width: min(300px, 100%);
+  width: min(360px, 100%);
   margin: auto;
   margin-bottom: var(--gap);
 }
 .close-button:hover {
   background-color: var(--bg-color);
+  color: var(--accent-color);
+}
+.close-button span.button-detail {
+  display: block;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--bg-color-2);
+  transition: color 0.5s;
+}
+.close-button span.button-detail:not(:first-child) {
+  margin-top: 16px;
+}
+.close-button:hover span.button-detail {
   color: var(--accent-color);
 }
 

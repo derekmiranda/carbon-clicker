@@ -49,8 +49,8 @@ export const LEARNING_DROPPING = [
 ];
 
 export const CHOOSE_PATHWAY = [
-  `you've learned a lot in your climate efforts and want to double down on changing the system.`,
-  `you can try to work within the system or overhaul it. which do you choose?`,
+  `you're getting really good at building people power, knowledge, and trust. as you continue to take part in collective action, you see two paths laid out in front of you that are mutually exclusive.`,
+  `which pathway will you take to destroy the fossil fuel industry?`,
 ];
 
 export const KNOWLEDGE_DROPPINGS = [

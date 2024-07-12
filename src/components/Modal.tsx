@@ -117,13 +117,30 @@ export default function Modal(rest: ModalProps) {
               className="close-button close-button--multiple"
               onClick={chooseCooperation}
             >
-              Cooperate
+              Cooperation
+              <span className="button-detail">
+                take control of the reins! for those who believe global
+                cooperation and policy-making is key.
+              </span>
+              <span className="button-detail">
+                {" "}
+                enables working within government, disables property
+                destruction.
+              </span>
             </button>
             <button
               className="close-button close-button--multiple"
               onClick={chooseRevolution}
             >
-              Revolt
+              Revolution
+              <span className="button-detail">
+                overthrow the government! for those who don’t believe we’ll get
+                anywhere with world powers as they are.
+              </span>
+              <span className="button-detail">
+                enables property destruction, disables working within
+                government.
+              </span>
             </button>
           </div>
         );
