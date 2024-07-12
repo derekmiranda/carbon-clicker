@@ -679,10 +679,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       requirements: {
         buttonsUnlocked: [ButtonKey.startMutualAidFund],
         phase: GamePhase.TWO,
-        resources: {
-          peoplePower: 100,
-          trust: 50,
-        },
       },
       effects: [
         {

@@ -5,7 +5,6 @@ import {
   STARTING_PPM,
   STARTING_PPM_RATE,
 } from "../constants";
-import { ButtonInterface } from "../reducers/buttonReducer";
 import { ClickerInterface } from "../reducers/clickerReducer";
 import { ButtonKey, GamePhase, ModalView } from "../types";
 import { buttons, PHASE_TWO_SELF_EDUCATE_EFFECTS } from "./buttons";
@@ -70,9 +69,7 @@ export const phaseTwoClicker: ClickerInterface = {
     map: {
       ...defaultClicker.buttons.map,
       [ButtonKey.selfEducate]: {
-        ...(defaultClicker.buttons.map[
-          ButtonKey.selfEducate
-        ] as ButtonInterface),
+        ...defaultClicker.buttons.map[ButtonKey.selfEducate]!,
         timesPressed: SELF_EDUCATE_THRESHOLDS.PHASE_TWO + 1,
         effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
       },
@@ -113,30 +110,65 @@ export const endgameClicker: ClickerInterface = {
     map: {
       ...defaultClicker.buttons.map,
       [ButtonKey.selfEducate]: {
-        ...(defaultClicker.buttons.map[
-          ButtonKey.selfEducate
-        ] as ButtonInterface),
+        ...defaultClicker.buttons.map[ButtonKey.selfEducate]!,
         timesPressed: SELF_EDUCATE_THRESHOLDS.PHASE_TWO + 4,
         effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
       },
-      [ButtonKey.formClimateCoalition]: {
-        ...(defaultClicker.buttons.map[
-          ButtonKey.formClimateCoalition
-        ] as ButtonInterface),
-        purchased: true,
-        unlocked: true,
-        enabled: false,
-      },
+
+      // !! button to click to trigger choosing pathway !!
       [ButtonKey.organizeCommunity]: {
-        ...(defaultClicker.buttons.map[
-          ButtonKey.organizeCommunity
-        ] as ButtonInterface),
+        ...defaultClicker.buttons.map[ButtonKey.organizeCommunity]!,
         purchased: false,
         unlocked: true,
         enabled: true,
       },
+
+      [ButtonKey.attendRally]: {
+        ...defaultClicker.buttons.map[ButtonKey.attendRally]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.joinClimateOrg]: {
+        ...defaultClicker.buttons.map[ButtonKey.joinClimateOrg]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.formClimateCoalition]: {
+        ...defaultClicker.buttons.map[ButtonKey.formClimateCoalition]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+
+      [ButtonKey.talkToNeighbor]: {
+        ...defaultClicker.buttons.map[ButtonKey.talkToNeighbor]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.startMutualAidFund]: {
+        ...defaultClicker.buttons.map[ButtonKey.startMutualAidFund]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+
+      [ButtonKey.vote]: {
+        ...defaultClicker.buttons.map[ButtonKey.vote]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.cityCouncilMeeting]: {
+        ...defaultClicker.buttons.map[ButtonKey.cityCouncilMeeting]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
       [ButtonKey.volunteer]: {
-        ...(defaultClicker.buttons.map[ButtonKey.volunteer] as ButtonInterface),
+        ...defaultClicker.buttons.map[ButtonKey.volunteer]!,
         purchased: true,
         unlocked: true,
         enabled: false,
