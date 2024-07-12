@@ -7,12 +7,17 @@ import {
   getUpgradeButtons,
 } from "../utils";
 import { ButtonKey } from "../types";
-import { LOG_LIMIT } from "../constants";
+import {
+  LOG_LIMIT,
+  REAAAALLLYYY_TIRED_MOOD_PERCENT,
+  TIRED_MOOD_PERCENT,
+} from "../constants";
 
 export default function useSelectedState() {
   const {
-    state: { buttons, logs, elapsedTime },
+    state: { buttons, logs, elapsedTime, resources },
   } = useContext(ClickerContext);
+  const { mood, maxMood } = resources;
 
   const actionButtons = useMemo(() => getActionButtons(buttons), [buttons]);
   const upgradeButtons = useMemo(() => getUpgradeButtons(buttons), [buttons]);
@@ -29,10 +34,12 @@ export default function useSelectedState() {
     [buttons, purchasedButtons]
   );
   const cappedLogs = useMemo(() => logs.slice(-LOG_LIMIT), [logs]);
-  const currentTimes = useMemo(
-    () => getCurrentTimes(elapsedTime),
-    [elapsedTime]
-  );
+  const currentTimes = getCurrentTimes(elapsedTime);
+  const moodPercent = mood / maxMood;
+  const isTired =
+    REAAAALLLYYY_TIRED_MOOD_PERCENT < moodPercent &&
+    moodPercent <= TIRED_MOOD_PERCENT;
+  const isRealTired = moodPercent <= REAAAALLLYYY_TIRED_MOOD_PERCENT;
 
   return {
     actionButtons,
@@ -41,5 +48,8 @@ export default function useSelectedState() {
     purchasedIcons,
     cappedLogs,
     currentTimes,
+    moodPercent,
+    isTired,
+    isRealTired,
   };
 }
