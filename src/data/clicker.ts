@@ -10,7 +10,7 @@ import { ClickerInterface } from "../reducers/clickerReducer";
 import { ButtonKey, GamePhase, ModalView } from "../types";
 import { buttons, PHASE_TWO_SELF_EDUCATE_EFFECTS } from "./buttons";
 
-export const clicker: ClickerInterface = {
+export const defaultClicker: ClickerInterface = {
   modalQueue: [{ view: ModalView.INTRO }],
   logs: [],
   ppmEventIndex: -1,
@@ -66,11 +66,13 @@ export const phaseTwoClicker: ClickerInterface = {
     mood: 1 / SECS_PER_DAY,
   },
   buttons: {
-    ...clicker.buttons,
+    ...defaultClicker.buttons,
     map: {
-      ...clicker.buttons.map,
+      ...defaultClicker.buttons.map,
       [ButtonKey.selfEducate]: {
-        ...(clicker.buttons.map[ButtonKey.selfEducate] as ButtonInterface),
+        ...(defaultClicker.buttons.map[
+          ButtonKey.selfEducate
+        ] as ButtonInterface),
         timesPressed: SELF_EDUCATE_THRESHOLDS.PHASE_TWO + 1,
         effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
       },
@@ -107,16 +109,18 @@ export const endgameClicker: ClickerInterface = {
     mood: 1 / SECS_PER_DAY,
   },
   buttons: {
-    ...clicker.buttons,
+    ...defaultClicker.buttons,
     map: {
-      ...clicker.buttons.map,
+      ...defaultClicker.buttons.map,
       [ButtonKey.selfEducate]: {
-        ...(clicker.buttons.map[ButtonKey.selfEducate] as ButtonInterface),
+        ...(defaultClicker.buttons.map[
+          ButtonKey.selfEducate
+        ] as ButtonInterface),
         timesPressed: SELF_EDUCATE_THRESHOLDS.PHASE_TWO + 4,
         effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
       },
       [ButtonKey.formClimateCoalition]: {
-        ...(clicker.buttons.map[
+        ...(defaultClicker.buttons.map[
           ButtonKey.formClimateCoalition
         ] as ButtonInterface),
         purchased: true,
@@ -124,7 +128,7 @@ export const endgameClicker: ClickerInterface = {
         enabled: false,
       },
       [ButtonKey.organizeCommunity]: {
-        ...(clicker.buttons.map[
+        ...(defaultClicker.buttons.map[
           ButtonKey.organizeCommunity
         ] as ButtonInterface),
         purchased: false,
@@ -132,7 +136,7 @@ export const endgameClicker: ClickerInterface = {
         enabled: true,
       },
       [ButtonKey.volunteer]: {
-        ...(clicker.buttons.map[ButtonKey.volunteer] as ButtonInterface),
+        ...(defaultClicker.buttons.map[ButtonKey.volunteer] as ButtonInterface),
         purchased: true,
         unlocked: true,
         enabled: false,
