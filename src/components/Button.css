@@ -90,3 +90,6 @@
 .detail-part {
   display: block;
 }
+.detail-part--unmet {
+  color: var(--hot-color);
+}

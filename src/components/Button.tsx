@@ -3,6 +3,7 @@ import { ButtonInterface } from "../reducers/buttonReducer";
 import {
   ButtonKey,
   EffectTypes,
+  Resources,
   UpdateResourcesEffect,
   UpdateResourcesRateEffect,
 } from "../types";
@@ -41,11 +42,12 @@ export default function Button({
 }: ButtonProps) {
   const {
     state: {
-      resources: { mood, maxMood },
+      resources,
       buttons: { map },
     },
     audio,
   } = useContext(ClickerContext);
+  const { mood, maxMood } = resources;
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { cooldown: breakCooldown } = map[
     ButtonKey.takeABreak
@@ -165,9 +167,16 @@ export default function Button({
             {Object.entries(cost)
               .filter(([key]) => key !== "noDeduct")
               .map(([key, val], idx) => (
-                <span className="detail-part" key={idx}>{`${
-                  idx > 0 ? "+" : ""
-                }${formatResource(val, key)}`}</span>
+                <span
+                  className={classNames({
+                    "detail-part": true,
+                    "detail-part--unmet":
+                      typeof cost[key as keyof Resources] === "number" &&
+                      cost[key as keyof Resources]! >=
+                        resources[key as keyof Resources]!,
+                  })}
+                  key={idx}
+                >{`${idx > 0 ? "+" : ""}${formatResource(val, key)}`}</span>
               ))}
           </span>
         ) : null}
