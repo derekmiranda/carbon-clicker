@@ -5,7 +5,7 @@ import "./Resources.css";
 import { GamePhase } from "../types";
 import useSelectedState from "../hooks/useSelectedState";
 import classNames from "classnames";
-import { SECS_PER_DAY } from "../constants";
+import { SECS_PER_DAY, STARTING_PPM } from "../constants";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
@@ -25,23 +25,18 @@ function Resources() {
   const { purchasedIcons, currentTimes, isEnergized, isTired, isRealTired } =
     useSelectedState();
   const { day, month, year } = currentTimes;
-  const parsedYear = parseInt(year);
   const moodClassName = classNames({
     "great-mood": isEnergized,
     "tired-mood": isTired,
     "real-tired-mood": isRealTired,
   });
+  const titleStyle = {
+    fontVariationSettings: `"YEAR" ${1979 + 10 * (globalPpm - STARTING_PPM)}`,
+  };
 
   return (
     <div className="resources-container">
-      <h1
-        className={classNames({
-          "year-2030": 2030 <= parsedYear && parsedYear < 2040,
-          "year-2040": 2040 <= parsedYear,
-        })}
-      >
-        Carbon Clicker
-      </h1>
+      <h1 style={titleStyle}>Carbon Clicker</h1>
       <div className="resources-grid">
         <p className="time-display">
           Day: {day}, Month: {month}, Year: {year}
