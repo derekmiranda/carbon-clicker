@@ -352,7 +352,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             peoplePower: 10,
-            trust: 5,
+            trust: 10,
           },
         },
       ],
