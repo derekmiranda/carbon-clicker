@@ -41,9 +41,9 @@ function Resources() {
         <p className="time-display">
           Day: {day}, Month: {month}, Year: {year}
         </p>
-        <p className="ppm-display">Global CO2: </p>
-        <p className="resource ppm">{formatNum(globalPpm)} PPM </p>
-        <p className="resource ppm">
+        <p className="ppm-display ppm-color">Global CO2: </p>
+        <p className="ppm-color">{formatNum(globalPpm)} PPM </p>
+        <p className="ppm-color">
           {resourceGrowthRates.globalPpm
             ? `+${formatNum(resourceGrowthRates.globalPpm * 30, 3)}/mo.`
             : ""}{" "}
@@ -65,9 +65,9 @@ function Resources() {
             : ""}{" "}
         </p>
 
-        <p>Knowledge:</p>
-        <p> {knowledge}</p>
-        <p className="resource"></p>
+        <p className="knowledge-color">Knowledge:</p>
+        <p className="knowledge-color">{knowledge}</p>
+        <p className="knowledge-color"></p>
 
         <p>CO2 Saved:</p>
         <p> {formatNum(co2Saved)} kg</p>
@@ -91,26 +91,6 @@ function Resources() {
 
         {isPhaseTwo ? (
           <>
-            <p>People Power:</p>
-            <p>{formatNum(peoplePower, 0)}</p>
-            <p className="resource">
-              {resourceGrowthRates.peoplePower
-                ? `${
-                    resourceGrowthRates.peoplePower < 0 ? "-" : "+"
-                  }${formatNum(resourceGrowthRates.peoplePower * 30)}/mo.`
-                : ""}
-            </p>
-
-            <p>Trust:</p>
-            <p>{formatNum(trust, 0)}%</p>
-            <p className="resource">
-              {resourceGrowthRates.trust
-                ? `${resourceGrowthRates.trust < 0 ? "-" : "+"}${formatNum(
-                    resourceGrowthRates.trust * 30
-                  )}/mo.`
-                : ""}
-            </p>
-
             <p>Dollars (Collective):</p>
             <p>${formatNum(collectiveDollars, 2)}</p>
             <p className="resource">
@@ -118,6 +98,26 @@ function Resources() {
                 ? `${
                     resourceGrowthRates.collectiveDollars < 0 ? "-" : "+"
                   }${formatNum(resourceGrowthRates.collectiveDollars * 30)}/mo.`
+                : ""}
+            </p>
+
+            <p className="people-power-color">People Power:</p>
+            <p className="people-power-color">{formatNum(peoplePower, 0)}</p>
+            <p className="people-power-color">
+              {resourceGrowthRates.peoplePower
+                ? `${
+                    resourceGrowthRates.peoplePower < 0 ? "-" : "+"
+                  }${formatNum(resourceGrowthRates.peoplePower * 30)}/mo.`
+                : ""}
+            </p>
+
+            <p className="trust-color">Trust:</p>
+            <p className="trust-color">{formatNum(trust, 0)}%</p>
+            <p className="trust-color">
+              {resourceGrowthRates.trust
+                ? `${resourceGrowthRates.trust < 0 ? "-" : "+"}${formatNum(
+                    resourceGrowthRates.trust * 30
+                  )}/mo.`
                 : ""}
             </p>
           </>

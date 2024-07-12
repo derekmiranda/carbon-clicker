@@ -19,10 +19,6 @@
   font-weight: bolder;
 }
 
-.resource.ppm {
-  color: var(--warn-color);
-}
-
 .time-display {
   grid-column: span 3;
   justify-self: center;

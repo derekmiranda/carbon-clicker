@@ -32,6 +32,9 @@
   --green-color: #63c74d;
   --warn-color: #ffd903;
   --hot-color: #ff0044;
+  --knowledge-color: #f6757a;
+  --trust-color: #b55088;
+  --people-power-color: #0099db;
   --button-width: 200px;
   --icon-width: 64px;
   --default-container-width: 350px;
@@ -108,4 +111,17 @@ button:focus-visible {
 
 img {
   image-rendering: pixelated;
+}
+
+.ppm-color {
+  color: var(--warn-color);
+}
+.knowledge-color {
+  color: var(--knowledge-color);
+}
+.trust-color {
+  color: var(--trust-color);
+}
+.people-power-color {
+  color: var(--people-power-color);
 }
