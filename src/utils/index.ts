@@ -93,26 +93,26 @@ export function getCurrentTimes(elapsedTime: number) {
   };
 }
 
+export function describeEffect(effect: GenericEffect) {
+  if (effect.type === EffectTypes.UPDATE_RESOURCES) {
+    const { resourcesDiff, proportionalDiffs } =
+      effect as UpdateResourcesEffect;
+    return Object.entries(resourcesDiff).map(([resourceKey, resourceVal]) =>
+      proportionalDiffs?.[resourceKey as ResourceTypes]
+        ? `${resourceVal >= 0 ? "+" : ""}${resourceVal * 100}% ${
+            DISPLAY_NAMES[resourceKey] || resourceKey
+          }`
+        : formatResource(resourceVal, resourceKey, true)
+    );
+  } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
+    const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
+    return Object.entries(resourcesRateDiff).map(
+      ([resourceKey, resourceVal]) =>
+        `${formatResource(resourceVal, resourceKey, true)}/day`
+    );
+  }
+}
+
 export function describeEffects(effects: GenericEffect[]) {
-  return effects
-    .flatMap((effect) => {
-      if (effect.type === EffectTypes.UPDATE_RESOURCES) {
-        const { resourcesDiff, proportionalDiffs } =
-          effect as UpdateResourcesEffect;
-        return Object.entries(resourcesDiff).map(([resourceKey, resourceVal]) =>
-          proportionalDiffs?.[resourceKey as ResourceTypes]
-            ? `${resourceVal >= 0 ? "+" : ""}${resourceVal * 100}% ${
-                DISPLAY_NAMES[resourceKey] || resourceKey
-              }`
-            : formatResource(resourceVal, resourceKey, true)
-        );
-      } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
-        const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
-        return Object.entries(resourcesRateDiff).map(
-          ([resourceKey, resourceVal]) =>
-            `${formatResource(resourceVal, resourceKey, true)}/day`
-        );
-      }
-    })
-    .join(", ");
+  return effects.flatMap(describeEffect).join(", ");
 }
