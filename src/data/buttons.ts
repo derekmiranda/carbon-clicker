@@ -746,11 +746,12 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       oneTime: true,
       unlocked: false,
       enabled: true,
+      cost: {
+        noDeduct: true,
+        knowledge: 70,
+      },
       requirements: {
         buttonsUnlocked: [ButtonKey.vote],
-        resources: {
-          knowledge: 70,
-        },
         phase: GamePhase.TWO,
       },
       effects: [
