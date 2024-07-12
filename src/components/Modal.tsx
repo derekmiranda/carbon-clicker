@@ -15,6 +15,16 @@ import { StoryId } from "../types/storyId";
 
 export interface ModalProps extends Partial<ReactModal.Props> {}
 
+function ModalContent({ children }: { children: string | string[] }) {
+  return (
+    <>
+      {Array.isArray(children)
+        ? children.map((child) => <p key={child}>{child}</p>)
+        : children}
+    </>
+  );
+}
+
 export default function Modal(rest: ModalProps) {
   const {
     state: { modalQueue },
@@ -102,14 +112,20 @@ export default function Modal(rest: ModalProps) {
           handleModalClose();
         };
         return (
-          <>
-            <button className="close-button" onClick={chooseCooperation}>
+          <div className="button-row">
+            <button
+              className="close-button close-button--multiple"
+              onClick={chooseCooperation}
+            >
               Cooperate
             </button>
-            <button className="close-button" onClick={chooseRevolution}>
+            <button
+              className="close-button close-button--multiple"
+              onClick={chooseRevolution}
+            >
               Revolt
             </button>
-          </>
+          </div>
         );
       }
     }
@@ -159,9 +175,9 @@ export default function Modal(rest: ModalProps) {
               ].map((p, i) => <p key={i}>{p}</p>)
             : null}
 
-          {view === ModalView.WALLOW
-            ? WALLOW.map((p, i) => <p key={i}>{p}</p>)
-            : null}
+          {view === ModalView.WALLOW ? (
+            <ModalContent>{WALLOW}</ModalContent>
+          ) : null}
 
           {view === ModalView.END_PHASE_ONE
             ? END_PHASE_1.map((p, i) => <p key={i}>{p}</p>)
@@ -176,7 +192,7 @@ export default function Modal(rest: ModalProps) {
           ) : null}
 
           {view === ModalView.CHOOSE_PATHWAY && modal.props?.content ? (
-            <p>{modal.props.content}</p>
+            <ModalContent>{modal.props.content}</ModalContent>
           ) : null}
 
           {view === ModalView.PAUSE ? (
