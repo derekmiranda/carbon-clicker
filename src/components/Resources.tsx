@@ -5,11 +5,7 @@ import "./Resources.css";
 import { GamePhase } from "../types";
 import useSelectedState from "../hooks/useSelectedState";
 import classNames from "classnames";
-import {
-  REAAAALLLYYY_TIRED_MOOD_PERCENT,
-  SECS_PER_DAY,
-  TIRED_MOOD_PERCENT,
-} from "../constants";
+import { SECS_PER_DAY } from "../constants";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
@@ -26,16 +22,14 @@ function Resources() {
     trust,
   } = resources;
   const isPhaseTwo = phase === GamePhase.TWO;
-  const { purchasedIcons, currentTimes } = useSelectedState();
+  const { purchasedIcons, currentTimes, isEnergized, isTired, isRealTired } =
+    useSelectedState();
   const { day, month, year } = currentTimes;
   const parsedYear = parseInt(year);
-  const moodPercent = mood / maxMood;
   const moodClassName = classNames({
-    "great-mood": TIRED_MOOD_PERCENT <= moodPercent,
-    "tired-mood":
-      REAAAALLLYYY_TIRED_MOOD_PERCENT <= moodPercent &&
-      moodPercent < TIRED_MOOD_PERCENT,
-    "real-tired-mood": moodPercent < REAAAALLLYYY_TIRED_MOOD_PERCENT,
+    "great-mood": isEnergized,
+    "tired-mood": isTired,
+    "real-tired-mood": isRealTired,
   });
 
   return (
@@ -140,6 +134,18 @@ function Resources() {
             <img key={icon} src={getImgUrl(icon)} />
           ))}
         </div>
+      ) : null}
+
+      {isTired ? (
+        <p className="mood-message tired-mood">
+          your mood's starting to drop. actions may take longer than usual
+        </p>
+      ) : null}
+      {isRealTired ? (
+        <p className="mood-message real-tired-mood">
+          your mood's at an all-time low. it's a struggle to do anything right
+          now
+        </p>
       ) : null}
     </div>
   );

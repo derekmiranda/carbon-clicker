@@ -36,6 +36,7 @@ export default function Buttons() {
     },
   } = useContext(ClickerContext);
   const { clickButton } = useDispatchers();
+
   const destroyFossilFuelsBtn = map[
     ButtonKey.destroyFossilFuelIndustry
   ] as ButtonInterface;
@@ -44,6 +45,7 @@ export default function Buttons() {
     <div className="buttons-container">
       <h2>Actions</h2>
       <Logs />
+
       <div className="buttons-box">
         {destroyFossilFuelsBtn.unlocked ? (
           <Button

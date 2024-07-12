@@ -49,3 +49,16 @@
 .real-tired-mood {
   color: var(--hot-color);
 }
+
+.mood-message {
+  animation: 1s fade-in;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
+}

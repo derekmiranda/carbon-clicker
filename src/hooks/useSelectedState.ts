@@ -36,6 +36,7 @@ export default function useSelectedState() {
   const cappedLogs = useMemo(() => logs.slice(-LOG_LIMIT), [logs]);
   const currentTimes = getCurrentTimes(elapsedTime);
   const moodPercent = mood / maxMood;
+  const isEnergized = TIRED_MOOD_PERCENT < moodPercent;
   const isTired =
     REAAAALLLYYY_TIRED_MOOD_PERCENT < moodPercent &&
     moodPercent <= TIRED_MOOD_PERCENT;
@@ -49,6 +50,7 @@ export default function useSelectedState() {
     cappedLogs,
     currentTimes,
     moodPercent,
+    isEnergized,
     isTired,
     isRealTired,
   };
