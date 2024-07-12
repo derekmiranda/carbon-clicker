@@ -161,11 +161,14 @@ export default function Button({
 
         {cost && !purchased ? (
           <span className="button__detail">
-            Cost:{" "}
+            {cost.noDeduct ? "Requires" : "Costs"}:{" "}
             {Object.entries(cost)
               .filter(([key]) => key !== "noDeduct")
-              .map(([key, val]) => formatResource(val, key))
-              .join("+")}
+              .map(([key, val], idx) => (
+                <span className="detail-part" key={idx}>{`${
+                  idx > 0 ? "+" : ""
+                }${formatResource(val, key)}`}</span>
+              ))}
           </span>
         ) : null}
 

@@ -86,3 +86,7 @@
     background-position: 20%;
   }
 }
+
+.detail-part {
+  display: block;
+}
