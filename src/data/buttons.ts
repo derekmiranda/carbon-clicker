@@ -414,6 +414,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       cost: {
         collectiveDollars: 200,
         mood: 10,
+        trust: 5,
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.vote],
@@ -424,8 +425,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             peoplePower: 5,
-            knowledge: 5,
-            trust: -5,
+            knowledge: 10,
           },
         },
         {
