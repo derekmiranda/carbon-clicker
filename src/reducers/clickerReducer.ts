@@ -5,7 +5,7 @@ import {
   MAX_MOOD,
 } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
-import { phaseTwoClicker } from "../data/clicker";
+import { defaultClicker } from "../data/clicker";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
 import {
@@ -29,7 +29,7 @@ import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts, processEffects } from "./lib";
 
-export const INITIAL_STATE = phaseTwoClicker;
+export const INITIAL_STATE = defaultClicker;
 
 interface ModalData {
   view: ModalView;
@@ -285,7 +285,7 @@ export default function clickerReducer(
       if (nextPpmEvent && newState.resources.globalPpm >= nextPpmEvent.ppm) {
         newState.modalQueue = newState.modalQueue.concat({
           view: ModalView.PPM_EVENT,
-          props: { content: nextPpmEvent.text },
+          props: { content: nextPpmEvent.text, effects: nextPpmEvent.effects },
         });
         newState.ppmEventIndex = state.ppmEventIndex + 1;
 
