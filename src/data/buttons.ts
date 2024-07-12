@@ -102,7 +102,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: false,
       oneTime: true,
       cost: {
-        dollars: 5000,
+        dollars: 1000,
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.makeHomeEnergyEfficient],
@@ -190,7 +190,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         },
       },
       cost: {
-        dollars: 10000,
+        dollars: 2000,
       },
     },
 
@@ -712,7 +712,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.vote,
       displayName: "Vote",
       description: "Vote",
-      // icon: "vote.png",
+      icon: "vote.png",
       oneTime: true,
       unlocked: false,
       enabled: true,
