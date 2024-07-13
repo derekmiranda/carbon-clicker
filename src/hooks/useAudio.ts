@@ -1,6 +1,6 @@
 import { Howl } from "howler";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { ClickerContext } from "../reducers/context";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { ClickerInterface } from "../reducers/clickerReducer";
 
 export const DEFAULT_VOLUME = 0.4;
 export enum AudioSprite {
@@ -19,10 +19,8 @@ export enum AudioSprite {
   REST = "REST",
 }
 
-export default function useAudio() {
-  const {
-    state: { muted },
-  } = useContext(ClickerContext);
+export default function useAudio(state: ClickerInterface) {
+  const { muted } = state;
   const [nextClick, setNextClick] = useState(0);
 
   const sound = useMemo(
@@ -53,7 +51,12 @@ export default function useAudio() {
   }, [muted]);
 
   const playSFX = useCallback(
-    (sprite: AudioSprite | string) => !muted && sound.play(sprite),
+    (sprite: AudioSprite | string) => {
+      console.log("audio hook", muted);
+      if (muted) return;
+
+      sound.play(sprite);
+    },
     [muted, sound]
   );
 

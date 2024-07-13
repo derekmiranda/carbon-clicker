@@ -43,7 +43,7 @@ function App() {
     throttleTickResources(timeDelta);
   }, 120);
 
-  const audio = useAudio();
+  const audio = useAudio(state);
 
   return (
     <ClickerContext.Provider
