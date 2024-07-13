@@ -47,9 +47,9 @@ export default function cooldownReducer(
       const { moodPercent } = action as StartCooldownAction;
       const cooldownModifier =
         moodPercent < REAAAALLLYYY_TIRED_MOOD_PERCENT
-          ? 4
-          : moodPercent < TIRED_MOOD_PERCENT
           ? 2
+          : moodPercent < TIRED_MOOD_PERCENT
+          ? 1.5
           : 1;
       return {
         ...state,
