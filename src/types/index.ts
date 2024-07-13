@@ -150,10 +150,16 @@ export enum ModalView {
   CREDITS = "CREDITS",
 }
 
+export type CloseModalDetails =
+  | {
+      disableDefaultSFX: boolean;
+    }
+  | undefined;
+
 export interface ModalViewProps {
   content?: string | string[];
   effects?: GenericEffect[];
-  onClose?: () => void;
+  onClose?: () => CloseModalDetails;
   closeText?: string;
 }
 

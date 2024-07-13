@@ -4,7 +4,7 @@ import Button from "./Button";
 import { ClickerContext } from "../reducers/context";
 import Logs from "./Logs";
 import "./Buttons.css";
-import { ButtonKey } from "../types";
+import { ButtonKey, GamePhase } from "../types";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import useSelectedState from "../hooks/useSelectedState";
 import ButtonsList from "./ButtonsList";
@@ -14,6 +14,7 @@ export default function Actions() {
   const {
     state: {
       buttons: { map },
+      phase,
     },
   } = useContext(ClickerContext);
   const { clickButton } = useDispatchers();
@@ -28,7 +29,7 @@ export default function Actions() {
       <Logs />
 
       <div className="buttons-box">
-        {destroyFossilFuelsBtn.unlocked ? (
+        {destroyFossilFuelsBtn.unlocked && phase === GamePhase.TWO ? (
           <Button
             className="button--destroy-fossil-fuels"
             {...destroyFossilFuelsBtn}

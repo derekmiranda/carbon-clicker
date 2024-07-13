@@ -7,7 +7,7 @@ import { GamePhase, ModalView, ModalViewProps, Pathway } from "../types";
 import { StoryId } from "../types/storyId";
 
 export default function useDispatchers() {
-  const { dispatch } = useContext(ClickerContext);
+  const { dispatch, setShowCredits } = useContext(ClickerContext);
 
   const clickButton = useCallback(
     (buttonId: string, moodPercent: number) =>
@@ -56,9 +56,10 @@ export default function useDispatchers() {
     )
       return;
 
+    setShowCredits(false);
     clearGameData();
     dispatch({ type: ClickerActionType.CLEAR_GAME_DATA });
-  }, [dispatch]);
+  }, [dispatch, setShowCredits]);
 
   const setMuted = useCallback(
     (muted: boolean) => dispatch({ type: ClickerActionType.SET_MUTED, muted }),

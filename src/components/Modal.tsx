@@ -54,7 +54,7 @@ export default function Modal(rest: ModalProps) {
   const { playClickSFX, playEventSFX, playUpgradeSFX, playWallowSFX } = audio!;
   const modal = modalQueue[0];
   const { view, props } = modal || {};
-  const { onClose, content } = props || {};
+  const { onClose = () => undefined, content } = props || {};
 
   useEffect(() => {
     if (view) {
@@ -96,9 +96,11 @@ export default function Modal(rest: ModalProps) {
         progressEndSequence();
         break;
     }
-    onClose?.();
+    const { disableDefaultSFX } = onClose() || {};
     setPaused(false);
-    playClickSFX();
+    if (!disableDefaultSFX) {
+      playClickSFX();
+    }
     closeModal();
   }, [
     view,

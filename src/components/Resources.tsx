@@ -46,7 +46,7 @@ function Resources() {
         <p className="ppm-color">
           {resourceGrowthRates.globalPpm
             ? `+${formatNum(resourceGrowthRates.globalPpm * 30, 3)}/mo.`
-            : ""}{" "}
+            : "+0.0/mo."}{" "}
           <a
             target="_blank"
             href="https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide"

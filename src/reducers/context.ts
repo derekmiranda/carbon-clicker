@@ -6,6 +6,7 @@ import { AudioType, TickerType } from "../types";
 export interface ClickerContextInterface {
   state: ClickerInterface;
   dispatch: Dispatch<ClickerAction>;
+  setShowCredits: (val: boolean) => void;
   ticker?: TickerType;
   audio?: AudioType;
 }
@@ -13,4 +14,5 @@ export interface ClickerContextInterface {
 export const ClickerContext = createContext<ClickerContextInterface>({
   state: INITIAL_STATE,
   dispatch: () => ({}),
+  setShowCredits: () => {},
 });

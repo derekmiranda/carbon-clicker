@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import Clicker from "./components/Clicker";
 import { useClicker } from "./reducers";
@@ -9,11 +9,13 @@ import { SharedActionType } from "./types/actions";
 import useAudio from "./hooks/useAudio";
 
 import "./App.css";
+import Credits from "./Credits";
 
 function App() {
   const clicker = useClicker();
   const { state, dispatch } = clicker;
   const appRef = useRef<HTMLElement>(document.getElementById("root"));
+  const [showCredits, setShowCredits] = useState(false);
 
   const tickResources = useCallback(
     (timeDelta: number) =>
@@ -44,9 +46,17 @@ function App() {
   const audio = useAudio();
 
   return (
-    <ClickerContext.Provider value={{ state, dispatch, ticker, audio }}>
-      <Clicker />
-      <Modal appElement={appRef.current!} />
+    <ClickerContext.Provider
+      value={{ state, dispatch, ticker, audio, setShowCredits }}
+    >
+      {showCredits ? (
+        <Credits />
+      ) : (
+        <>
+          <Clicker />
+          <Modal appElement={appRef.current!} />
+        </>
+      )}
     </ClickerContext.Provider>
   );
 }

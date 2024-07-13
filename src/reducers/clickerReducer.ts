@@ -148,23 +148,6 @@ export default function clickerReducer(
         buttonId as ButtonKey
       ] as ButtonInterface;
 
-      if (buttonId === ButtonKey.destroyFossilFuelIndustry) {
-        newState.phase = GamePhase.ENDING;
-        newState.modalQueue = newState.modalQueue.concat([
-          {
-            view:
-              state.pathway === Pathway.COOPERATION
-                ? ModalView.COOPERATION_EPILOGUE
-                : ModalView.REVOLUTION_EPILOGUE,
-          },
-          { view: ModalView.EPILOGUE_2 },
-          { view: ModalView.EPILOGUE_3 },
-        ]);
-
-        progressEndSequence(newState);
-        return newState;
-      }
-
       if (!button.enabled) return state;
 
       processEffects(newState, button.effects);
@@ -206,6 +189,23 @@ export default function clickerReducer(
           [buttonId]: buttonState && buttonReducer(buttonState, action),
         },
       };
+
+      if (buttonId === ButtonKey.destroyFossilFuelIndustry) {
+        newState.phase = GamePhase.ENDING;
+        newState.modalQueue = newState.modalQueue.concat([
+          {
+            view:
+              state.pathway === Pathway.COOPERATION
+                ? ModalView.COOPERATION_EPILOGUE
+                : ModalView.REVOLUTION_EPILOGUE,
+          },
+          { view: ModalView.EPILOGUE_2 },
+          { view: ModalView.EPILOGUE_3 },
+        ]);
+
+        progressEndSequence(newState);
+        return newState;
+      }
 
       // check requirements and costs
       if (newState.phase !== GamePhase.ENDING) {

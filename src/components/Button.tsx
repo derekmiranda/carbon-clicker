@@ -49,6 +49,7 @@ export default function Button({
     },
     audio,
     ticker,
+    setShowCredits,
   } = useContext(ClickerContext);
   const { moodPercent, isTired, isRealTired } = useSelectedState();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -102,10 +103,11 @@ export default function Button({
               case ButtonKey.bikeInsteadOfDrive:
               case ButtonKey.cookVegMeal:
                 progressEndSequence();
-                return;
+                return undefined;
               case ButtonKey.turnOffLights:
-                console.log("the end");
-                return;
+                setShowCredits(true);
+                playSFX(AudioSprite.REST);
+                return { disableDefaultSFX: true };
             }
           },
         });
