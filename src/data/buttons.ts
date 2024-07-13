@@ -448,7 +448,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: false,
       oneTime: true,
       cost: {
-        knowledge: 250,
+        knowledge: 150,
         peoplePower: 1000,
         trust: 100,
       },
@@ -470,7 +470,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES_RATE,
           resourcesRateDiff: {
-            globalPpm: -0.9,
+            globalPpm: -1,
           },
         },
       ],
@@ -811,11 +811,28 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       enabled: false,
       cost: {
         collectiveDollars: 10000,
+        peoplePower: 300,
+        trust: 60,
       },
       requirements: {
         phase: GamePhase.TWO,
         pathway: Pathway.REVOLUTION,
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -10,
+            peoplePower: 100,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.05,
+          },
+        },
+      ],
     },
 
     [ButtonKey.intimidateBank]: {
@@ -828,16 +845,30 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: false,
       cost: {
-        collectiveDollars: 100000,
+        collectiveDollars: 15000,
+        peoplePower: 500,
+        trust: 75,
       },
       requirements: {
-        resources: {
-          peoplePower: 100000,
-          trust: 75,
-        },
         phase: GamePhase.TWO,
+        buttonsUnlocked: [ButtonKey.blowUpPipeline],
         pathway: Pathway.REVOLUTION,
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -15,
+            peoplePower: 100,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.1,
+          },
+        },
+      ],
     },
 
     [ButtonKey.takeOver]: {
@@ -850,13 +881,30 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: false,
       cost: {
-        collectiveDollars: 500000,
+        collectiveDollars: 30000,
+        peoplePower: 700,
+        trust: 100,
       },
       requirements: {
-        buttonsUnlocked: [ButtonKey.blowUpPipeline],
         phase: GamePhase.TWO,
+        buttonsUnlocked: [ButtonKey.intimidateBank],
         pathway: Pathway.REVOLUTION,
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -20,
+            peoplePower: 100,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.2,
+          },
+        },
+      ],
     },
 
     // cooperation
