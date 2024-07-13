@@ -106,10 +106,12 @@ export default function Modal(rest: ModalProps) {
       case ModalView.CHOOSE_PATHWAY: {
         const chooseRevolution = () => {
           setPathway(Pathway.REVOLUTION);
+          addLogs(["do you hear the people sing?"]);
           handleModalClose();
         };
         const chooseCooperation = () => {
           setPathway(Pathway.COOPERATION);
+          addLogs(["time to restore faith in democracy"]);
           handleModalClose();
         };
         return (
