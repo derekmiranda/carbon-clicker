@@ -881,7 +881,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: false,
       cost: {
-        collectiveDollars: 30000,
+        collectiveDollars: 20000,
         peoplePower: 700,
         trust: 100,
       },
@@ -955,7 +955,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: false,
       cost: {
-        collectiveDollars: 20000,
+        collectiveDollars: 15000,
         knowledge: 115,
         peoplePower: 400,
         trust: 60,
@@ -993,7 +993,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: false,
       cost: {
-        collectiveDollars: 50000,
+        collectiveDollars: 20000,
         knowledge: 130,
         peoplePower: 500,
         trust: 70,
