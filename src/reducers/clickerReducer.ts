@@ -5,7 +5,7 @@ import {
   MAX_MOOD,
 } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
-import { endgameClicker } from "../data/clicker";
+import { defaultClicker } from "../data/clicker";
 import endingButtonSequence from "../data/endingButtonSequence";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
@@ -31,7 +31,7 @@ import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts, processEffects } from "./lib";
 
-export const INITIAL_STATE = endgameClicker;
+export const INITIAL_STATE = defaultClicker;
 
 interface ModalData {
   view: ModalView;
