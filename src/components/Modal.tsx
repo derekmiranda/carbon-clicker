@@ -28,7 +28,7 @@ function ModalContent({ children }: { children: string | string[] }) {
 
 export default function Modal(rest: ModalProps) {
   const {
-    state: { modalQueue },
+    state: { modalQueue, phase },
     ticker,
     audio,
   } = useContext(ClickerContext);
@@ -210,7 +210,7 @@ export default function Modal(rest: ModalProps) {
               <p>{modal.props.content}</p>
               {modal.props.effects ? (
                 <p className="event-effect">
-                  {describeEffects(modal.props.effects)}
+                  {describeEffects(modal.props.effects, phase)}
                 </p>
               ) : null}
             </>

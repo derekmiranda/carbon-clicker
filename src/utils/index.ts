@@ -3,8 +3,10 @@ import { ButtonInterface } from "../reducers/buttonReducer";
 import {
   ButtonKey,
   EffectTypes,
+  GamePhase,
   GenericEffect,
   MapLikeInterface,
+  PHASE_TWO_RESOURCES,
   ResourceTypes,
   UpdateResourcesEffect,
   UpdateResourcesRateEffect,
@@ -93,26 +95,43 @@ export function getCurrentTimes(elapsedTime: number) {
   };
 }
 
-export function describeEffect(effect: GenericEffect) {
+export function describeEffect(effect: GenericEffect, currentPhase: GamePhase) {
   if (effect.type === EffectTypes.UPDATE_RESOURCES) {
     const { resourcesDiff, proportionalDiffs } =
       effect as UpdateResourcesEffect;
-    return Object.entries(resourcesDiff).map(([resourceKey, resourceVal]) =>
-      proportionalDiffs?.[resourceKey as ResourceTypes]
-        ? `${resourceVal >= 0 ? "+" : ""}${resourceVal * 100}% ${
-            DISPLAY_NAMES[resourceKey] || resourceKey
-          }`
-        : formatResource(resourceVal, resourceKey, true)
-    );
+    return Object.entries(resourcesDiff)
+      .filter(
+        ([resourceKey]) =>
+          currentPhase === GamePhase.TWO ||
+          !PHASE_TWO_RESOURCES.includes(resourceKey as ResourceTypes)
+      )
+      .map(([resourceKey, resourceVal]) =>
+        proportionalDiffs?.[resourceKey as ResourceTypes]
+          ? `${resourceVal >= 0 ? "+" : ""}${resourceVal * 100}% ${
+              DISPLAY_NAMES[resourceKey] || resourceKey
+            }`
+          : formatResource(resourceVal, resourceKey, true)
+      );
   } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
     const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
-    return Object.entries(resourcesRateDiff).map(
-      ([resourceKey, resourceVal]) =>
-        `${formatResource(resourceVal, resourceKey, true)}/day`
-    );
+    return Object.entries(resourcesRateDiff)
+      .filter(
+        ([resourceKey]) =>
+          currentPhase === GamePhase.TWO ||
+          !PHASE_TWO_RESOURCES.includes(resourceKey as ResourceTypes)
+      )
+      .map(
+        ([resourceKey, resourceVal]) =>
+          `${formatResource(resourceVal, resourceKey, true)}/day`
+      );
   }
 }
 
-export function describeEffects(effects: GenericEffect[]) {
-  return effects.flatMap(describeEffect).join(", ");
+export function describeEffects(
+  effects: GenericEffect[],
+  currentPhase: GamePhase
+) {
+  return effects
+    .flatMap((effect) => describeEffect(effect, currentPhase))
+    .join(", ");
 }

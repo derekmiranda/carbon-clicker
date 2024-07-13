@@ -13,7 +13,11 @@ export enum ResourceTypes {
   TRUST = "trust",
 }
 
-export const ResourceList = Object.values(ResourceTypes);
+export const PHASE_TWO_RESOURCES = [
+  ResourceTypes.PEOPLE_POWER,
+  ResourceTypes.COLLECTIVE_DOLLARS,
+  ResourceTypes.TRUST,
+];
 
 export type Resources = {
   mood: number;

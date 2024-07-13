@@ -35,6 +35,7 @@ export default function Button({
   const {
     state: {
       resources,
+      phase,
       buttons: { map },
     },
     audio,
@@ -100,7 +101,7 @@ export default function Button({
   } else if (isBreakButton) {
     effectDetails = "completely refill mood BUT pause all actions";
   } else {
-    effectDetails = describeEffects(effects);
+    effectDetails = describeEffects(effects, phase);
   }
 
   return (

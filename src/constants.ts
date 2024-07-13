@@ -114,7 +114,7 @@ export const MAX_MOOD = 200;
 export const DISPLAY_NAMES: Record<string, string> = {
   knowledge: "Knowledge",
   mood: "Mood",
-  dollars: "$ (personal)",
+  dollars: "$",
   collectiveDollars: "$ (collective)",
   co2Saved: "CO2 Saved",
   peoplePower: "People Power",
