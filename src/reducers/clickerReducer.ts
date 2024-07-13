@@ -128,9 +128,9 @@ export type ClickerAction =
   | Record<string, unknown>;
 
 function progressEndSequence(newState: ClickerInterface) {
-  const { endgameSequenceIndex } = newState;
+  const { endgameSequenceIndex, buttons } = newState;
   if (endingButtonSequence[endgameSequenceIndex + 1]) {
-    newState.buttons = endingButtonSequence[endgameSequenceIndex + 1];
+    newState.buttons = endingButtonSequence[endgameSequenceIndex + 1](buttons);
     newState.endgameSequenceIndex += 1;
   }
   return newState;

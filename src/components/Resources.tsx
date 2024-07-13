@@ -21,7 +21,7 @@ function Resources() {
     peoplePower,
     trust,
   } = resources;
-  const isPhaseTwo = phase === GamePhase.TWO;
+  const isPastPhaseTwo = phase !== GamePhase.ONE;
   const { purchasedIcons, currentTimes, isEnergized, isTired, isRealTired } =
     useSelectedState();
   const { day, month, year } = currentTimes;
@@ -79,7 +79,7 @@ function Resources() {
             : ""}
         </p>
 
-        <p>Dollars {isPhaseTwo ? "(Individual)" : ""}:</p>
+        <p>Dollars {isPastPhaseTwo ? "(Individual)" : ""}:</p>
         <p> ${formatNum(dollars, 2)}</p>
         <p className="resource">
           {resourceGrowthRates.dollars
@@ -89,7 +89,7 @@ function Resources() {
             : ""}
         </p>
 
-        {isPhaseTwo ? (
+        {isPastPhaseTwo ? (
           <>
             <p>Dollars (Collective):</p>
             <p>${formatNum(collectiveDollars, 2)}</p>
