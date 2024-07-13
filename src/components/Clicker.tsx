@@ -2,7 +2,7 @@ import "./Clicker.css";
 import { saveGameData } from "../storage";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Actions from "./Actions";
 import Resources from "./Resources";
 import { getImgUrl } from "../utils";
@@ -11,12 +11,13 @@ import Upgrades from "./Upgrades";
 
 function Clicker() {
   const { state, ticker } = useContext(ClickerContext);
-  const { paused, setPaused } = ticker as TickerType;
+  const { paused, setPaused, addDelayedEffect } = ticker as TickerType;
   const { clearGameData, openModal, setMuted } = useDispatchers();
   const {
     resources: { peoplePower },
     muted,
   } = state;
+  const [showSaveSuccess, setShowSaveSuccess] = useState(false);
 
   useEffect(() => {
     const imgUrl =
@@ -56,11 +57,16 @@ function Clicker() {
         <button
           onClick={() => {
             saveGameData(state);
+            setShowSaveSuccess(true);
+            addDelayedEffect(() => {
+              setShowSaveSuccess(false);
+            }, 2);
           }}
         >
           Save
         </button>
         <button onClick={clearGameData}>Clear</button>
+        {showSaveSuccess ? <p className="save-message">Game Saved!</p> : null}
       </div>
     </main>
   );
