@@ -916,12 +916,33 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       // icon: "citycouncil.png",
       oneTime: true,
       unlocked: false,
-      // enabled: false,
-      enabled: true,
+      enabled: false,
+      cost: {
+        collectiveDollars: 10000,
+        knowledge: 100,
+        peoplePower: 300,
+        trust: 50,
+      },
       requirements: {
         phase: GamePhase.TWO,
         pathway: Pathway.COOPERATION,
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -20,
+            peoplePower: 50,
+            collectiveDollars: 1000,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.5,
+          },
+        },
+      ],
     },
 
     [ButtonKey.passBills]: {
@@ -932,13 +953,34 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       // icon: "passbills.png",
       oneTime: true,
       unlocked: false,
-      // enabled: false,
-      enabled: true,
+      enabled: false,
+      cost: {
+        collectiveDollars: 20000,
+        knowledge: 115,
+        peoplePower: 400,
+        trust: 60,
+      },
       requirements: {
-        buttonsUnlocked: [ButtonKey.fillCityCouncil],
         phase: GamePhase.TWO,
+        buttonsUnlocked: [ButtonKey.fillCityCouncil],
         pathway: Pathway.COOPERATION,
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -30,
+            peoplePower: 50,
+            collectiveDollars: 2000,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.1,
+          },
+        },
+      ],
     },
 
     [ButtonKey.speakAtCOP]: {
@@ -949,13 +991,34 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       // icon: "speakatcop.png",
       oneTime: true,
       unlocked: false,
-      // enabled: false,
-      enabled: true,
+      enabled: false,
+      cost: {
+        collectiveDollars: 50000,
+        knowledge: 130,
+        peoplePower: 500,
+        trust: 70,
+      },
       requirements: {
-        buttonsUnlocked: [ButtonKey.passBills],
         phase: GamePhase.TWO,
+        buttonsUnlocked: [ButtonKey.passBills],
         pathway: Pathway.COOPERATION,
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: -40,
+            peoplePower: 50,
+            collectiveDollars: 5000,
+          },
+        },
+        {
+          type: EffectTypes.UPDATE_RESOURCES_RATE,
+          resourcesRateDiff: {
+            globalPpm: -0.2,
+          },
+        },
+      ],
     },
   },
 
