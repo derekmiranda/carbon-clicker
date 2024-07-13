@@ -5,7 +5,6 @@ import { ClickerContext } from "../reducers/context";
 import Logs from "./Logs";
 import "./Buttons.css";
 import { ButtonKey, GamePhase } from "../types";
-import { ButtonInterface } from "../reducers/buttonReducer";
 import useSelectedState from "../hooks/useSelectedState";
 import ButtonsList from "./ButtonsList";
 
@@ -19,10 +18,7 @@ export default function Actions() {
   } = useContext(ClickerContext);
   const { clickButton } = useDispatchers();
 
-  const destroyFossilFuelsBtn = map[
-    ButtonKey.destroyFossilFuelIndustry
-  ] as ButtonInterface;
-
+  const destroyFossilFuelsBtn = map[ButtonKey.destroyFossilFuelIndustry]!;
   return (
     <div className="buttons-container buttons-container--actions">
       <h2>Actions</h2>

@@ -443,7 +443,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.destroyFossilFuelIndustry,
       displayName: "Destroy the Fossil Fuel Industry",
       description: "Destroy the Fossil Fuel Industry",
-      // icon: "destroyfossilfuels.png",
+      icon: "destroyfossilfuels.png",
       unlocked: false,
       enabled: false,
       oneTime: true,

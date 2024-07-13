@@ -17,6 +17,7 @@ import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
 import { StoryId } from "../types/storyId";
 import { describeEffects } from "../utils";
+import { AudioSprite } from "../hooks/useAudio";
 
 export interface ModalProps extends Partial<ReactModal.Props> {}
 
@@ -51,7 +52,8 @@ export default function Modal(rest: ModalProps) {
     progressEndSequence,
   } = useDispatchers();
   const { setPaused } = ticker!;
-  const { playClickSFX, playEventSFX, playUpgradeSFX, playWallowSFX } = audio!;
+  const { playClickSFX, playEventSFX, playUpgradeSFX, playWallowSFX, playSFX } =
+    audio!;
   const modal = modalQueue[0];
   const { view, props } = modal || {};
   const { onClose = () => undefined, content } = props || {};
@@ -82,6 +84,15 @@ export default function Modal(rest: ModalProps) {
     }
   }, [view, setPaused, playEventSFX, playUpgradeSFX, playWallowSFX]);
 
+  const customSFXButtons = useMemo(
+    () => [
+      ModalView.COOPERATION_EPILOGUE,
+      ModalView.REVOLUTION_EPILOGUE,
+      ModalView.EPILOGUE_2,
+      ModalView.EPILOGUE_3,
+    ],
+    []
+  );
   const handleModalClose = useCallback(() => {
     switch (view) {
       case ModalView.INTRO:
@@ -92,13 +103,18 @@ export default function Modal(rest: ModalProps) {
         setPhase(GamePhase.TWO);
         setStorySeen(StoryId.EPIPHANY);
         break;
-      case ModalView.EPILOGUE_3:
+      case ModalView.COOPERATION_EPILOGUE:
+      case ModalView.REVOLUTION_EPILOGUE:
+        playSFX(AudioSprite.EPILOGUE_2);
+        break;
+      case ModalView.EPILOGUE_2:
+        playSFX(AudioSprite.EPILOGUE_3);
         progressEndSequence();
         break;
     }
     const { disableDefaultSFX } = onClose() || {};
     setPaused(false);
-    if (!disableDefaultSFX) {
+    if (!disableDefaultSFX && !customSFXButtons.includes(view)) {
       playClickSFX();
     }
     closeModal();
@@ -110,6 +126,8 @@ export default function Modal(rest: ModalProps) {
     setPhase,
     closeModal,
     setPaused,
+    playSFX,
+    customSFXButtons,
     playClickSFX,
     progressEndSequence,
   ]);

@@ -80,6 +80,8 @@ export default function Button({
       playSelfEducateSFX();
     } else if (id === ButtonKey.takeABreak) {
       playSFX(AudioSprite.REST);
+    } else if (id === ButtonKey.destroyFossilFuelIndustry) {
+      playSFX(AudioSprite.EPILOGUE_1);
     } else if (oneTime) {
       playUpgradeSFX();
     } else {
@@ -106,7 +108,7 @@ export default function Button({
                 return undefined;
               case ButtonKey.turnOffLights:
                 setShowCredits(true);
-                playSFX(AudioSprite.REST);
+                playSFX(AudioSprite.EPILOGUE_4);
                 return { disableDefaultSFX: true };
             }
           },

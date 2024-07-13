@@ -17,6 +17,10 @@ export enum AudioSprite {
   WALLOW = "WALLOW",
   SELF_EDUCATE = "SELF_EDUCATE",
   REST = "REST",
+  EPILOGUE_1 = "EPILOGUE_1",
+  EPILOGUE_2 = "EPILOGUE_2",
+  EPILOGUE_3 = "EPILOGUE_3",
+  EPILOGUE_4 = "EPILOGUE_4",
 }
 
 export default function useAudio(state: ClickerInterface) {
@@ -41,6 +45,10 @@ export default function useAudio(state: ClickerInterface) {
           [AudioSprite.WALLOW]: [20000, 4000],
           [AudioSprite.REST]: [24000, 4000],
           [AudioSprite.SELF_EDUCATE]: [28000, 2000],
+          [AudioSprite.EPILOGUE_1]: [32000, 2000],
+          [AudioSprite.EPILOGUE_2]: [34000, 2000],
+          [AudioSprite.EPILOGUE_3]: [36000, 4000],
+          [AudioSprite.EPILOGUE_4]: [40000, 6000],
         },
       }),
     []
@@ -52,9 +60,7 @@ export default function useAudio(state: ClickerInterface) {
 
   const playSFX = useCallback(
     (sprite: AudioSprite | string) => {
-      console.log("audio hook", muted);
       if (muted) return;
-
       sound.play(sprite);
     },
     [muted, sound]
