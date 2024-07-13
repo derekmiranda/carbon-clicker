@@ -1,5 +1,6 @@
 import {
   EffectTypes,
+  GamePhase,
   GenericEffect,
   ResourceTypes,
   UpdateResourcesEffect,
@@ -10,12 +11,13 @@ export interface PpmEvent {
   ppm: number;
   text: string;
   effects: GenericEffect[];
+  targetPhase?: GamePhase;
 }
 
 const ppmEvents: PpmEvent[] = [
   {
     eventType: "Heat wave",
-    ppm: 426,
+    ppm: 425.5,
     text: "a record-breaking heat wave occurs, and many people die. extreme heat is the #1 weather-related threat to public health. your mood plummets.",
     effects: [
       {
@@ -31,7 +33,7 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Flood",
-    ppm: 427,
+    ppm: 426,
     text: "a flood occurs. as climate change continues to worsen, flooding damage will cost the US trillions in repairs. your mood plummets.",
     effects: [
       {
@@ -51,7 +53,7 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Wildfire",
-    ppm: 428,
+    ppm: 426.5,
     text: "a wildfire sweeps through the area. countless people lose their homes and the skies turn smoky and orange. your mood plummets.",
     effects: [
       {
@@ -73,7 +75,7 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Hurricane",
-    ppm: 429,
+    ppm: 427,
     text: "your area sees the worst hurricane on record. entire neighborhoods lose their homes, and in the aftermath, thousands go missing. your mood plummets.",
     effects: [
       {
@@ -95,8 +97,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Fossil fuel marketing",
-    ppm: 430,
+    ppm: 427.5,
     text: "fossil fuel corporations release an attack ad on your group. you know it's because they're afraid of you, but it tarnishes your reputation.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -116,7 +119,7 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Landslide",
-    ppm: 431,
+    ppm: 428,
     text: "you hear of a landslide happening far away. it is horrible and kills hundreds of people. even though it doesn't affect you personally, seeing the images on social media of the grieving families brings you down.",
     effects: [
       {
@@ -130,7 +133,7 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Coral bleach",
-    ppm: 432,
+    ppm: 428.5,
     text: "a massive coral bleaching event occurs on the other side of the world. on a free day, you stare out at the ocean. you can sense that far away, something beautiful has died.",
     effects: [
       {
@@ -144,8 +147,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Fossil fuel marketing",
-    ppm: 433,
+    ppm: 429,
     text: "fossil fuel corporations release an attack ad on your group. you know it's because they're afraid of you, but it tarnishes your reputation.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -164,7 +168,7 @@ const ppmEvents: PpmEvent[] = [
   },
   {
     eventType: "Hurricane",
-    ppm: 434,
+    ppm: 429.5,
     text: "another hurricane has battered islands in the caribbean. the devastation is awful. your group donates some funds to try and help -- solidarity, not charity.",
     effects: [
       {
@@ -185,8 +189,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Migrants",
-    ppm: 435,
+    ppm: 430,
     text: "climate migrants from the hurricane arrive in your city. many of them decide to join your movement.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -202,7 +207,7 @@ const ppmEvents: PpmEvent[] = [
   },
   {
     eventType: "Heat wave",
-    ppm: 436,
+    ppm: 430.5,
     text: "an even bigger heat wave occurs, and many people die. your mood plummets.",
     effects: [
       {
@@ -220,8 +225,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Fossil fuel marketing",
-    ppm: 437,
+    ppm: 431,
     text: "fossil fuel corporations release an attack ad on your group. you know it's because they're afraid of you, but it tarnishes your reputation.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -241,8 +247,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Food",
-    ppm: 438,
+    ppm: 431.5,
     text: "cascading events result in a shock to the food supply. your group helps out the community, but it puts a strain on everyone's wallets.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -259,7 +266,7 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Flood",
-    ppm: 439,
+    ppm: 432,
     text: "the coastlines surge with floodwaters. your mood plummets.",
     effects: [
       {
@@ -279,7 +286,7 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Wildfire",
-    ppm: 440,
+    ppm: 432.5,
     text: "another wildfire, another week of terrible air quality. your mood plummets.",
     effects: [
       {
@@ -301,8 +308,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Fossil fuel marketing",
-    ppm: 441,
+    ppm: 433,
     text: "fossil fuel corporations release an attack ad on your group. you know it's because they're afraid of you, but it tarnishes your reputation.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -322,8 +330,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Drought",
-    ppm: 442,
+    ppm: 433.5,
     text: "the ongoing drought means that for the first time ever, water prices have skyrocketed. your group helps out the community, but it puts a strain on everyone's wallets.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -340,8 +349,9 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Protests",
-    ppm: 443,
+    ppm: 434,
     text: "climate protests in another part of the world are met with extreme violence. anger propels your group to deliver a scathing statement and deliver funds to the victims. the public responds with support.",
+    targetPhase: GamePhase.TWO,
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
@@ -360,13 +370,35 @@ const ppmEvents: PpmEvent[] = [
 
   {
     eventType: "Ice sheet",
-    ppm: 444,
+    ppm: 434.5,
     text: "a significant ice sheet collapses. it's an irreversible event. the oceans seem to loom over you.",
     effects: [
       {
         type: EffectTypes.UPDATE_RESOURCES,
         resourcesDiff: {
           mood: -50,
+        },
+      } as UpdateResourcesEffect,
+    ],
+  },
+
+  {
+    eventType: "Fossil fuel marketing",
+    ppm: 435,
+    text: "fossil fuel corporations release an attack ad on your group. you know it's because they're afraid of you, but it tarnishes your reputation.",
+    targetPhase: GamePhase.TWO,
+    effects: [
+      {
+        type: EffectTypes.UPDATE_RESOURCES,
+        resourcesDiff: {
+          mood: -20,
+          trust: -10,
+          peoplePower: -0.05,
+          collectiveDollars: -0.05,
+        },
+        proportionalDiffs: {
+          [ResourceTypes.PEOPLE_POWER]: true,
+          [ResourceTypes.COLLECTIVE_DOLLARS]: true,
         },
       } as UpdateResourcesEffect,
     ],
