@@ -1,3 +1,5 @@
+import { ButtonKey } from "./types";
+
 export const SECS_PER_DAY = 2;
 export const GAME_VERSION = "1";
 export const LOG_LIMIT = 50;
@@ -96,6 +98,43 @@ export const COOPERATION_KNOWLEDGE_DROPPINGS = [
   `you're reading "ministry for the future" by kim stanley robinson. the governments of the world have to band together to win this fight.`,
   DEFAULT_KNOWLEDGE_DROPPING(PHASE_2_KNOWLEDGE_GAIN),
   ...END_GAME_KNOWLEDGE_DROPPINGS,
+];
+
+export const REVOLUTION_EPILOGUE = [
+  `through the power of a revolution, you and your group destroy the fossil fuel industry.`,
+  `it wasn't easy. your group's radical actions polarized people, and after the dismantling of governments, there's a lot of rebuilding work you'll have to do.`,
+  `but change is never easy.`,
+  `the revolution brought about a sense of trust. people stopped turning to authorities and started turning to you, to each other. you built people power effectively this way, and have now developed a populace that can govern itself.`,
+];
+
+export const COOPERATION_EPILOGUE = [
+  `through the power of cooperation, you and your group destroy the fossil fuel industry.`,
+  `it wasn't easy. your group's endless coordination with governments was often tiring, and you lost some trust with the public for working with authorities.`,
+  `but change is never easy.`,
+  `the collaboration brought a renewed sense of unity amongst humanity. great minds and organizations came together to create fantastic innovations, progressing human knowledge further than anyone would have ever thought.`,
+];
+
+export const REMAINING_EPILOGUE_CONTENT = [
+  [
+    `more than that, you've given people hope. the earth is not doomed. you've learned from each other that through collective action, there is a way to survive. to thrive.`,
+    `humanity is not a virus. we were once stewards of this land. we can return to that.`,
+  ],
+  `but right now, you're just tired. so it's time to...`,
+];
+
+export const EPILOGUE_BUTTON_LOGS = [
+  [
+    ButtonKey.bikeInsteadOfDrive,
+    `after a long day of celebrating, grieving, reflecting -- you bike home. the air feels clean and the temperature is just right.`,
+  ],
+  [
+    ButtonKey.cookVegMeal,
+    `you take care of yourself with a comforting meal. a sense of weariness descends upon you. you are content and ready to rest.`,
+  ],
+  [
+    ButtonKey.turnOffLights,
+    `the sun sets on the world you have helped create. you turn off the lights.`,
+  ],
 ];
 
 const getSelfEducateThreshold = (targetDrop: string | string[]) =>
