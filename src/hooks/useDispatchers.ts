@@ -88,6 +88,11 @@ export default function useDispatchers() {
     [dispatch]
   );
 
+  const progressEndSequence = useCallback(
+    () => dispatch({ type: ClickerActionType.PROGRESS_END_SEQUENCE }),
+    [dispatch]
+  );
+
   return {
     clickButton,
     tickResources,
@@ -100,5 +105,6 @@ export default function useDispatchers() {
     setPhase,
     setPathway,
     addLogs,
+    progressEndSequence,
   };
 }

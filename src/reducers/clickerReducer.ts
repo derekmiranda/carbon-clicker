@@ -5,7 +5,8 @@ import {
   MAX_MOOD,
 } from "../constants";
 import { PHASE_TWO_SELF_EDUCATE_EFFECTS } from "../data/buttons";
-import { pathwayClicker } from "../data/clicker";
+import { endgameClicker } from "../data/clicker";
+import endingButtonSequence from "../data/endingButtonSequence";
 import { getLogsForClick } from "../data/logs";
 import ppmEvents from "../data/ppmEvents";
 import {
@@ -30,7 +31,7 @@ import buttonReducer, { ButtonInterface } from "./buttonReducer";
 import { CooldownInterface } from "./cooldownReducer";
 import { checkReqsAndCosts, processEffects } from "./lib";
 
-export const INITIAL_STATE = pathwayClicker;
+export const INITIAL_STATE = endgameClicker;
 
 interface ModalData {
   view: ModalView;
@@ -46,6 +47,8 @@ export interface ClickerInterface {
   logs: (string | string[])[];
   // self-educate counter after picking pathway
   endgameSelfEducateTimesPressed: number;
+  // index for endgame sequence
+  endgameSequenceIndex: number;
   // keep track of next PPM event
   ppmEventIndex: number;
   // seconds
@@ -66,6 +69,7 @@ export enum ClickerActionType {
   SET_PHASE = "SET_PHASE",
   SET_PATHWAY = "SET_PATHWAY",
   SET_MUTED = "SET_MUTED",
+  PROGRESS_END_SEQUENCE = "PROGRESS_END_SEQUENCE",
 }
 
 export interface AddLogsAction {
@@ -108,6 +112,10 @@ export interface SetMutedAction {
   muted: boolean;
 }
 
+export interface ProgressEndSequenceAction {
+  type: ClickerActionType.PROGRESS_END_SEQUENCE;
+}
+
 export type ClickerAction =
   | AddLogsAction
   | SetModalAction
@@ -115,8 +123,18 @@ export type ClickerAction =
   | SetStorySeenAction
   | SetPhaseAction
   | SetPathwayAction
+  | ProgressEndSequenceAction
   | SharedAction
   | Record<string, unknown>;
+
+function progressEndSequence(newState: ClickerInterface) {
+  const { endgameSequenceIndex } = newState;
+  if (endingButtonSequence[endgameSequenceIndex + 1]) {
+    newState.buttons = endingButtonSequence[endgameSequenceIndex + 1];
+    newState.endgameSequenceIndex += 1;
+  }
+  return newState;
+}
 
 export default function clickerReducer(
   state: ClickerInterface,
@@ -129,6 +147,23 @@ export default function clickerReducer(
       const button = state.buttons.map[
         buttonId as ButtonKey
       ] as ButtonInterface;
+
+      if (buttonId === ButtonKey.destroyFossilFuelIndustry) {
+        newState.phase = GamePhase.ENDING;
+        newState.modalQueue = newState.modalQueue.concat([
+          {
+            view:
+              state.pathway === Pathway.COOPERATION
+                ? ModalView.COOPERATION_EPILOGUE
+                : ModalView.REVOLUTION_EPILOGUE,
+          },
+          { view: ModalView.EPILOGUE_2 },
+          { view: ModalView.EPILOGUE_3 },
+        ]);
+
+        progressEndSequence(newState);
+        return newState;
+      }
 
       if (!button.enabled) return state;
 
@@ -173,7 +208,9 @@ export default function clickerReducer(
       };
 
       // check requirements and costs
-      checkReqsAndCosts(newState, buttonId);
+      if (newState.phase !== GamePhase.ENDING) {
+        checkReqsAndCosts(newState, buttonId);
+      }
 
       // add logs happening on button clicks
       const logsToAdd = getLogsForClick(newState, action as ClickButtonAction);
@@ -279,20 +316,26 @@ export default function clickerReducer(
       newState.resources = newResources;
       newState.elapsedTime = state.elapsedTime + timeDelta;
 
-      // check requirements and costs
-      checkReqsAndCosts(newState);
+      if (newState.phase !== GamePhase.ENDING) {
+        // check requirements and costs
+        checkReqsAndCosts(newState);
 
-      // check for PPM events
-      const nextPpmEvent = ppmEvents[state.ppmEventIndex + 1];
-      if (nextPpmEvent && newState.resources.globalPpm >= nextPpmEvent.ppm) {
-        newState.modalQueue = newState.modalQueue.concat({
-          view: ModalView.PPM_EVENT,
-          props: { content: nextPpmEvent.text, effects: nextPpmEvent.effects },
-        });
-        newState.ppmEventIndex = state.ppmEventIndex + 1;
+        // check for PPM events
+        const nextPpmEvent = ppmEvents[state.ppmEventIndex + 1];
+        if (nextPpmEvent && newState.resources.globalPpm >= nextPpmEvent.ppm) {
+          newState.modalQueue = newState.modalQueue.concat({
+            view: ModalView.PPM_EVENT,
+            props: {
+              content: nextPpmEvent.text,
+              effects: nextPpmEvent.effects,
+            },
+          });
+          newState.ppmEventIndex = state.ppmEventIndex + 1;
 
-        processEffects(newState, nextPpmEvent.effects);
+          processEffects(newState, nextPpmEvent.effects);
+        }
       }
+
       return newState;
     }
 
@@ -385,6 +428,12 @@ export default function clickerReducer(
 
     case ClickerActionType.CLEAR_GAME_DATA: {
       return INITIAL_STATE;
+    }
+
+    case ClickerActionType.PROGRESS_END_SEQUENCE: {
+      const newState = { ...state };
+      progressEndSequence(newState);
+      return newState;
     }
   }
   return state;

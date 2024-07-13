@@ -1,11 +1,15 @@
 import ReactModal from "react-modal";
-import { GamePhase, ModalView, Pathway } from "../types";
+import { ButtonKey, GamePhase, ModalView, Pathway } from "../types";
 import "./Modal.css";
 import {
+  COOPERATION_EPILOGUE,
   END_PHASE_1,
+  EPILOGUE_BUTTON_LOGS,
   INTRO,
   LEARNING_DROPPING,
   LOG_BOUNDARY,
+  REMAINING_EPILOGUE_CONTENT,
+  REVOLUTION_EPILOGUE,
   WALLOW,
 } from "../constants";
 import { useCallback, useContext, useEffect, useMemo } from "react";
@@ -16,14 +20,20 @@ import { describeEffects } from "../utils";
 
 export interface ModalProps extends Partial<ReactModal.Props> {}
 
-function ModalContent({ children }: { children: string | string[] }) {
-  return (
-    <>
-      {Array.isArray(children)
-        ? children.map((child) => <p key={child}>{child}</p>)
-        : children}
-    </>
-  );
+function ModalContent({
+  isVisible,
+  children,
+}: {
+  isVisible: boolean;
+  children: string | string[];
+}) {
+  return isVisible ? (
+    Array.isArray(children) ? (
+      children.map((child) => <p key={child}>{child}</p>)
+    ) : (
+      <p>{children}</p>
+    )
+  ) : null;
 }
 
 export default function Modal(rest: ModalProps) {
@@ -32,8 +42,14 @@ export default function Modal(rest: ModalProps) {
     ticker,
     audio,
   } = useContext(ClickerContext);
-  const { closeModal, setStorySeen, addLogs, setPhase, setPathway } =
-    useDispatchers();
+  const {
+    closeModal,
+    setStorySeen,
+    addLogs,
+    setPhase,
+    setPathway,
+    progressEndSequence,
+  } = useDispatchers();
   const { setPaused } = ticker!;
   const { playClickSFX, playEventSFX, playUpgradeSFX, playWallowSFX } = audio!;
   const modal = modalQueue[0];
@@ -75,6 +91,9 @@ export default function Modal(rest: ModalProps) {
         setPhase(GamePhase.TWO);
         setStorySeen(StoryId.EPIPHANY);
         break;
+      case ModalView.EPILOGUE_3:
+        progressEndSequence();
+        break;
     }
     setPaused(false);
     playClickSFX();
@@ -87,6 +106,7 @@ export default function Modal(rest: ModalProps) {
     closeModal,
     setPaused,
     playClickSFX,
+    progressEndSequence,
   ]);
 
   const closeText = useMemo(() => {
@@ -97,6 +117,12 @@ export default function Modal(rest: ModalProps) {
         return "Let's GOOOO";
       case ModalView.PAUSE:
         return "Resume";
+      case ModalView.COOPERATION_EPILOGUE:
+      case ModalView.REVOLUTION_EPILOGUE:
+      case ModalView.EPILOGUE_2:
+        return "Next";
+      case ModalView.EPILOGUE_3:
+        return "Rest";
     }
     return "Close";
   }, [view]);
@@ -195,17 +221,45 @@ export default function Modal(rest: ModalProps) {
               ].map((p, i) => <p key={i}>{p}</p>)
             : null}
 
-          {view === ModalView.WALLOW ? (
-            <ModalContent>{WALLOW}</ModalContent>
-          ) : null}
+          <ModalContent isVisible={view === ModalView.WALLOW}>
+            {WALLOW}
+          </ModalContent>
 
-          {view === ModalView.END_PHASE_ONE
-            ? END_PHASE_1.map((p, i) => <p key={i}>{p}</p>)
-            : null}
+          <ModalContent isVisible={view === ModalView.END_PHASE_ONE}>
+            {END_PHASE_1}
+          </ModalContent>
 
-          {view === ModalView.LEARNING
-            ? LEARNING_DROPPING.map((p, i) => <p key={i}>{p}</p>)
-            : null}
+          <ModalContent isVisible={view === ModalView.LEARNING}>
+            {LEARNING_DROPPING}
+          </ModalContent>
+
+          <ModalContent isVisible={view === ModalView.COOPERATION_EPILOGUE}>
+            {COOPERATION_EPILOGUE}
+          </ModalContent>
+
+          <ModalContent isVisible={view === ModalView.REVOLUTION_EPILOGUE}>
+            {REVOLUTION_EPILOGUE}
+          </ModalContent>
+
+          <ModalContent isVisible={view === ModalView.EPILOGUE_2}>
+            {REMAINING_EPILOGUE_CONTENT[0]}
+          </ModalContent>
+
+          <ModalContent isVisible={view === ModalView.EPILOGUE_3}>
+            {REMAINING_EPILOGUE_CONTENT[1]}
+          </ModalContent>
+
+          <ModalContent isVisible={view === ModalView.BIKE_EPILOGUE}>
+            {EPILOGUE_BUTTON_LOGS[ButtonKey.bikeInsteadOfDrive]}
+          </ModalContent>
+
+          <ModalContent isVisible={view === ModalView.COOK_EPILOGUE}>
+            {EPILOGUE_BUTTON_LOGS[ButtonKey.cookVegMeal]}
+          </ModalContent>
+
+          <ModalContent isVisible={view === ModalView.LIGHTS_EPILOGUE}>
+            {EPILOGUE_BUTTON_LOGS[ButtonKey.turnOffLights]}
+          </ModalContent>
 
           {view === ModalView.PPM_EVENT && modal.props?.content ? (
             <>
@@ -219,7 +273,7 @@ export default function Modal(rest: ModalProps) {
           ) : null}
 
           {view === ModalView.CHOOSE_PATHWAY && modal.props?.content ? (
-            <ModalContent>{modal.props.content}</ModalContent>
+            <ModalContent isVisible={true}>{modal.props.content}</ModalContent>
           ) : null}
 
           {view === ModalView.PAUSE ? (

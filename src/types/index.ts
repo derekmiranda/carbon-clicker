@@ -139,6 +139,14 @@ export enum ModalView {
   CHOOSE_PATHWAY = "CHOOSE_PATHWAY",
   PPM_EVENT = "PPM_EVENT",
   PAUSE = "PAUSE",
+  REVOLUTION_EPILOGUE = "REVOLUTION_EPILOGUE",
+  COOPERATION_EPILOGUE = "COOPERATION_EPILOGUE",
+  EPILOGUE_2 = "EPILOGUE_2",
+  EPILOGUE_3 = "EPILOGUE_3",
+  BIKE_EPILOGUE = "BIKE_EPILOGUE",
+  COOK_EPILOGUE = "COOK_EPILOGUE",
+  LIGHTS_EPILOGUE = "LIGHTS_EPILOGUE",
+  CREDITS = "CREDITS",
 }
 
 export interface ModalViewProps {
@@ -149,6 +157,7 @@ export interface ModalViewProps {
 export enum GamePhase {
   ONE,
   TWO,
+  ENDING,
 }
 
 export enum Pathway {

@@ -122,20 +122,16 @@ export const REMAINING_EPILOGUE_CONTENT = [
   `but right now, you're just tired. so it's time to...`,
 ];
 
-export const EPILOGUE_BUTTON_LOGS = [
-  [
-    ButtonKey.bikeInsteadOfDrive,
-    `after a long day of celebrating, grieving, reflecting -- you bike home. the air feels clean and the temperature is just right.`,
-  ],
-  [
-    ButtonKey.cookVegMeal,
-    `you take care of yourself with a comforting meal. a sense of weariness descends upon you. you are content and ready to rest.`,
-  ],
-  [
-    ButtonKey.turnOffLights,
-    `the sun sets on the world you have helped create. you turn off the lights.`,
-  ],
+export const EPILOGUE_BUTTON_ORDER = [
+  ButtonKey.bikeInsteadOfDrive,
+  ButtonKey.cookVegMeal,
+  ButtonKey.turnOffLights,
 ];
+export const EPILOGUE_BUTTON_LOGS = {
+  [ButtonKey.bikeInsteadOfDrive]: `after a long day of celebrating, grieving, reflecting -- you bike home. the air feels clean and the temperature is just right.`,
+  [ButtonKey.cookVegMeal]: `you take care of yourself with a comforting meal. a sense of weariness descends upon you. you are content and ready to rest.`,
+  [ButtonKey.turnOffLights]: `the sun sets on the world you have helped create. you turn off the lights.`,
+};
 
 const getSelfEducateThreshold = (targetDrop: string | string[]) =>
   KNOWLEDGE_DROPPINGS.findIndex((drop) => drop === targetDrop) + 1;

@@ -13,6 +13,7 @@ export const defaultClicker: ClickerInterface = {
   modalQueue: [{ view: ModalView.INTRO }],
   logs: [],
   ppmEventIndex: -1,
+  endgameSequenceIndex: -1,
   storySeen: {},
   phase: GamePhase.ONE,
   muted: false,
@@ -177,6 +178,7 @@ export const pathwayClicker: ClickerInterface = {
 // test data for ending
 export const endgameClicker: ClickerInterface = {
   ...defaultClicker,
+  modalQueue: [],
   ppmEventIndex: 5,
   phase: GamePhase.TWO,
   resources: {
