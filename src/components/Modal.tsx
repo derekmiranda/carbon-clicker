@@ -53,7 +53,8 @@ export default function Modal(rest: ModalProps) {
   const { setPaused } = ticker!;
   const { playClickSFX, playEventSFX, playUpgradeSFX, playWallowSFX } = audio!;
   const modal = modalQueue[0];
-  const { view } = modal || {};
+  const { view, props } = modal || {};
+  const { onClose, content } = props || {};
 
   useEffect(() => {
     if (view) {
@@ -95,12 +96,14 @@ export default function Modal(rest: ModalProps) {
         progressEndSequence();
         break;
     }
+    onClose?.();
     setPaused(false);
     playClickSFX();
     closeModal();
   }, [
     view,
     addLogs,
+    onClose,
     setStorySeen,
     setPhase,
     closeModal,
@@ -220,6 +223,10 @@ export default function Modal(rest: ModalProps) {
                 </span>,
               ].map((p, i) => <p key={i}>{p}</p>)
             : null}
+
+          <ModalContent isVisible={!!(content && view === ModalView.GENERIC)}>
+            {content || ""}
+          </ModalContent>
 
           <ModalContent isVisible={view === ModalView.WALLOW}>
             {WALLOW}

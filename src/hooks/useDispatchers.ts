@@ -3,7 +3,7 @@ import { ClickerContext } from "../reducers/context";
 import { SharedActionType } from "../types/actions";
 import { clearGameData } from "../storage";
 import { ClickerActionType } from "../reducers/clickerReducer";
-import { GamePhase, ModalView, Pathway } from "../types";
+import { GamePhase, ModalView, ModalViewProps, Pathway } from "../types";
 import { StoryId } from "../types/storyId";
 
 export default function useDispatchers() {
@@ -38,8 +38,8 @@ export default function useDispatchers() {
   );
 
   const openModal = useCallback(
-    (modal: ModalView) =>
-      dispatch({ type: ClickerActionType.SET_MODAL, modal }),
+    (modal: ModalView, props?: ModalViewProps) =>
+      dispatch({ type: ClickerActionType.SET_MODAL, modal, props }),
     [dispatch]
   );
 

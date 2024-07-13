@@ -132,6 +132,7 @@ export interface MapLikeInterface<T, K extends string = string> {
 }
 
 export enum ModalView {
+  GENERIC = "GENERIC",
   INTRO = "INTRO",
   WALLOW = "WALLOW",
   LEARNING = "LEARNING",
@@ -152,6 +153,8 @@ export enum ModalView {
 export interface ModalViewProps {
   content?: string | string[];
   effects?: GenericEffect[];
+  onClose?: () => void;
+  closeText?: string;
 }
 
 export enum GamePhase {

@@ -2,6 +2,8 @@ import classNames from "classnames";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import {
   ButtonKey,
+  GamePhase,
+  ModalView,
   NON_DEDUCTABLE_RESOURCES,
   Resources,
   ResourceTypes,
@@ -13,6 +15,8 @@ import { describeEffects, formatResource, getImgUrl } from "../utils";
 import { AudioSprite } from "../hooks/useAudio";
 import { isResourceMet } from "../reducers/lib";
 import useSelectedState from "../hooks/useSelectedState";
+import useDispatchers from "../hooks/useDispatchers";
+import { EPILOGUE_BUTTON_LOGS } from "../constants";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
@@ -44,6 +48,7 @@ export default function Button({
       buttons: { map },
     },
     audio,
+    ticker,
   } = useContext(ClickerContext);
   const { moodPercent, isTired, isRealTired } = useSelectedState();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -57,6 +62,8 @@ export default function Button({
     playSelfEducateSFX,
     playSFX,
   } = audio!;
+  const { addDelayedEffect } = ticker!;
+  const { progressEndSequence, openModal } = useDispatchers();
 
   const mainCooldown = breakCooldown?.onCooldown
     ? breakCooldown
@@ -66,8 +73,6 @@ export default function Button({
   const isBreakButton = id === ButtonKey.takeABreak;
 
   const handleClick = () => {
-    clickButton(id, id === ButtonKey.takeABreak ? 1 : moodPercent);
-
     if (id === ButtonKey.wallowInMisery) {
       playWallowSFX();
     } else if (id === ButtonKey.selfEducate) {
@@ -79,6 +84,35 @@ export default function Button({
     } else {
       playClickSFX();
     }
+
+    if (phase === GamePhase.ENDING) {
+      if (id === ButtonKey.takeABreak) {
+        addDelayedEffect(() => {
+          progressEndSequence();
+        }, cooldown!.baseCooldownSeconds);
+      } else if (
+        id === ButtonKey.bikeInsteadOfDrive ||
+        id === ButtonKey.cookVegMeal ||
+        id === ButtonKey.turnOffLights
+      ) {
+        openModal(ModalView.GENERIC, {
+          content: EPILOGUE_BUTTON_LOGS[id],
+          onClose: () => {
+            switch (id) {
+              case ButtonKey.bikeInsteadOfDrive:
+              case ButtonKey.cookVegMeal:
+                progressEndSequence();
+                return;
+              case ButtonKey.turnOffLights:
+                console.log("the end");
+                return;
+            }
+          },
+        });
+      }
+    }
+
+    clickButton(id, id === ButtonKey.takeABreak ? 1 : moodPercent);
   };
 
   useEffect(() => {
