@@ -19,6 +19,12 @@ export const PHASE_TWO_RESOURCES = [
   ResourceTypes.TRUST,
 ];
 
+export const NON_DEDUCTABLE_RESOURCES = [
+  ResourceTypes.KNOWLEDGE,
+  ResourceTypes.PEOPLE_POWER,
+  ResourceTypes.TRUST,
+];
+
 export type Resources = {
   mood: number;
   maxMood: number;
@@ -78,9 +84,7 @@ export enum ButtonKey {
 
 export type ButtonKeyMap<T> = { [key in ButtonKey]?: T };
 
-export interface Cost extends Partial<Resources> {
-  noDeduct?: boolean;
-}
+export type Cost = Partial<Resources>;
 
 export interface Requirements {
   resources?: Partial<Resources>;

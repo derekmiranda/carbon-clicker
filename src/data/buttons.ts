@@ -451,7 +451,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         knowledge: 250,
         peoplePower: 1000,
         trust: 100,
-        noDeduct: true,
       },
       requirements: {
         buttonsUnlocked: [
@@ -575,7 +574,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       cost: {
         peoplePower: 100,
         trust: 50,
-        noDeduct: true,
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.joinClimateOrg],
@@ -634,7 +632,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cost: {
-        noDeduct: true,
         collectiveDollars: 1000,
         peoplePower: 50,
         trust: 75,
@@ -674,7 +671,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       cost: {
         peoplePower: 200,
         trust: 90,
-        noDeduct: true,
       },
       requirements: {
         buttonsUnlocked: [ButtonKey.startMutualAidFund],
@@ -744,7 +740,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cost: {
-        noDeduct: true,
         knowledge: 70,
       },
       requirements: {
@@ -779,7 +774,6 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: true,
       cost: {
-        noDeduct: true,
         collectiveDollars: 2000,
         knowledge: 100,
       },
@@ -816,7 +810,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       unlocked: false,
       enabled: false,
       cost: {
-        collectiveDollars: 50000,
+        collectiveDollars: 10000,
       },
       requirements: {
         phase: GamePhase.TWO,

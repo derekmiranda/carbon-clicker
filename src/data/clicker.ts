@@ -40,12 +40,10 @@ export const defaultClicker: ClickerInterface = {
 
 // test data for phase 2
 export const phaseTwoClicker: ClickerInterface = {
+  ...defaultClicker,
   modalQueue: [{ view: ModalView.END_PHASE_ONE }],
-  logs: [],
   ppmEventIndex: 3,
-  storySeen: {},
   phase: GamePhase.TWO,
-  muted: false,
   resources: {
     mood: MAX_MOOD,
     maxMood: MAX_MOOD,
@@ -79,14 +77,108 @@ export const phaseTwoClicker: ClickerInterface = {
   endgameSelfEducateTimesPressed: 0,
 };
 
-// test data for endgame
-export const endgameClicker: ClickerInterface = {
+export const pathwayClicker: ClickerInterface = {
+  ...defaultClicker,
   modalQueue: [],
-  logs: [],
   ppmEventIndex: 5,
-  storySeen: {},
   phase: GamePhase.TWO,
-  muted: false,
+  resources: {
+    mood: MAX_MOOD,
+    maxMood: MAX_MOOD,
+    dollars: 1000,
+    knowledge: 100,
+    co2Saved: 5000,
+    globalPpm: 428,
+
+    // phase 2
+    peoplePower: 500,
+    trust: 90,
+    collectiveDollars: 10000,
+  },
+  // diff per second
+  resourceGrowthRates: {
+    globalPpm: STARTING_PPM_RATE,
+    mood: 1 / SECS_PER_DAY,
+  },
+  buttons: {
+    ...defaultClicker.buttons,
+    map: {
+      ...defaultClicker.buttons.map,
+      [ButtonKey.selfEducate]: {
+        ...defaultClicker.buttons.map[ButtonKey.selfEducate]!,
+        timesPressed: SELF_EDUCATE_THRESHOLDS.PHASE_TWO + 4,
+        effects: PHASE_TWO_SELF_EDUCATE_EFFECTS,
+      },
+
+      // !! button to click to trigger choosing pathway !!
+      [ButtonKey.organizeCommunity]: {
+        ...defaultClicker.buttons.map[ButtonKey.organizeCommunity]!,
+        purchased: false,
+        unlocked: true,
+        enabled: true,
+      },
+
+      [ButtonKey.attendRally]: {
+        ...defaultClicker.buttons.map[ButtonKey.attendRally]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.joinClimateOrg]: {
+        ...defaultClicker.buttons.map[ButtonKey.joinClimateOrg]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.formClimateCoalition]: {
+        ...defaultClicker.buttons.map[ButtonKey.formClimateCoalition]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+
+      [ButtonKey.talkToNeighbor]: {
+        ...defaultClicker.buttons.map[ButtonKey.talkToNeighbor]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.startMutualAidFund]: {
+        ...defaultClicker.buttons.map[ButtonKey.startMutualAidFund]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+
+      [ButtonKey.vote]: {
+        ...defaultClicker.buttons.map[ButtonKey.vote]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.cityCouncilMeeting]: {
+        ...defaultClicker.buttons.map[ButtonKey.cityCouncilMeeting]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+      [ButtonKey.volunteer]: {
+        ...defaultClicker.buttons.map[ButtonKey.volunteer]!,
+        purchased: true,
+        unlocked: true,
+        enabled: false,
+      },
+    },
+  },
+  elapsedTime: 0,
+  endgameSelfEducateTimesPressed: 0,
+};
+
+// test data for ending
+export const endgameClicker: ClickerInterface = {
+  ...defaultClicker,
+  ppmEventIndex: 5,
+  phase: GamePhase.TWO,
   resources: {
     mood: MAX_MOOD,
     maxMood: MAX_MOOD,

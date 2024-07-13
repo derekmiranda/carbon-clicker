@@ -145,8 +145,6 @@ export function isResourceMet(
   neededResources: Partial<Resources>,
   currResources: Resources
 ) {
-  if (resourceKey === "noDeduct") return true;
-
   const reqResource = neededResources[resourceKey as ResourceTypes];
   const currResource =
     resourceKey === ResourceTypes.COLLECTIVE_DOLLARS

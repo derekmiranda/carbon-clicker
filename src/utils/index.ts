@@ -73,8 +73,6 @@ export function formatResource(
     return `${sign}$${val}`;
   } else if (resourceKey === "collectiveDollars") {
     return `${sign}$${val} (collective)`;
-  } else if (resourceKey === "noDeduct") {
-    return "";
   }
   return `${sign}${val} ${DISPLAY_NAMES[resourceKey] || resourceKey}`;
 }

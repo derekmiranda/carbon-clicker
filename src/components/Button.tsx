@@ -1,6 +1,11 @@
 import classNames from "classnames";
 import { ButtonInterface } from "../reducers/buttonReducer";
-import { ButtonKey, Resources } from "../types";
+import {
+  ButtonKey,
+  NON_DEDUCTABLE_RESOURCES,
+  Resources,
+  ResourceTypes,
+} from "../types";
 import "./Button.css";
 import { ClickerContext } from "../reducers/context";
 import { useContext, useEffect, useRef } from "react";
@@ -132,20 +137,23 @@ export default function Button({
 
         {cost && !purchased ? (
           <span className="button__detail">
-            {cost.noDeduct ? "Requires" : "Costs"}:{" "}
-            {Object.entries(cost)
-              .filter(([key]) => key !== "noDeduct")
-              .map(([key, val], idx) => (
-                <span
-                  className={classNames({
-                    "detail-part": true,
-                    "detail-part--unmet":
-                      typeof cost[key as keyof Resources] === "number" &&
-                      !isResourceMet(key, cost, resources),
-                  })}
-                  key={idx}
-                >{`${idx > 0 ? "+" : ""}${formatResource(val, key)}`}</span>
-              ))}
+            {Object.keys(cost).some((resourceKey) =>
+              NON_DEDUCTABLE_RESOURCES.includes(resourceKey as ResourceTypes)
+            )
+              ? "Requires"
+              : "Costs"}
+            :{" "}
+            {Object.entries(cost).map(([key, val], idx) => (
+              <span
+                className={classNames({
+                  "detail-part": true,
+                  "detail-part--unmet":
+                    typeof cost[key as keyof Resources] === "number" &&
+                    !isResourceMet(key, cost, resources),
+                })}
+                key={idx}
+              >{`${idx > 0 ? "+" : ""}${formatResource(val, key)}`}</span>
+            ))}
           </span>
         ) : null}
 
