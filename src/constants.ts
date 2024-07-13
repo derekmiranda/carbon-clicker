@@ -1,7 +1,7 @@
 import { ButtonKey } from "./types";
 
 export const SECS_PER_DAY = 2;
-export const GAME_VERSION = "1";
+export const GAME_VERSION = "C3C6D391-130C-4B39-9B41-3F0370E4D729";
 export const LOG_LIMIT = 50;
 export const STARTING_PPM = 425;
 export const STARTING_PPM_RATE = 0.0067;
