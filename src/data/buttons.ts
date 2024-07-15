@@ -332,7 +332,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Direct Action",
       unlocked: false,
       enabled: true,
-      // icon: "directaction.png",
+      icon: "direct-action.png",
       cooldown: {
         baseCooldownSeconds: 4 * SECS_PER_DAY,
         cooldownSeconds: 1,
