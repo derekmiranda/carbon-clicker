@@ -108,11 +108,11 @@ const buttonLogs: ButtonKeyMap<LogValues> = {
 
   "political action": {
     clicked: [
-      `nothing like a good ol' fashioned community cookout. everyone gets to eat, no matter how much they can contribute`,
-      `someone just had a baby! time to organize volunteer childcare shifts. it really does take a village.`,
-      `another season, another clothing drive. i'm gonna swap in stuff i've outgrown and pick up some cute new fits.`,
-      `we put on a talent show to fundraise for the kids going to college. they grow up so fast :')`,
-      `someone lost their home. thanks to the collective fund, we're all able to help them find a new place where they can get back on their feet."`,
+      `phonebanking is hard... but i'm getting kind of good at it?`,
+      `wanna proofread this op-ed i wrote? "5 reasons you should G-O-T-V: get out the vote!"`,
+      `once i hit "publish" on these graphics, all our IG followers will know exactly which senators support the green new deal, and which ones need to be pressured.`,
+      `my pro-climate justice rep is having a rally. i'm gonna show up with everyone i know!`,
+      `it's all hands on deck to make sure this pro-gas measure does NOT get passed!"`,
     ],
   },
 
