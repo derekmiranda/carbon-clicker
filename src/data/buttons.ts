@@ -404,7 +404,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Political Action",
       unlocked: false,
       enabled: true,
-      // icon: "politicalaction.png",
+      icon: "politicalaction.png",
       cooldown: {
         baseCooldownSeconds: 4 * SECS_PER_DAY,
         cooldownSeconds: 1,
