@@ -365,7 +365,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       description: "Community Care",
       unlocked: false,
       enabled: true,
-      // icon: "communitycare.png",
+      icon: "communitycare.png",
       cooldown: {
         baseCooldownSeconds: 4 * SECS_PER_DAY,
         cooldownSeconds: 1,
