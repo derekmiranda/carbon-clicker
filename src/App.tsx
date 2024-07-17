@@ -43,11 +43,25 @@ function App() {
     throttleTickResources(timeDelta);
   }, 120);
 
+  const _setShowCredits = useCallback(
+    (val: boolean) => {
+      ticker.setPaused(val);
+      setShowCredits(val);
+    },
+    [ticker, setShowCredits]
+  );
+
   const audio = useAudio(state);
 
   return (
     <ClickerContext.Provider
-      value={{ state, dispatch, ticker, audio, setShowCredits }}
+      value={{
+        state,
+        dispatch,
+        ticker,
+        audio,
+        setShowCredits: _setShowCredits,
+      }}
     >
       {showCredits ? (
         <Credits />
