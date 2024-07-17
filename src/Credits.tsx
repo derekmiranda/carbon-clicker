@@ -47,6 +47,16 @@ function Credits() {
           </button>
         </>
       ) : null}
+      <p>
+        Created for{" "}
+        <a
+          className="credits-link"
+          target="_blank"
+          href="https://itch.io/jam/climate-jam-2024"
+        >
+          Climate Jam 2024
+        </a>
+      </p>
       <button className="credits-button" onClick={closeCredits}>
         Close
       </button>
