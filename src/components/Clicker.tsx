@@ -2,19 +2,21 @@ import "./Clicker.css";
 import { saveGameData } from "../storage";
 import { ClickerContext } from "../reducers/context";
 import useDispatchers from "../hooks/useDispatchers";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Actions from "./Actions";
 import Resources from "./Resources";
 import { getImgUrl } from "../utils";
 import { ModalView, TickerType } from "../types";
 import Upgrades from "./Upgrades";
+import { SHORTCUTS } from "../constants";
 
 function Clicker() {
   const { state, ticker } = useContext(ClickerContext);
   const { paused, setPaused, addDelayedEffect } = ticker as TickerType;
-  const { clearGameData, openModal, setMuted } = useDispatchers();
+  const { clearGameData, openModal, closeModal, setMuted } = useDispatchers();
   const {
     resources: { peoplePower },
+    modalQueue,
     muted,
   } = state;
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
@@ -32,26 +34,52 @@ function Clicker() {
     document.body.style.imageRendering = "pixelated";
   }, [peoplePower]);
 
+  const togglePause = useCallback(() => {
+    if (paused) {
+      modalQueue.length ? closeModal() : togglePause();
+    } else {
+      openModal(ModalView.PAUSE);
+    }
+    setPaused(!paused);
+  }, [paused, openModal, closeModal, setPaused, modalQueue]);
+
+  const toggleMute = useCallback(() => {
+    setMuted(!muted);
+  }, [muted, setMuted]);
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.code === "Escape") {
+        togglePause();
+      }
+      if (event.code === "KeyM") {
+        toggleMute();
+      }
+    },
+    [togglePause, toggleMute]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown, true);
+    return () => document.removeEventListener("keydown", handleKeyDown, true);
+  }, [handleKeyDown]);
+
   return (
     <main className="game">
       <Resources />
       <Actions />
       <Upgrades />
       <div className="game-data-container">
+        <button onClick={togglePause}>{paused ? "PAUSED" : "Pause"}</button>
+        <button onClick={toggleMute}>{muted ? "Unmute" : "Mute"}</button>
         <button
           onClick={() => {
-            openModal(ModalView.PAUSE);
-            setPaused(true);
+            openModal(ModalView.GENERIC, {
+              content: SHORTCUTS,
+            });
           }}
         >
-          {paused ? "PAUSED" : "Pause"}
-        </button>
-        <button
-          onClick={() => {
-            setMuted(!muted);
-          }}
-        >
-          {muted ? "Unmute" : "Mute"}
+          Shortcuts
         </button>
         {"|"}
         <button

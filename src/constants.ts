@@ -155,3 +155,5 @@ export const DISPLAY_NAMES: Record<string, string> = {
   peoplePower: "People Power",
   trust: "Trust",
 };
+
+export const SHORTCUTS = [`esc: pause game / close popup`, `m: mute sound`];
