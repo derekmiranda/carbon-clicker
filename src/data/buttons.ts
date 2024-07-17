@@ -246,7 +246,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
             co2Saved: 6,
-            mood: 4,
+            mood: 6,
           },
         },
       ],
