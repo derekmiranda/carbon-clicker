@@ -348,7 +348,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         onCooldown: false,
       },
       cost: {
-        collectiveDollars: 100,
+        collectiveDollars: 500,
         mood: 10,
       },
       requirements: {
@@ -359,7 +359,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            peoplePower: 10,
+            peoplePower: 30,
             trust: 10,
           },
         },
@@ -381,7 +381,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         onCooldown: false,
       },
       cost: {
-        collectiveDollars: 100,
+        collectiveDollars: 200,
         mood: 5,
       },
       requirements: {
@@ -392,8 +392,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            collectiveDollars: 200, // TODO: scale up amount
-            peoplePower: 5,
+            peoplePower: 50,
           },
         },
         {
@@ -420,7 +419,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         onCooldown: false,
       },
       cost: {
-        collectiveDollars: 200,
+        collectiveDollars: 500,
         mood: 10,
         trust: 5,
       },
@@ -432,7 +431,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
         {
           type: EffectTypes.UPDATE_RESOURCES,
           resourcesDiff: {
-            peoplePower: 5,
+            peoplePower: 10,
             knowledge: 10,
           },
         },
