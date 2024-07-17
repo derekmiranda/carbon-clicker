@@ -988,7 +988,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.speakAtCOP,
       displayName: "Speak at Conference of Parties (COP)",
       description: "Speak at Conference of Parties (COP)",
-      // icon: "speakatcop.png",
+      icon: "speak-at-cop.png",
       oneTime: true,
       unlocked: false,
       enabled: false,
