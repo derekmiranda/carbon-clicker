@@ -269,6 +269,14 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       cost: {
         dollars: 50,
       },
+      effects: [
+        {
+          type: EffectTypes.UPDATE_RESOURCES,
+          resourcesDiff: {
+            mood: 30,
+          },
+        },
+      ],
     },
 
     [ButtonKey.job]: {
