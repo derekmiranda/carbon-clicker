@@ -11,12 +11,11 @@ import Upgrades from "./Upgrades";
 import { SHORTCUTS } from "../constants";
 
 function Clicker() {
-  const { state, ticker } = useContext(ClickerContext);
+  const { state, ticker, setShowCredits } = useContext(ClickerContext);
   const { paused, setPaused, addDelayedEffect } = ticker as TickerType;
   const { clearGameData, openModal, closeModal, setMuted } = useDispatchers();
   const {
     resources: { peoplePower },
-    modalQueue,
     muted,
   } = state;
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
@@ -36,12 +35,12 @@ function Clicker() {
 
   const togglePause = useCallback(() => {
     if (paused) {
-      modalQueue.length ? closeModal() : togglePause();
+      closeModal();
     } else {
       openModal(ModalView.PAUSE);
     }
     setPaused(!paused);
-  }, [paused, openModal, closeModal, setPaused, modalQueue]);
+  }, [paused, openModal, closeModal, setPaused]);
 
   const toggleMute = useCallback(() => {
     setMuted(!muted);
@@ -80,6 +79,13 @@ function Clicker() {
           }}
         >
           Shortcuts
+        </button>
+        <button
+          onClick={() => {
+            setShowCredits(true);
+          }}
+        >
+          Credits
         </button>
         {"|"}
         <button
