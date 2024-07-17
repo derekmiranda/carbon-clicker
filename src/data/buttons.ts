@@ -812,7 +812,7 @@ export const buttons: MapLikeInterface<ButtonInterface, ButtonKey> = {
       id: ButtonKey.blowUpPipeline,
       displayName: "Blow Up a Pipeline",
       description: "Blow Up a Pipeline",
-      // icon: "blowup.png",
+      icon: "blowuppipeline.png",
       oneTime: true,
       unlocked: false,
       enabled: false,
