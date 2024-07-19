@@ -32,6 +32,18 @@
 .icons-box img {
   width: 100%;
   image-rendering: auto;
+  animation: enter-icon 1s;
+}
+
+@keyframes enter-icon {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 100%;
+    transform: scale(1);
+  }
 }
 
 .great-mood {
