@@ -11,6 +11,7 @@ export default function Logs() {
   useEffect(() => {
     if (boxRef.current) {
       boxRef.current.scrollTo(0, 0);
+      window.scrollTo(0, 0);
     }
   }, [cappedLogs]);
 
