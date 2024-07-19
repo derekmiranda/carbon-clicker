@@ -19,7 +19,7 @@
   color: var(--bg-color);
   font-weight: bolder;
   font-size: 1.2rem;
-  animation: enter-log 0.5s;
+  animation: enter-log 0.5s ease-out;
 }
 
 .log span {

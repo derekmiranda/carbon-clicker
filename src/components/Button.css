@@ -2,7 +2,7 @@
   background-color: transparent;
   color: var(--text-color);
   border: 2px solid var(--accent-color);
-  animation: 2s enter-btn;
+  animation: 2s enter-btn ease-out;
   user-select: none;
   transition: border-color 1s;
 }

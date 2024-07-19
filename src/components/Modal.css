@@ -1,3 +1,21 @@
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Content {
+  transform: translateY(-50px);
+  transition: transform 0.5s ease-in-out;
+}
+
+.ReactModal__Content--after-open {
+  transform: translateY(0);
+}
+
 .modal-content {
   display: flex;
   flex-direction: column;

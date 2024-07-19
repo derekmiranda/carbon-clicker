@@ -32,7 +32,7 @@
 .icons-box img {
   width: 100%;
   image-rendering: auto;
-  animation: enter-icon 1s;
+  animation: enter-icon 1s ease-in-out;
 }
 
 @keyframes enter-icon {
