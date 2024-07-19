@@ -2,7 +2,7 @@
   background-color: transparent;
   color: var(--text-color);
   border: 2px solid var(--accent-color);
-  animation: 2s enter;
+  animation: 2s enter-btn;
   user-select: none;
   transition: border-color 1s;
 }
@@ -67,10 +67,11 @@
   border-color: var(--warn-color);
 }
 
-@keyframes enter {
+@keyframes enter-btn {
   from {
     opacity: 0%;
     background: var(--accent-color);
+    transform: translate(-40px, 40px);
   }
   to {
     opacity: 100%;
