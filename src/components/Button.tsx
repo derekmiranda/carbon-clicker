@@ -11,7 +11,12 @@ import {
 import "./Button.css";
 import { ClickerContext } from "../reducers/context";
 import { useContext, useEffect, useRef } from "react";
-import { describeEffects, formatResource, getImgUrl } from "../utils";
+import {
+  cleanButtonId,
+  describeEffects,
+  formatResource,
+  getImgUrl,
+} from "../utils";
 import { AudioSprite } from "../hooks/useAudio";
 import { isResourceMet } from "../reducers/lib";
 import useSelectedState from "../hooks/useSelectedState";
@@ -150,7 +155,7 @@ export default function Button({
   return (
     <>
       <button
-        id={id}
+        id={cleanButtonId(id)}
         className={classNames(
           "button",
           {

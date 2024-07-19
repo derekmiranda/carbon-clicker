@@ -133,3 +133,7 @@ export function describeEffects(
     .flatMap((effect) => describeEffect(effect, currentPhase))
     .join(", ");
 }
+
+export function cleanButtonId(id: string) {
+  return id.replace(/\s/g, "");
+}

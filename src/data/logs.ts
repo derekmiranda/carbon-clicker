@@ -8,6 +8,7 @@ import { ButtonInterface } from "../reducers/buttonReducer";
 import { ClickerInterface } from "../reducers/clickerReducer";
 import { ButtonKey, GamePhase, Log } from "../types";
 import { ClickButtonAction } from "../types/actions";
+import { cleanButtonId } from "../utils";
 import buttonLogs, { LogValues } from "./buttonLogs";
 
 export function getLogsForClick(
@@ -34,7 +35,7 @@ export function getLogsForClick(
         : clicked;
 
     return log && typeof timesPressed === "number" && timesPressed <= limit
-      ? { incitingButton: buttonId, message: log }
+      ? { incitingButton: cleanButtonId(buttonId), message: log }
       : null;
   }
 
@@ -53,7 +54,7 @@ export function getLogsForClick(
               ? PHASE_1_KNOWLEDGE_GAIN
               : PHASE_2_KNOWLEDGE_GAIN
           ),
-        incitingButton: buttonId,
+        incitingButton: cleanButtonId(buttonId),
       };
     }
   }
