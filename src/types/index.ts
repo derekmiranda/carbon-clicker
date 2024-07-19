@@ -176,3 +176,8 @@ export enum Pathway {
 
 export type TickerType = ReturnType<typeof useTicker>;
 export type AudioType = ReturnType<typeof useAudio>;
+
+export interface Log {
+  message: string | string[];
+  incitingButton?: ButtonKey | string;
+}

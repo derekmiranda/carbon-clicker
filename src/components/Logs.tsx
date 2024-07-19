@@ -22,15 +22,17 @@ export default function Logs() {
             className="log"
             key={
               i === cappedLogs.length - 1
-                ? Array.isArray(log)
-                  ? log[0]
-                  : log
+                ? Array.isArray(log.message)
+                  ? log.message[0]
+                  : log.message
                 : cappedLogs.length - i
             }
           >
-            {Array.isArray(log)
-              ? log.map((subLog, j) => <span key={j}>{`> ${subLog}`}</span>)
-              : `> ${log}`}
+            {Array.isArray(log.message)
+              ? log.message.map((subLog, j) => (
+                  <span key={j}>{`> ${subLog}`}</span>
+                ))
+              : `> ${log.message}`}
           </p>
         ))
         .reverse()}

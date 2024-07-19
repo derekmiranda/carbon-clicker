@@ -12,6 +12,7 @@ import ppmEvents from "../data/ppmEvents";
 import {
   ButtonKey,
   GamePhase,
+  Log,
   MapLikeInterface,
   ModalView,
   ModalViewProps,
@@ -44,7 +45,7 @@ export interface ClickerInterface {
   resourceGrowthRates: Partial<Resources>;
   buttons: MapLikeInterface<ButtonInterface, ButtonKey>;
   phase: GamePhase;
-  logs: (string | string[])[];
+  logs: Log[];
   // self-educate counter after picking pathway
   endgameSelfEducateTimesPressed: number;
   // index for endgame sequence
@@ -411,7 +412,7 @@ export default function clickerReducer(
     case ClickerActionType.ADD_LOGS: {
       const { logs } = action as AddLogsAction;
       const newLogs = state.logs.slice(-LOG_LIMIT + 1);
-      newLogs.push(logs);
+      newLogs.push(...logs.map((log) => ({ message: log })));
 
       return {
         ...state,

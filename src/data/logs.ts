@@ -6,14 +6,14 @@ import {
 } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import { ClickerInterface } from "../reducers/clickerReducer";
-import { ButtonKey, GamePhase } from "../types";
+import { ButtonKey, GamePhase, Log } from "../types";
 import { ClickButtonAction } from "../types/actions";
 import buttonLogs, { LogValues } from "./buttonLogs";
 
 export function getLogsForClick(
   state: ClickerInterface,
   action: ClickButtonAction
-) {
+): Log | null {
   const { buttonId } = action;
 
   if (buttonLogs[buttonId as ButtonKey]) {
@@ -33,8 +33,8 @@ export function getLogsForClick(
         ? clicked[(timesPressed - 1) % clicked.length]
         : clicked;
 
-    return typeof timesPressed === "number" && timesPressed <= limit
-      ? log
+    return log && typeof timesPressed === "number" && timesPressed <= limit
+      ? { incitingButton: buttonId, message: log }
       : null;
   }
 
@@ -45,14 +45,16 @@ export function getLogsForClick(
       ] as ButtonInterface;
       const newKnowledgeDropping =
         KNOWLEDGE_DROPPINGS[selfEducateButton.timesPressed - 1];
-      return (
-        newKnowledgeDropping ||
-        DEFAULT_KNOWLEDGE_DROPPING(
-          state.phase === GamePhase.ONE
-            ? PHASE_1_KNOWLEDGE_GAIN
-            : PHASE_2_KNOWLEDGE_GAIN
-        )
-      );
+      return {
+        message:
+          newKnowledgeDropping ||
+          DEFAULT_KNOWLEDGE_DROPPING(
+            state.phase === GamePhase.ONE
+              ? PHASE_1_KNOWLEDGE_GAIN
+              : PHASE_2_KNOWLEDGE_GAIN
+          ),
+        incitingButton: buttonId,
+      };
     }
   }
 
