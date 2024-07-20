@@ -18,7 +18,7 @@ function Credits() {
   return (
     <main>
       <h1>Carbon Clicker</h1>
-      <h2>Developed by Derek Miranda and Jamie Liu</h2>
+      <h2>Developed by Derek Miranda + Jamie Liu</h2>
       <p>
         Programming, Art, Sound, Project Management:{" "}
         <strong>Derek Miranda</strong> (he/they)
@@ -86,6 +86,16 @@ function Credits() {
           href="https://fonts.google.com/specimen/Space+Grotesk"
         >
           Space Grotesk
+        </a>
+      </p>
+      <p>
+        Source code available on{" "}
+        <a
+          className="credits-link"
+          target="_blank"
+          href="https://github.com/derekmiranda/carbon-clicker"
+        >
+          Github
         </a>
       </p>
       <p>
