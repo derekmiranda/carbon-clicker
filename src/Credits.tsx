@@ -94,9 +94,9 @@ function Credits() {
         <a
           className="credits-link"
           target="_blank"
-          href="https://sunrisenyc.org/"
+          href="https://www.sunrisemovement.org/"
         >
-          Sunrise NYC
+          Sunrise Movement
         </a>
       </p>
       <p>
