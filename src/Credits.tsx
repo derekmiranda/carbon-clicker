@@ -39,14 +39,6 @@ function Credits() {
           Space Grotesk
         </a>
       </p>
-      {phase === GamePhase.ENDING ? (
-        <>
-          <h2>Thank you for playing!</h2>
-          <button className="credits-button" onClick={clearGameData}>
-            Play Again?
-          </button>
-        </>
-      ) : null}
       <p>
         Created for{" "}
         <a
@@ -57,6 +49,14 @@ function Credits() {
           Climate Jam 2024
         </a>
       </p>
+      {phase === GamePhase.ENDING ? (
+        <>
+          <h2>Thank you for playing!</h2>
+          <button className="credits-button" onClick={clearGameData}>
+            Play Again?
+          </button>
+        </>
+      ) : null}
       <button className="credits-button" onClick={closeCredits}>
         Close
       </button>
