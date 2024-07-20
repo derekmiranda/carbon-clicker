@@ -168,6 +168,10 @@ export const RESOURCE_EMOJIS: Record<string, string> = {
   trust: "🫶",
 };
 
-export const SHORTCUTS = [`esc: pause game / close popup`, `m: mute sound`];
+export const SHORTCUTS = [
+  `esc: pause game / close popup`,
+  `m: mute sound`,
+  `h: hide button tooltips`,
+];
 
 export const NOOP = () => {};

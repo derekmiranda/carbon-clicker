@@ -61,6 +61,15 @@ export default function useDispatchers() {
     dispatch({ type: ClickerActionType.CLEAR_GAME_DATA });
   }, [dispatch, setShowCredits]);
 
+  const setHideButtonTooltip = useCallback(
+    (hideButtonTooltip: boolean) =>
+      dispatch({
+        type: ClickerActionType.SET_HIDE_BUTTON_TOOLTIP,
+        hideButtonTooltip,
+      }),
+    [dispatch]
+  );
+
   const setMuted = useCallback(
     (muted: boolean) => dispatch({ type: ClickerActionType.SET_MUTED, muted }),
     [dispatch]
@@ -101,6 +110,7 @@ export default function useDispatchers() {
     openModal,
     closeModal,
     clearGameData: clearGameDataCB,
+    setHideButtonTooltip,
     setMuted,
     setStorySeen,
     setPhase,

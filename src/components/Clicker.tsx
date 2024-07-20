@@ -13,9 +13,16 @@ import { SHORTCUTS } from "../constants";
 function Clicker() {
   const { state, ticker, setShowCredits } = useContext(ClickerContext);
   const { paused, setPaused, addDelayedEffect } = ticker as TickerType;
-  const { clearGameData, openModal, closeModal, setMuted } = useDispatchers();
+  const {
+    clearGameData,
+    openModal,
+    closeModal,
+    setHideButtonTooltip,
+    setMuted,
+  } = useDispatchers();
   const {
     resources: { peoplePower },
+    hideButtonTooltip,
     muted,
   } = state;
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
@@ -46,6 +53,10 @@ function Clicker() {
     setMuted(!muted);
   }, [muted, setMuted]);
 
+  const toggleHideButtonTooltip = useCallback(() => {
+    setHideButtonTooltip(!hideButtonTooltip);
+  }, [hideButtonTooltip, setHideButtonTooltip]);
+
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if (event.code === "Escape") {
@@ -54,8 +65,11 @@ function Clicker() {
       if (event.code === "KeyM") {
         toggleMute();
       }
+      if (event.code === "KeyH") {
+        toggleHideButtonTooltip();
+      }
     },
-    [togglePause, toggleMute]
+    [togglePause, toggleMute, toggleHideButtonTooltip]
   );
 
   useEffect(() => {
