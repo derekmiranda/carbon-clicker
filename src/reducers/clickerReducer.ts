@@ -56,6 +56,7 @@ export interface ClickerInterface {
   storySeen: Record<string, boolean>;
   modalQueue: ModalData[];
   muted: boolean;
+  hideButtonTooltip: boolean;
   pathway?: Pathway;
 }
 
@@ -70,6 +71,7 @@ export enum ClickerActionType {
   SET_PATHWAY = "SET_PATHWAY",
   SET_MUTED = "SET_MUTED",
   PROGRESS_END_SEQUENCE = "PROGRESS_END_SEQUENCE",
+  SET_HIDE_BUTTON_TOOLTIP = "SET_HIDE_BUTTON_TOOLTIP",
 }
 
 export interface AddLogsAction {
@@ -112,12 +114,18 @@ export interface SetMutedAction {
   muted: boolean;
 }
 
+export interface SetHideButtonTooltipAction {
+  type: ClickerActionType.SET_HIDE_BUTTON_TOOLTIP;
+  hideButtonTooltip: boolean;
+}
+
 export interface ProgressEndSequenceAction {
   type: ClickerActionType.PROGRESS_END_SEQUENCE;
 }
 
 export type ClickerAction =
   | AddLogsAction
+  | SetHideButtonTooltipAction
   | SetModalAction
   | SetMutedAction
   | SetStorySeenAction
@@ -385,6 +393,14 @@ export default function clickerReducer(
       };
     }
 
+    case ClickerActionType.SET_HIDE_BUTTON_TOOLTIP: {
+      const { hideButtonTooltip } = action as SetHideButtonTooltipAction;
+      return {
+        ...state,
+        hideButtonTooltip,
+      };
+    }
+
     case ClickerActionType.SET_STORY_SEEN: {
       const { storyId } = action as SetStorySeenAction;
       return {
@@ -395,6 +411,7 @@ export default function clickerReducer(
         },
       };
     }
+
     case ClickerActionType.SET_PHASE: {
       const { phase } = action as SetPhaseAction;
       return {

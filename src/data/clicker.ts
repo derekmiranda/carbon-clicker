@@ -37,6 +37,7 @@ export const defaultClicker: ClickerInterface = {
   buttons,
   elapsedTime: 0,
   endgameSelfEducateTimesPressed: 0,
+  hideButtonTooltip: false,
 };
 
 // test data for phase 2
