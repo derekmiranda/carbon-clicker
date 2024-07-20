@@ -1,6 +1,6 @@
 .logs-box {
   grid-area: logs;
-  background-color: #1a1a1a;
+  background-color: #1a1a1a78;
   color: var(--accent-color);
   grid-column: span 2;
   height: 160px;
