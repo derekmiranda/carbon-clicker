@@ -224,6 +224,9 @@ export default function clickerReducer(
       // one-off: self-educate events
       // TODO: split off into self-educate-specific EffectType
       if (buttonId === ButtonKey.selfEducate) {
+        if (newState.pathway) {
+          newState.endgameSelfEducateTimesPressed += 1;
+        }
         const { timesPressed: timesSelfEducated } = newState.buttons.map[
           ButtonKey.selfEducate
         ] as ButtonInterface;

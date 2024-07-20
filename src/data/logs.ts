@@ -3,10 +3,12 @@ import {
   KNOWLEDGE_DROPPINGS,
   PHASE_1_KNOWLEDGE_GAIN,
   PHASE_2_KNOWLEDGE_GAIN,
+  COOPERATION_KNOWLEDGE_DROPPINGS,
+  REVOLUTION_KNOWLEDGE_DROPPINGS,
 } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import { ClickerInterface } from "../reducers/clickerReducer";
-import { ButtonKey, GamePhase } from "../types";
+import { ButtonKey, GamePhase, Pathway } from "../types";
 import { ClickButtonAction } from "../types/actions";
 import buttonLogs, { LogValues } from "./buttonLogs";
 
@@ -43,8 +45,13 @@ export function getLogsForClick(
       const selfEducateButton = state.buttons.map[
         ButtonKey.selfEducate
       ] as ButtonInterface;
-      const newKnowledgeDropping =
-        KNOWLEDGE_DROPPINGS[selfEducateButton.timesPressed - 1];
+      const newKnowledgeDropping = state.pathway
+        ? state.pathway === Pathway.COOPERATION
+          ? COOPERATION_KNOWLEDGE_DROPPINGS[
+              state.endgameSelfEducateTimesPressed
+            ]
+          : REVOLUTION_KNOWLEDGE_DROPPINGS[state.endgameSelfEducateTimesPressed]
+        : KNOWLEDGE_DROPPINGS[selfEducateButton.timesPressed - 1];
       return (
         newKnowledgeDropping ||
         DEFAULT_KNOWLEDGE_DROPPING(
