@@ -10,12 +10,14 @@ import useAudio from "./hooks/useAudio";
 
 import "./App.css";
 import Credits from "./Credits";
+import ButtonTooltip from "./components/ButtonTooltip";
 
 function App() {
   const clicker = useClicker();
   const { state, dispatch } = clicker;
   const appRef = useRef<HTMLElement>(document.getElementById("root"));
   const [showCredits, setShowCredits] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const tickResources = useCallback(
     (timeDelta: number) =>
@@ -60,7 +62,9 @@ function App() {
         dispatch,
         ticker,
         audio,
+        tooltipOpen,
         setShowCredits: _setShowCredits,
+        setTooltipOpen,
       }}
     >
       {showCredits ? (
@@ -69,6 +73,7 @@ function App() {
         <>
           <Clicker />
           <Modal appElement={appRef.current!} />
+          <ButtonTooltip />
         </>
       )}
     </ClickerContext.Provider>

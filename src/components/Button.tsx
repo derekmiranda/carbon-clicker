@@ -10,8 +10,13 @@ import {
 } from "../types";
 import "./Button.css";
 import { ClickerContext } from "../reducers/context";
-import { useContext, useEffect, useRef } from "react";
-import { describeEffects, formatResource, getImgUrl } from "../utils";
+import { useCallback, useContext, useEffect, useRef } from "react";
+import {
+  describeEffects,
+  formatResource,
+  fullyDescribeButton,
+  getImgUrl,
+} from "../utils";
 import { AudioSprite } from "../hooks/useAudio";
 import { isResourceMet } from "../reducers/lib";
 import useSelectedState from "../hooks/useSelectedState";
@@ -50,6 +55,7 @@ export default function Button({
     audio,
     ticker,
     setShowCredits,
+    setTooltipOpen,
   } = useContext(ClickerContext);
   const { moodPercent, isTired, isRealTired } = useSelectedState();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -119,6 +125,13 @@ export default function Button({
     clickButton(id, id === ButtonKey.takeABreak ? 1 : moodPercent);
   };
 
+  const handleMouseOver = useCallback(() => {
+    setTooltipOpen(true);
+  }, [setTooltipOpen]);
+  const handleMouseLeave = useCallback(() => {
+    setTooltipOpen(false);
+  }, [setTooltipOpen]);
+
   useEffect(() => {
     if (
       buttonRef.current &&
@@ -160,8 +173,12 @@ export default function Button({
           },
           className
         )}
+        data-is-button
+        data-tooltip-html={fullyDescribeButton(map[id]!, phase)}
         disabled={!enabled || mainCooldown?.onCooldown}
         onClick={handleClick}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
         ref={buttonRef}
       >
         <span

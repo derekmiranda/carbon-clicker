@@ -169,3 +169,5 @@ export const RESOURCE_EMOJIS: Record<string, string> = {
 };
 
 export const SHORTCUTS = [`esc: pause game / close popup`, `m: mute sound`];
+
+export const NOOP = () => {};
