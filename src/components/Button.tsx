@@ -21,7 +21,7 @@ import { AudioSprite } from "../hooks/useAudio";
 import { isResourceMet } from "../reducers/lib";
 import useSelectedState from "../hooks/useSelectedState";
 import useDispatchers from "../hooks/useDispatchers";
-import { EPILOGUE_BUTTON_LOGS } from "../constants";
+import { EPILOGUE_BUTTON_LOGS, RESOURCE_EMOJIS } from "../constants";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
@@ -155,7 +155,7 @@ export default function Button({
   if (isDestroyFossilFuelsButton) {
     effectDetails = "";
   } else if (isBreakButton) {
-    effectDetails = "completely refill mood BUT pause all actions";
+    effectDetails = `+100% ${RESOURCE_EMOJIS.mood}, pause ALL actions`;
   } else {
     effectDetails = describeEffects(effects, phase, true);
   }

@@ -159,7 +159,7 @@ export const DISPLAY_NAMES: Record<string, string> = {
 
 export const RESOURCE_EMOJIS: Record<string, string> = {
   knowledge: "📖",
-  mood: "🌼",
+  mood: "🌱",
   dollars: "$",
   collectiveDollars: "$$",
   globalPpm: "🌍",

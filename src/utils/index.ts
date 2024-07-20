@@ -200,7 +200,15 @@ export function fullyDescribeButton(button: ButtonInterface, phase: GamePhase) {
   const lines: string[] = [];
 
   if (button.id === ButtonKey.destroyFossilFuelIndustry) {
-    return "???";
+    return "another world is possible";
+  }
+
+  if (button.id === ButtonKey.takeABreak) {
+    return "completely restore mood BUT pause all actions";
+  }
+
+  if (button.id === ButtonKey.wallowInMisery) {
+    return "do nothing, maybe have a cry";
   }
 
   if (button.effects.length) {
