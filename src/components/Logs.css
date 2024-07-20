@@ -20,6 +20,8 @@
   font-weight: bolder;
   font-size: 1.2rem;
   animation: enter-log 0.5s ease-out;
+  border-radius: 8px;
+  padding: 4px;
 }
 
 .log span {
