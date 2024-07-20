@@ -43,7 +43,6 @@ export function getPurchasedButtons(
 ) {
   return buttons.order.filter(
     (buttonKey) =>
-      buttonKey !== ButtonKey.destroyFossilFuelIndustry &&
       buttons.map[buttonKey as ButtonKey]?.oneTime &&
       buttons.map[buttonKey as ButtonKey]?.unlocked &&
       buttons.map[buttonKey as ButtonKey]?.purchased
@@ -196,7 +195,11 @@ function formatListString(items: string[]) {
   return result;
 }
 
-export function fullyDescribeButton(button: ButtonInterface, phase: GamePhase) {
+export function fullyDescribeButton(
+  button: ButtonInterface,
+  phase: GamePhase,
+  hideCosts?: boolean
+) {
   const lines: string[] = [];
 
   if (button.id === ButtonKey.destroyFossilFuelIndustry) {
@@ -234,7 +237,7 @@ export function fullyDescribeButton(button: ButtonInterface, phase: GamePhase) {
       lines.push(formatListString(updateResourceRateEffectDescriptions));
     }
 
-    if (button.cost) {
+    if (button.cost && !hideCosts) {
       const costs = Object.entries(button.cost).map(([key, val]) =>
         formatResource(val, key, { showPlus: false })
       );
