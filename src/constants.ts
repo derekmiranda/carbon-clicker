@@ -152,8 +152,20 @@ export const DISPLAY_NAMES: Record<string, string> = {
   dollars: "$",
   collectiveDollars: "$ (collective)",
   co2Saved: "CO2 Saved",
+  globalPpm: "Global PPM",
   peoplePower: "People Power",
   trust: "Trust",
+};
+
+export const RESOURCE_EMOJIS: Record<string, string> = {
+  knowledge: "📖",
+  mood: "🌼",
+  dollars: "$",
+  collectiveDollars: "$$",
+  globalPpm: "🌍",
+  co2Saved: "💨",
+  peoplePower: "👥",
+  trust: "🫶",
 };
 
 export const SHORTCUTS = [`esc: pause game / close popup`, `m: mute sound`];

@@ -144,7 +144,7 @@ export default function Button({
   } else if (isBreakButton) {
     effectDetails = "completely refill mood BUT pause all actions";
   } else {
-    effectDetails = describeEffects(effects, phase);
+    effectDetails = describeEffects(effects, phase, true);
   }
 
   return (
@@ -174,14 +174,14 @@ export default function Button({
         </span>
 
         {cost && !purchased ? (
-          <span className="button__detail">
+          <span className="button__detail button__detail--requirement">
             {Object.keys(cost).some((resourceKey) =>
               NON_DEDUCTABLE_RESOURCES.includes(resourceKey as ResourceTypes)
             )
               ? "Requires"
               : "Costs"}
             :{" "}
-            {Object.entries(cost).map(([key, val], idx) => (
+            {Object.entries(cost).map(([key, val], idx, entries) => (
               <span
                 className={classNames({
                   "detail-part": true,
@@ -190,7 +190,10 @@ export default function Button({
                     !isResourceMet(key, cost, resources),
                 })}
                 key={idx}
-              >{`${idx > 0 ? "+" : ""}${formatResource(val, key)}`}</span>
+              >{`${formatResource(val, key, {
+                showPlus: false,
+                emojiOnly: true,
+              })}${idx < entries.length - 1 ? ", " : ""}`}</span>
             ))}
           </span>
         ) : null}

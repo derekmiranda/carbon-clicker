@@ -31,6 +31,11 @@
   font-style: italic;
   font-size: 0.8rem;
   color: var(--accent-color);
+  text-wrap: pretty;
+}
+.button span.button__detail--requirement {
+  font-weight: bolder;
+  color: var(--accent-color-desaturate);
 }
 
 .button__icon {
@@ -88,9 +93,6 @@
   }
 }
 
-.detail-part {
-  display: block;
-}
 .detail-part--unmet {
   color: var(--hot-color);
 }

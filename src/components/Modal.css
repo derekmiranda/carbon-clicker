@@ -91,6 +91,7 @@ span.eco {
 .event-effect {
   font-weight: bold;
   color: var(--accent-color);
+  text-wrap: balance;
 }
 
 @media only screen and (min-width: 800px) {

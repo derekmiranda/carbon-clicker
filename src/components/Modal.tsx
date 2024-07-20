@@ -76,7 +76,6 @@ export default function Modal(rest: ModalProps) {
       }
 
       case ModalView.INTRO:
-      case ModalView.CHOOSE_PATHWAY:
       case ModalView.END_PHASE_ONE: {
         playUpgradeSFX();
         return;

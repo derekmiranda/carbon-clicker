@@ -5,7 +5,7 @@ import "./Resources.css";
 import { GamePhase } from "../types";
 import useSelectedState from "../hooks/useSelectedState";
 import classNames from "classnames";
-import { SECS_PER_DAY, STARTING_PPM } from "../constants";
+import { RESOURCE_EMOJIS, SECS_PER_DAY, STARTING_PPM } from "../constants";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
@@ -41,7 +41,9 @@ function Resources() {
         <p className="time-display">
           Day: {day}, Month: {month}, Year: {year}
         </p>
-        <p className="ppm-display ppm-color">Global CO2: </p>
+        <p className="ppm-display ppm-color">
+          {RESOURCE_EMOJIS.globalPpm} Global CO2:{" "}
+        </p>
         <p className="ppm-color">{formatNum(globalPpm)} PPM </p>
         <p className="ppm-color">
           {resourceGrowthRates.globalPpm
@@ -55,7 +57,7 @@ function Resources() {
           </a>
         </p>
 
-        <p className={moodClassName}>Mood:</p>
+        <p className={moodClassName}>{RESOURCE_EMOJIS.mood} Mood:</p>
         <p className={moodClassName}>
           {formatNum(mood, 0)}/{maxMood}
         </p>
@@ -65,11 +67,13 @@ function Resources() {
             : ""}{" "}
         </p>
 
-        <p className="knowledge-color">Knowledge:</p>
+        <p className="knowledge-color">
+          {RESOURCE_EMOJIS.knowledge} Knowledge:
+        </p>
         <p className="knowledge-color">{knowledge}</p>
         <p className="knowledge-color"></p>
 
-        <p>CO2 Saved:</p>
+        <p>{RESOURCE_EMOJIS.co2Saved} CO2 Saved:</p>
         <p> {formatNum(co2Saved)} kg</p>
         <p className="resource">
           {resourceGrowthRates.co2Saved
@@ -79,7 +83,9 @@ function Resources() {
             : ""}
         </p>
 
-        <p>Dollars {isPastPhaseTwo ? "(Individual)" : ""}:</p>
+        <p>
+          {RESOURCE_EMOJIS.dollars} {isPastPhaseTwo ? "(Individual)" : ""}:
+        </p>
         <p> ${formatNum(dollars, 2)}</p>
         <p className="resource">
           {resourceGrowthRates.dollars
@@ -91,7 +97,7 @@ function Resources() {
 
         {isPastPhaseTwo ? (
           <>
-            <p>Dollars (Collective):</p>
+            <p>{RESOURCE_EMOJIS.collectiveDollars} (Collective):</p>
             <p>${formatNum(collectiveDollars, 2)}</p>
             <p className="resource">
               {resourceGrowthRates.collectiveDollars
@@ -101,7 +107,9 @@ function Resources() {
                 : ""}
             </p>
 
-            <p className="people-power-color">People Power:</p>
+            <p className="people-power-color">
+              {RESOURCE_EMOJIS.peoplePower} People Power:
+            </p>
             <p className="people-power-color">{formatNum(peoplePower, 0)}</p>
             <p className="people-power-color">
               {resourceGrowthRates.peoplePower
@@ -111,7 +119,7 @@ function Resources() {
                 : ""}
             </p>
 
-            <p className="trust-color">Trust:</p>
+            <p className="trust-color">{RESOURCE_EMOJIS.trust} Trust:</p>
             <p className="trust-color">{formatNum(trust, 0)}%</p>
             <p className="trust-color">
               {resourceGrowthRates.trust

@@ -1,4 +1,4 @@
-import { DISPLAY_NAMES, SECS_PER_DAY } from "../constants";
+import { DISPLAY_NAMES, RESOURCE_EMOJIS, SECS_PER_DAY } from "../constants";
 import { ButtonInterface } from "../reducers/buttonReducer";
 import {
   ButtonKey,
@@ -65,16 +65,34 @@ export function getCurrentYear(elapsedTime: number) {
 export function formatResource(
   val: string | number,
   resourceKey: string,
-  showPlus: boolean = false
-) {
-  val = typeof val === "string" ? parseInt(val) : val;
-  const sign = val > 0 && showPlus ? "+" : "";
-  if (resourceKey === "dollars") {
-    return `${sign}$${val}`;
-  } else if (resourceKey === "collectiveDollars") {
-    return `${sign}$${val} (collective)`;
+  options: {
+    showPlus?: boolean;
+    emojiOnly?: boolean;
+    isProportional?: boolean;
   }
-  return `${sign}${val} ${DISPLAY_NAMES[resourceKey] || resourceKey}`;
+) {
+  const {
+    showPlus = false,
+    emojiOnly = false,
+    isProportional: _isProportional = false,
+  } = options ?? {};
+  const isProportional = _isProportional || resourceKey === "globalPpm";
+  val = typeof val === "string" ? parseInt(val) : val;
+  const sign = val > 0 && showPlus ? "+" : val < 0 ? "-" : "";
+
+  val = Math.abs(isProportional ? val * 100 : val);
+
+  const percent = isProportional ? "%" : "";
+  if (resourceKey === "dollars") {
+    return `${sign}${RESOURCE_EMOJIS[resourceKey]}${val}${percent}`;
+  } else if (resourceKey === "collectiveDollars") {
+    return `${sign}${RESOURCE_EMOJIS[resourceKey]}${val}${percent}${
+      emojiOnly ? "" : " (collective)"
+    }`;
+  }
+  return `${sign}${val}${percent} ${
+    emojiOnly ? "" : DISPLAY_NAMES[resourceKey]
+  } ${RESOURCE_EMOJIS[resourceKey] || ""}`.trim();
 }
 
 export function getImgUrl(imgPath: string) {
@@ -93,7 +111,11 @@ export function getCurrentTimes(elapsedTime: number) {
   };
 }
 
-export function describeEffect(effect: GenericEffect, currentPhase: GamePhase) {
+export function describeEffect(
+  effect: GenericEffect,
+  currentPhase: GamePhase,
+  isButton: boolean = false
+) {
   if (effect.type === EffectTypes.UPDATE_RESOURCES) {
     const { resourcesDiff, proportionalDiffs } =
       effect as UpdateResourcesEffect;
@@ -104,11 +126,11 @@ export function describeEffect(effect: GenericEffect, currentPhase: GamePhase) {
           !PHASE_TWO_RESOURCES.includes(resourceKey as ResourceTypes)
       )
       .map(([resourceKey, resourceVal]) =>
-        proportionalDiffs?.[resourceKey as ResourceTypes]
-          ? `${resourceVal >= 0 ? "+" : ""}${resourceVal * 100}% ${
-              DISPLAY_NAMES[resourceKey] || resourceKey
-            }`
-          : formatResource(resourceVal, resourceKey, true)
+        formatResource(resourceVal, resourceKey, {
+          showPlus: true,
+          emojiOnly: isButton,
+          isProportional: !!proportionalDiffs?.[resourceKey as ResourceTypes],
+        })
       );
   } else if (effect.type === EffectTypes.UPDATE_RESOURCES_RATE) {
     const { resourcesRateDiff } = effect as UpdateResourcesRateEffect;
@@ -120,16 +142,20 @@ export function describeEffect(effect: GenericEffect, currentPhase: GamePhase) {
       )
       .map(
         ([resourceKey, resourceVal]) =>
-          `${formatResource(resourceVal, resourceKey, true)}/day`
+          `${formatResource(resourceVal, resourceKey, {
+            showPlus: true,
+            emojiOnly: isButton,
+          })}/day`
       );
   }
 }
 
 export function describeEffects(
   effects: GenericEffect[],
-  currentPhase: GamePhase
+  currentPhase: GamePhase,
+  isButton: boolean = false
 ) {
   return effects
-    .flatMap((effect) => describeEffect(effect, currentPhase))
+    .flatMap((effect) => describeEffect(effect, currentPhase, isButton))
     .join(", ");
 }
