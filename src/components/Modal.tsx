@@ -39,7 +39,7 @@ function ModalContent({
 
 export default function Modal(rest: ModalProps) {
   const {
-    state: { modalQueue, phase },
+    state: { modalQueue, phase, muted, hideButtonTooltip },
     ticker,
     audio,
   } = useContext(ClickerContext);
@@ -50,6 +50,8 @@ export default function Modal(rest: ModalProps) {
     setPhase,
     setPathway,
     progressEndSequence,
+    setMuted,
+    setHideButtonTooltip,
   } = useDispatchers();
   const { setPaused } = ticker!;
   const { playClickSFX, playEventSFX, playUpgradeSFX, playWallowSFX, playSFX } =
@@ -306,6 +308,31 @@ export default function Modal(rest: ModalProps) {
             <div className="modal--centered">
               <h3>paused</h3>
               <p>don't forget to take breaks and move around if you need!</p>
+              <div className="pause-toggle-container">
+                <input
+                  id="mute-toggle"
+                  type="checkbox"
+                  checked={muted}
+                  onClick={() => {
+                    setMuted(!muted);
+                  }}
+                ></input>
+                <label htmlFor="mute-toggle"> Mute Sound?</label>
+              </div>
+              <div className="pause-toggle-container">
+                <input
+                  id="hide-tooltip-toggle"
+                  type="checkbox"
+                  checked={hideButtonTooltip}
+                  onClick={() => {
+                    setHideButtonTooltip(!hideButtonTooltip);
+                  }}
+                ></input>
+                <label htmlFor="hide-tooltip-toggle">
+                  {" "}
+                  Hide Button Tooltips?
+                </label>
+              </div>
             </div>
           ) : null}
         </>

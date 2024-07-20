@@ -103,3 +103,14 @@ span.eco {
     flex-direction: row;
   }
 }
+
+.pause-toggle-container {
+  display: flex;
+  align-items: center;
+}
+.pause-toggle-container:last-child {
+  margin-bottom: 24px;
+}
+.pause-toggle-container input[type="checkbox"] {
+  margin-right: 8px;
+}

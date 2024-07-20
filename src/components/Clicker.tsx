@@ -84,7 +84,6 @@ function Clicker() {
       <Upgrades />
       <div className="game-data-container">
         <button onClick={togglePause}>{paused ? "PAUSED" : "Pause"}</button>
-        <button onClick={toggleMute}>{muted ? "Unmute" : "Mute"}</button>
         <button
           onClick={() => {
             openModal(ModalView.GENERIC, {
