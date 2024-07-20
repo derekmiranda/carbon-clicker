@@ -6,7 +6,7 @@ export default function ButtonTooltip() {
   const { tooltipOpen } = useContext(ClickerContext);
   return (
     <Tooltip
-      anchorSelect='[data-is-button="true"]'
+      anchorSelect='[data-show-tooltip="true"]'
       isOpen={tooltipOpen}
       float
     />

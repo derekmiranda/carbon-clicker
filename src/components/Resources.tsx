@@ -1,15 +1,21 @@
 import { ClickerContext } from "../reducers/context";
 import { useContext } from "react";
-import { formatNum, getImgUrl } from "../utils";
+import { formatNum, fullyDescribeButton, getImgUrl } from "../utils";
 import "./Resources.css";
-import { GamePhase } from "../types";
+import { ButtonKey, GamePhase } from "../types";
 import useSelectedState from "../hooks/useSelectedState";
 import classNames from "classnames";
 import { RESOURCE_EMOJIS, SECS_PER_DAY, STARTING_PPM } from "../constants";
+import useTooltipListeners from "../hooks/useTooltipListeners";
 
 function Resources() {
   const { state } = useContext(ClickerContext);
-  const { resources, resourceGrowthRates, phase } = state;
+  const {
+    resources,
+    resourceGrowthRates,
+    phase,
+    buttons: { map: buttonMap },
+  } = state;
   const {
     mood,
     maxMood,
@@ -22,8 +28,15 @@ function Resources() {
     trust,
   } = resources;
   const isPastPhaseTwo = phase !== GamePhase.ONE;
-  const { purchasedIcons, currentTimes, isEnergized, isTired, isRealTired } =
-    useSelectedState();
+  const {
+    purchasedIcons,
+    purchasedButtons,
+    currentTimes,
+    isEnergized,
+    isTired,
+    isRealTired,
+  } = useSelectedState();
+  const { handleMouseLeave, handleMouseOver } = useTooltipListeners();
   const { day, month, year } = currentTimes;
   const moodClassName = classNames({
     "great-mood": isEnergized,
@@ -133,8 +146,19 @@ function Resources() {
       </div>
       {purchasedIcons.length ? (
         <div className="icons-box">
-          {purchasedIcons.map((icon: string) => (
-            <img key={icon} src={getImgUrl(icon)} />
+          {purchasedIcons.map((icon: string, idx) => (
+            <img
+              key={icon}
+              src={getImgUrl(icon)}
+              data-show-tooltip
+              data-tooltip-html={fullyDescribeButton(
+                buttonMap[purchasedButtons[idx] as ButtonKey]!,
+                phase,
+                true
+              )}
+              onMouseLeave={handleMouseLeave}
+              onMouseOver={handleMouseOver}
+            />
           ))}
         </div>
       ) : null}

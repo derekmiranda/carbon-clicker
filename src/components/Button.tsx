@@ -10,7 +10,7 @@ import {
 } from "../types";
 import "./Button.css";
 import { ClickerContext } from "../reducers/context";
-import { useCallback, useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import {
   describeEffects,
   formatResource,
@@ -22,6 +22,7 @@ import { isResourceMet } from "../reducers/lib";
 import useSelectedState from "../hooks/useSelectedState";
 import useDispatchers from "../hooks/useDispatchers";
 import { EPILOGUE_BUTTON_LOGS, RESOURCE_EMOJIS } from "../constants";
+import useTooltipListeners from "../hooks/useTooltipListeners";
 
 interface ButtonProps extends ButtonInterface {
   clickButton: (buttonId: string, moodPercent: number) => void;
@@ -55,9 +56,9 @@ export default function Button({
     audio,
     ticker,
     setShowCredits,
-    setTooltipOpen,
   } = useContext(ClickerContext);
   const { moodPercent, isTired, isRealTired } = useSelectedState();
+  const { handleMouseLeave, handleMouseOver } = useTooltipListeners();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { cooldown: breakCooldown } = map[
     ButtonKey.takeABreak
@@ -125,13 +126,6 @@ export default function Button({
     clickButton(id, id === ButtonKey.takeABreak ? 1 : moodPercent);
   };
 
-  const handleMouseOver = useCallback(() => {
-    setTooltipOpen(true);
-  }, [setTooltipOpen]);
-  const handleMouseLeave = useCallback(() => {
-    setTooltipOpen(false);
-  }, [setTooltipOpen]);
-
   useEffect(() => {
     if (
       buttonRef.current &&
@@ -173,7 +167,7 @@ export default function Button({
           },
           className
         )}
-        data-is-button
+        data-show-tooltip
         data-tooltip-html={fullyDescribeButton(map[id]!, phase)}
         disabled={!enabled || mainCooldown?.onCooldown}
         onClick={handleClick}
