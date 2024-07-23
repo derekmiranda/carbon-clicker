@@ -131,3 +131,9 @@ input[type="checkbox"] {
   height: 1.5rem;
   accent-color: var(--accent-color);
 }
+
+hr {
+  width: 500px;
+  max-width: 100%;
+  margin-left: 0;
+}

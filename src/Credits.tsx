@@ -70,6 +70,17 @@ function Credits() {
           Wordpress
         </a>{" "}
       </p>
+      <hr />
+      <p>
+        <strong>We'd love to hear your thoughts!</strong>{" "}
+        <a
+          className="credits-link"
+          target="_blank"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSclnL4leTtMEsF8-hiBnk4wUO2d027YQnwV_kfUXPbcKNHzCg/viewform"
+        >
+          Google Feedback Form
+        </a>
+      </p>
       <p>
         Fonts:{" "}
         <a
